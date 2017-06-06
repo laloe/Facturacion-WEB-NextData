@@ -1,0 +1,55 @@
+<style type="text/css">
+	.scrollDiv {
+		height: 350px;
+		overflow: auto;
+		overflow-x: hidden;
+	}
+</style>
+<div class="modal-header">
+  <button class="close" aria-label="Close" type="button" ng-click="$ctrl.cancel()">×</button>
+  <h4 class="modal-title">Historial de pagos del ticket: <span style="color:red">{{$ctrl.ticket}}</span></h4>
+</div>
+<div class="modal-body" style="padding-top:20px;">
+
+
+  <div class="row">
+    <div class="col-md-12 scrollDiv">
+      <table class="table">
+        <thead>
+          <tr style="background-color: #B5B6B6;">
+            <th>Clave Pago</th>
+            <th>Sucursal</th>
+            <th>Cajera</th>
+            <th>Caja</th>
+            <th>Medio Pago</th>
+            <th>Importe</th>
+            <th>Fecha</th>
+            <th>Opción</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr ng-repeat="z in $ctrl.facturas">
+            <td>{{z.Clv_Pago}}</td>
+            <td>{{z.Sucursal}}</td>
+            <td>{{z.Cajera}} </td>
+            <td>{{z.Caja}}</td>
+            <td>{{z.MedioPago}}</td>
+            <td>{{z.Importe}}</td>
+            <td>{{z.Hora}}</td>
+            <td>
+                <button class="btn ink-reaction btn-floating-action btn-xs btn-danger" ng-click="$ctrl.verFactura(z.Clv_Pago)" data-toggle="tooltip" data-placement="top" title="Ver Facturas" data-original-title="Ver Detalle"><i class="fa fa-list-ul"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+  </div>
+
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default btn-sm" type="button" ng-click="$ctrl.cancel()">cerrar</button>
+
+</div>

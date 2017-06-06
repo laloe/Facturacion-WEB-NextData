@@ -1,0 +1,115 @@
+<div class="card animated fadeIn" style="margin-top:20px;">
+
+  <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+    <header>
+      <strong style="font-weight:bold; border:none; margin-left:10px; font-size: 16px;">Notas de crédito</strong>
+      <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"><i class="fa fa-home" aria-hidden="true"></i> Facturación Corporativa>Notas de crédito</small>
+    </header>
+    <div class="tools">
+      <button class="btn btn-primary btn-sm" ui-sref="home.corporativa.nuevanota" type="button"  permission permission-only="'notasdecreditoAdd'"><i class="fa fa-plus" aria-hidden="true"></i> Nueva Nota</button>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="panel-group" id="accordion3">
+      <div class="card panel">
+        <div class="card-head card-head-xs style-primary-light collapsed" data-toggle="collapse" data-parent="#accordion3" data-target="#accordion3-1"
+          aria-expanded="false">
+          <header><i class="fa fa-search"></i> Buscar nota</header>
+          <div class="tools">
+            <a class="btn btn-icon-toggle"><i class="fa fa-angle-down"></i></a>
+          </div>
+        </div>
+        <div id="accordion3-1" class="collapse buscarContrato" aria-expanded="false" style="height: 0px;">
+          <div class="panel-body">
+            <div class="row">
+
+              <div class="col-md-3">
+                <p>No.Folio :</p>
+                <input type="number" class="form-control input-sm" ng-model="$ctrl.folio">
+
+              </div>
+              <div class="col-md-1">
+                <br>
+                <button class="btn btn-info btn-xs" ng-click="$ctrl.buscar(1);"><i class="fa fa-search"></i> Buscar</button>
+              </div>
+              <div class="col-md-3">
+
+                <p>No.Contrato:
+                  <p>
+                    <input type="text" class="form-control input-sm" ng-model="$ctrl.contrato">
+
+              </div>
+              <div class="col-md-1">
+                <br>
+                <button class="btn btn-info btn-xs" ng-click="$ctrl.buscar(2);"><i class="fa fa-search"></i> Buscar</button>
+
+              </div>
+              <div class="col-md-3">
+                <p>Fecha :</p>
+                <input type="date" class="form-control input-sm" ng-model="$ctrl.fecha">
+
+              </div>
+              <div class="col-md-1">
+                <br>
+                <button class="btn btn-info btn-xs" ng-click="$ctrl.buscar(3);"><i class="fa fa-search"></i> Buscar</button>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <!-- panel body -->
+      </div>
+    </div>
+    <!--end .panel -->
+
+
+    <div class="col-md-12">
+
+      <table class="table" style="font-size:10px;">
+        <thead>
+          <tr>
+            <th>No.Folio</th>
+            <th>Contrato Maestro</th>
+            <th>Fecha generación</th>
+        
+            <th>Status</th>
+            <th>Ticket</th>
+            <th>Monto</th>
+            <th>opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr dir-paginate="x in $ctrl.Notas|orderBy:$ctrl.sortKey:reverse|filter:$ctrl.search|itemsPerPage:8">
+            <td>{{x.NotaCredito}}</td>
+            <td>{{x.ContratoMaestro}}</td>
+            <td>{{x.FechaGeneracion}}</td>
+         
+            <td>{{x.Status}}</td>
+            <td>{{x.Ticket}}</td>
+            <td>{{x.Monto|currency}}</td>
+            <td>
+              <button class="btn ink-reaction btn-floating-action btn-xs btn-info" ng-click="$ctrl.DetalleNota(x.NotaCredito);"><i class="fa fa-eye"></i></button>
+              <button class="btn ink-reaction btn-floating-action btn-xs btn-default-bright" data-toggle="tooltip" data-placement="top"
+                title="Refacturar" data-original-title="Tooltip on top" ng-click="$ctrl.opcionesNota(1,x.NotaCredito);"><i class=" md md-repeat
+"></i></button>
+              <button class="btn ink-reaction btn-floating-action btn-xs btn-default-bright" data-toggle="tooltip" data-placement="top"
+                title="Reimprimir" data-original-title="Tooltip on top" ng-click="$ctrl.opcionesNota(2,x.NotaCredito);"><i class="md md-print
+"></i></button>
+             
+
+
+          </tr>
+        </tbody>
+      </table>
+      <div style="padding-left: 20px;">
+        <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+        </dir-pagination-controls>
+      </div>
+    </div>
+
+  </div>
+
+</div>

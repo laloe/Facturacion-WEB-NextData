@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
+    <h4 class="modal-title">Servicios para Agregar</h4>
+</div>
+<div class="modal-body" style="padding-top:20px;">
+   <div class="row">
+   		<div class="col-md-12">
+   			<label>Seleccione el servicio</label>
+	   		<br/>
+	   		<select class="form-control" ng-model="ctrl.selectedService" ng-options="v.DescripcionFac for v in ctrl.servicios track by v.Clv_Servicio"></select>
+   		</div>
+   </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default btn-sm" type="button" ng-click="ctrl.cancel()">Cancelar</button>
+    <button class="btn btn-primary btn-sm" type="button" ng-click="ctrl.ok()">Aceptar</button>
+</div>

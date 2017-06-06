@@ -1,0 +1,94 @@
+<div class="card animated fadeIn" style="margin-top:20px;">
+	<div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+		<header>
+			<strong style="font-weight:bold; border:none; margin-left:10px;">Entregas Parciales</strong>
+			<br /><small class="text-muted" style="font-size:14px; margin-left:10px;"><i class="fa fa-home" aria-hidden="true"></i> Facturación>Entregas Parciales</small>
+		</header>
+		<div class="tools">
+			<div class="btn-group">
+				<a class="btn btn-success btn-sm" permission permission-only="'entregasparcialesAdd'" ui-sref="home.facturacion.nuevaEntrega"><i class="fa fa-plus" aria-hidden="true"></i> NUEVO</a>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div style="height:90%;">
+				<div class="row">
+					<div class="col-md-3" style="padding-top: 10px;">
+						<div class="col-md-12">
+							<h4 class="text-center">Buscar Entrega Parcial Por:</h4>
+							<small>Plaza</small>
+							<select class="form-control" id="selectPlazas"
+								ng-model="$ctrl.selectedPlaza"
+								ng-options="v.razon_social for v in $ctrl.plazas track by v.id_compania"
+								ng-change="$ctrl.changePlaza()">
+							</select>
+						</div>
+						<div class="col-md-12">
+							<small>Referencia</small>
+							<input type="text" class="form-control" ng-model="$ctrl.buscarReferencia" placeholder="Buscar Por Referencia" ng-change="$ctrl.cambiarBusqueda(1)">
+						</div>
+						<div class="col-md-12">
+							<small>Cajero(a)</small>
+							<input type="text" class="form-control" ng-model="$ctrl.buscarCajero" placeholder="Buscar Por Cajero(a)" ng-change="$ctrl.cambiarBusqueda(2)">
+						</div>
+						<div class="col-md-12">
+							<small>Fecha</small>
+							<input type="date" class="form-control" ng-model="$ctrl.buscarFecha" ng-change="$ctrl.cambiarBusqueda(3)">
+						</div>
+						<div class="col-md-12">
+							<br>
+							<p>
+								<button class="btn btn-block btn-warning" ng-click="$ctrl.buscarEntrada()"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+							</p>
+						</div>
+					</div>
+					<div class="col-md-9" style="padding-top: 10px;">
+						<div class="col-md-12 table-responsive" style="padding-left: 25px; padding-right: 25px;">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Consecutivo</th>
+										<th>Fecha</th>
+										<th>Cajero(a)</th>
+										<th>Importe</th>
+										<th>Recibo</th>
+										<th>NomRecibido</th>
+										<th>Acciones</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-show="$ctrl.sinDatos">
+										<td colspan="7"><p class="text-center">No se encontraron datos</p></td>
+									</tr>
+									<tr  dir-paginate="x in $ctrl.entregas | itemsPerPage:5">
+						                <td>{{ x.Consecutivo }}</td>
+						                <td>{{ x.Fecha }}</td>
+						                <td>{{ x.NomCajera }}</td>
+						                <td>{{ x.Importe | currency }}</td>
+						                <td>{{ x.Recibio }}</td>
+						                <td>{{ x.NomRecibio }}</td>
+						                <td>
+											<button class="btn ink-reaction btn-floating-action btn-xs btn-info"  ui-sref="home.facturacion.detalleEntrega({id:x.Consecutivo})"><i class="fa fa-eye"></i></button>
+											<button class="btn ink-reaction btn-floating-action btn-xs btn-warning" ui-sref="home.facturacion.editarEntrega({id:x.Consecutivo})" permission permission-only="'entregasparcialesUpdate'"><i class="fa fa-edit"></i></button>
+											<button class="btn ink-reaction btn-floating-action btn-xs btn-danger" ng-click="$ctrl.eliminarEntrada(x.Consecutivo)" permission permission-only="'entregasparcialesDelete'"><i class="fa fa-trash" aria-hidden="true"></i></button>
+												<button class="btn ink-reaction btn-floating-action btn-xs btn-default" ng-click="$ctrl.printEntrega(x.Consecutivo)"><i class="fa fa-print" aria-hidden="true"></i></button></td>
+										</td>
+						            </tr>
+								</tbody>
+							</table>
+							<div style="padding-left: 20px;" ng-show="$ctrl.showPaginator">
+						        <dir-pagination-controls
+						            max-size="8"
+						            direction-links="true"
+						            boundary-links="true" >
+						        </dir-pagination-controls>
+						    </div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>

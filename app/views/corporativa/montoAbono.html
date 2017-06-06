@@ -1,0 +1,19 @@
+<div class="modal-header">
+    <button class="close" aria-label="Close" type="button" ng-click="$ctrl.cancel()">×</button>
+    <h5 class="modal-title">Cantidad a abonar a la factura <span style="color:red">{{$ctrl.factura}}</span></h5>
+</div>
+<div class="modal-body" style="padding-top:20px;">
+    <div class="row" ng-show="$ctrl.minimo">
+        <h4 class="text-center">¡Su mensualidad es de {{ $ctrl.monto | currency : "$" : 4 }}!</h4>
+    </div>
+	<div class="row" style="padding-top: 15px;">
+        <div class="col-md-9 form-group">
+            <label class="label-control">Abono</label>
+            <input type="number" class="form-control" ng-change="$ctrl.abonoTotal()" ng-model="$ctrl.abono">
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-default btn-sm" type="button" ng-click="$ctrl.cancel()">Cancelar</button>
+    <button class="btn btn-primary btn-sm" type="button" ng-click="$ctrl.ok()">Aceptar</button>
+</div>

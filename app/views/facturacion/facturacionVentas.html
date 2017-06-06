@@ -1,0 +1,345 @@
+<style>
+  .wrapper {
+    height: 140px;
+    overflow: auto;
+  }
+
+  .esmeralda {
+    background-color: #DDEAE9;
+  }
+
+  .lastTotal {
+    font-size: 14px;
+  }
+</style>
+<div class="card animated fadeIn" style="margin-top:20px;">
+  <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+    <header>
+      <strong style="font-weight:bold; border:none; margin-left:10px;">Ventas</strong>
+      <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"><i class="fa fa-home" aria-hidden="true"></i> Facturación>Ventas</small>
+
+    </header>
+  </div>
+  <div class="section-body">
+    <div class="col-sm-12">
+      <br>
+      <div class="panel-group" id="accordion3">
+        <div class="card panel">
+          <div class="card-head card-head-xs style-primary-light collapsed" data-toggle="collapse" data-parent="#accordion3" data-target="#accordion3-1" aria-expanded="false">
+            <header>Buscar Cliente</header>
+            <div class="tools">
+              <a class="btn btn-icon-toggle"><i class="fa fa-angle-down"></i></a>
+            </div>
+          </div>
+          <div id="accordion3-1" class="collapse buscarContrato" aria-expanded="false" style="height: 0px;">
+            <div class="panel-body">
+              <uib-tabset active="active">
+                <uib-tab index="0" heading="Contrato">
+                  <br/>
+                  <form angular-validator-submit="ctrl.buscarPorContrato()" name="contratoForm" novalidate angular-validator>
+                    <div class="col-md-4">
+                      <input type="text" autocomplete="off" class="form-control" required="" name="contrato" validate-on="dirty" placeholder="Contrato" ng-pattern="/^[0-9]+([-][0-9]+)?$/" required-message="'Este campo es obligatorio.'" invalid-message="'Formato de contrato inválido.'"
+                          ng-model="ctrl.data.contrato">
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div class="note">
+                      <strong>El número de contrato</strong> está formado por 2 grupos de números con un guión intermedio p.e. (1234-1)
+                    </div>
+                    <footer>
+                      <p class="text-right">
+                        <button type="submit" class="btn btn-sm btn-info">
+                                                <i class="fa fa-search"></i> Buscar
+                                                </button>
+                      </p>
+                    </footer>
+                  </form>
+                </uib-tab>
+                <uib-tab index="1" heading="Dirección">
+                  <br/>
+                  <form ng-submit="ctrl.buscarPorDomicilio()">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <input type="text" autocomplete="off" class="form-control" required="" placeholder="Calle" ng-model="ctrl.data.calle">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <input type="text" autocomplete="off" class="form-control" placeholder="Número" ng-model="ctrl.data.numero">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="note">
+                      <p>Busqueda por dirección</p>
+                    </div>
+                    <footer>
+                      <p class="text-right">
+                        <button type="submit" class="btn btn-sm btn-info">
+                                                <i class="fa fa-search"></i> Buscar
+                                                </button>
+                      </p>
+                    </footer>
+                  </form>
+                </uib-tab>
+                <uib-tab index="3" heading="Nombre">
+                  <br/>
+                  <form ng-submit="ctrl.buscarPorNombre()">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <input type="text" autocomplete="off" class="form-control" required="" placeholder="Nombres" ng-model="ctrl.data.nombre">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <input type="text" autocomplete="off" class="form-control" placeholder="Apellido Paterno" ng-model="ctrl.data.apaterno">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <input type="text" autocomplete="off" class="form-control" placeholder="Apellido Materno" ng-model="ctrl.data.amaterno">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="note">
+                      <p>Busqueda por nombre</p>
+                    </div>
+                    <footer>
+                      <p class="text-right">
+                        <button type="submit" class="btn btn-sm btn-info">
+                                                <i class="fa fa-search"></i> Buscar
+                                                </button>
+                      </p>
+                    </footer>
+                  </form>
+                </uib-tab>
+              </uib-tabset>
+            </div>
+            <!-- panel body -->
+          </div>
+        </div>
+        <!--end .panel -->
+      </div>
+
+      <div class="card" ng-show="ctrl.muestraClientesTable">
+        <table class="table table-bordered table-hover dataTable">
+          <thead>
+            <tr>
+              <th ng-click="sort('Contrato')">Contrato
+                <span class="glyphicon sort-icon" ng-show="sortKey=='Contrato'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+              </th>
+              <th ng-click="sort('Nombre')">Nombre
+                <span class="glyphicon sort-icon" ng-show="sortKey=='Nombre'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+              </th>
+              <th ng-click="sort('Ciudad')">Ciudad
+                <span class="glyphicon sort-icon" ng-show="sortKey=='Ciudad'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+              </th>
+              <th ng-click="sort('Colonia')">Colonia
+                <span class="glyphicon sort-icon" ng-show="sortKey=='Colonia'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+              </th>
+              <th ng-click="sort('Calle')">Calle
+                <span class="glyphicon sort-icon" ng-show="sortKey=='Calle'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+              </th>
+              <th ng-click="sort('Numero')">Número
+                <span class="glyphicon sort-icon" ng-show="sortKey=='Numero'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+              </th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr dir-paginate="x in ctrl.todosClientes|orderBy:sortKey:reverse|itemsPerPage:10">
+              <td>{{ x.Contrato }}</td>
+              <td>{{ x.Nombre }} {{ x.Apellido_Paterno }} {{ x.Apellido_Materno }}</td>
+              <td>{{ x.Ciudad }}</td>
+              <td>{{ x.Colonia }}</td>
+              <td>{{ x.Calle }}</td>
+              <td>{{ x.Numero }}</td>
+              <td><button class="btn btn-primary btn-sm" ng-click="ctrl.selectCliente(x.Contrato)">Seleccionar</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="padding-left: 20px;">
+          <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+          </dir-pagination-controls>
+        </div>
+      </div>
+
+      <div ng-show="ctrl.muestraCliente" style="margin-top:-20px;">
+        <form angular-validator-submit="ctrl.openPay('V')" name="paymentForm" novalidate angular-validator>
+          <br>
+          <div class="row" style="padding-left: 30px; padding-right: 30px;">
+            <div class="panel-group" id="datosCliente">
+              <div class="card panel" ng-style="{'background-color': ctrl.color}">
+                <div class="card-head card-head-xs collapsed" data-toggle="collapse" data-parent="#datosCliente" data-target="#datosCliente-1" aria-expanded="false" ng-click="ctrl.showDatosCliente = !ctrl.showDatosCliente">
+                  <header class="text-primary-dark" style="font-size: 12px;" ng-show="ctrl.showDatosCliente">Datos del Cliente</header>
+                  <div class="tools">
+                    <a class="btn btn-icon-toggle"><i class="fa fa-angle-down"></i></a>
+                  </div>
+                </div>
+                <div id="datosCliente-1" class="collapse datosCliente" aria-expanded="false" style="margin-top: -20px">
+                  <div class="row" style="padding-left:10px;">
+                    <div class="col-md-2">
+                      <h5 style="font-size: 12px;" class="text-center"><strong>Ventas</strong></h5>
+                      <div class="col-md-12">
+                        <samll style="font-size: 11px;">Vendedor:</samll>
+                        <select class="form-control input-sm" ng-model="ctrl.selectedVendedor" ng-change="ctrl.changeVendedor()" ng-options="v.Nombre for v in ctrl.vendedores track by v.Clv_Vendedor" name="ventas" validate-on="dirty" required="" required-message="'Este campo es obligatorio.'"></select>
+                      </div>
+                      <div class="col-md-12">
+                        <samll style="font-size: 11px;">Serie:</samll>
+                        <select class="form-control input-sm" ng-model="ctrl.selectedSerie" ng-change="ctrl.changeSerie()" ng-options="v.SERIE for v in ctrl.series track by v.ULTIMOFOLIO_USADO" name="serie" validate-on="dirty" required="" required-message="'Este campo es obligatorio.'">
+                                </select>
+                      </div>
+                      <div class="col-md-12">
+                        <samll style="font-size: 11px;">Folio:</samll>
+                        <select class="form-control input-sm" ng-model="ctrl.selectedFolio" ng-options="v.Folio for v in ctrl.folios track by v.Folio" name="folio" validate-on="dirty" required="" required-message="'Este campo es obligatorio.'"></select>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <p class="text-center" style="color:red;" ng-show="ctrl.showFiscales">EL CLIENTE CUENTA CON DATOS FISCALES</p>
+                      <p style="font-size: 11px;">
+                        <strong>Contrato: </strong>{{ ctrl.Cliente.ContratoC }}<br/>
+                        <strong>Nombre: </strong>{{ ctrl.Cliente.Nombre }}<br/>
+                        <strong>Dirección: </strong>{{ ctrl.Cliente.Calle }}<br/>
+                        <strong>#: </strong>{{ ctrl.Cliente.Numero }}<br/>
+                        <strong>Colonia: </strong>{{ ctrl.Cliente.Colonia }} <strong style="padding-left:50px;">Teléfono: </strong>{{ ctrl.Cliente.Telefono }}<br/>
+                        <strong>Ciudad: </strong>{{ ctrl.Cliente.Ciudad }}<br/>
+                        <strong>Tipo suscriptor: </strong>{{ ctrl.Suscriptor.Descripcion }}<strong style="padding-left:50px;"></strong>{{ ctrl.periodo }}</br>
+                      </p>
+                      <div>
+                        <button type="button" class="btn btn-primary btn-xs" ng-click="ctrl.openHistorial()" ng-disabled="ctrl.blockBaja">HISTORIAL</button>
+                        <button type="button" class="btn btn-primary btn-xs" ng-click="ctrl.openInformation()">INFORMACIÓN</button>
+                        <button type="button" class="btn btn-primary btn-xs" ng-click="ctrl.openEdoCuenta()" ng-disabled="ctrl.blockBaja">EDO. CUENTA</button>
+                        <button type="button" class="btn btn-primary btn-xs" ng-click="ctrl.openClabe()">CLABE</button>
+                      </div>
+                    </div>
+                    <div class="col-md-3" style="margin-top: -30px;">
+                      <div class="col-md-12">
+                        <h5 class="text-left">Detalle de Servicios</h5>
+                        <div class="card wrapper">
+                          <p style="font-size: 10px;" class="text-center"><span ng-repeat="x in ctrl.servicios">{{ x.Servicio }} <br></span></p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3 " ng-show="ctrl.ArrastraSaldo" style="margin-top: -30px;">
+                      <b class="text-danger">Estados de cuenta por saldar</b>
+                      <br>
+                      <div class="card wrapper">
+                        <table class="table table-hover" style="font-size:10px;">
+                          <thead>
+                            <th>Fecha</th>
+                            <th>Importe</th>
+                            <th>Detalle</th>
+                          </thead>
+                          <tbody>
+                            <tr ng-repeat="x in ctrl.detalleEdo">
+                              <td>{{x.Fecha}}</td>
+                              <td><b>{{x.TotalRegular | currency }}</b></td>
+                              <td><button type="button" class="btn ink-reaction btn-icon-toggle btn-primary btn-xs " ng-click="ctrl.MuestraEdoCuenta(x)"><i class="md md-search
+              "></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                      </div>
+
+
+                    </div>
+                  </div><br>
+                </div>
+              </div>
+              <!--end .panel -->
+            </div>
+
+
+            <div class="panel-group" id="conceptosCliente" style="margin-top: -20px;">
+              <div class="card panel" ng-style="{'background-color': ctrl.color}">
+                <div class="card-head card-head-xs collapsed" data-toggle="collapse" data-parent="#conceptosCliente" data-target="#conceptosCliente-1" aria-expanded="false" ng-click="ctrl.showConceptos = !ctrl.showConceptos">
+                  <header class="text-primary-dark" style="font-size: 12px;" ng-show="ctrl.showConceptos">Conceptos del Cliente</header>
+                  <div class="tools">
+                    <a class="btn btn-icon-toggle"><i class="fa fa-angle-down"></i></a>
+                  </div>
+                </div>
+                <div id="conceptosCliente-1" class="collapse conceptosCliente" aria-expanded="false" style="margin-top: -20px">
+                  <div class="table-responsive" style="padding-left: 8px; width: 95%">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr style="background-color: #B5B6B6;">
+                          <th style="font-size: 10px;">Aparato</th>
+                          <th style="font-size: 10px;">Concepto</th>
+                          <th style="font-size: 10px;">Pagos Adelantados</th>
+                          <th style="font-size: 10px;">Tv's Extra</th>
+                          <th style="font-size: 10px;">Meses Cortesia</th>
+                          <th style="font-size: 10px;">Meses a Pagar</th>
+                          <th style="font-size: 10px;">Importe</th>
+                          <th style="font-size: 10px;" title="Periodo Pagado Inicial">Periodo PI</th>
+                          <th style="font-size: 10px;" title="Periodo Pagado Final">Periodo PF</th>
+                          <th style="font-size: 10px;" title="Puntos Aplicados Por Pago Oportuno">Puntos APPO</th>
+                          <th style="font-size: 10px;" title="Puntos Aplicados Por Antiguedad">Puntos APA</th>
+                          <th style="font-size: 10px;" title="Puntos Aplicados Por Pagos Adelantados">Puntos APPA</th>
+                          <th style="font-size: 10px;">Puntos Combo</th>
+                          <th style="font-size: 10px;">Importe a Bonificar</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-repeat="x in ctrl.detallePago" class="sizeTr" ng-click="ctrl.guardaconcepto(x,$index)" ng-class="x.isChecked == true ? 'esmeralda':''">
+                          <td class="sizeTd" style="font-size: 9px; width:100px;">{{ x.MacCableModem }}</td>
+                          <td class="sizeTd" style="font-size: 9px; width:170px;">{{ x.DESCORTA }} <button class="btn ink-reaction btn-icon-toggle btn-primary btn-xs " ng-click="ctrl.InformacionCobro(x);"><i class="md md-help"></i></buttontn></td>
+                                  <td class="sizeTd" style="font-size: 9px;"><button class="btn btn-default btn-xs" ng-if="x.Pagos_Adelantados != null" ng-disabled="ctrl.blockBaja" ng-click="ctrl.adelantaPagos(x)">{{ x.Pagos_Adelantados }}</button></td>
+                          <td class="sizeTd" style="font-size: 9px;">{{ x.tvAdic }}</td>
+                          <td class="sizeTd" style="font-size: 9px;">{{ x.Meses_Cortesia }}</td>
+                          <td class="sizeTd" style="font-size: 9px;">{{ x.mesesApagar }}</td>
+                          <td class="sizeTd" style="font-size: 9px;">{{ x.importe | currency }}</td>
+                          <td class="sizeTd" style="font-size: 9px; width:80px;">{{ x.periodoPagadoIni }}</td>
+                          <td class="sizeTd" style="font-size: 9px; width:80px;">{{ x.periodoPagadoFin }}</td>
+                          <td class="sizeTd" style="font-size: 9px;">{{ x.PuntosAplicadosOtros }}</td>
+                          <td class="sizeTd" style="font-size: 9px;">{{ x.puntosAplicadosAnt }}</td>
+                          <td class="sizeTd" style="font-size: 9px;">{{ x.PuntosAplicadosPagoAdelantado }}</td>
+                          <td class="sizeTd" style="font-size: 9px;">{{ x.bonificacion }}</td>
+                          <td class="sizeTd" style="font-size: 9px;">{{ x.importeBonifica }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-8">
+                    <div style="padding-left: 10px;">
+                      <a class="btn btn-default btn-xs" ng-click="ctrl.openAddList()" ng-disabled="ctrl.blockBaja">AGREGAR A LA LISTA</a>
+                      <a class="btn btn-default btn-xs" ng-click="ctrl.openDeleteList()" ng-disabled="ctrl.blockBaja">QUITAR DE LA LISTA</a>
+                      <a class="btn btn-default btn-xs" ng-click="ctrl.openSuspencion()" ng-disabled="ctrl.mostrarSuspencion">SUSPENSIÓN TEMPORAL</a>
+                      <a class="btn btn-warning btn-xs" ng-click="ctrl.openReturn()" ng-disabled="ctrl.blockBaja">COBRAR ADEUDO</a>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <table class="table">
+                      <tr ng-repeat="x in ctrl.sumaPagos">
+                        <td style="font-size: 11px;" ng-if="!$last"><strong>{{ x.Descripcion }}</strong></td>
+                        <td style="font-size: 15px;" ng-if="$last"><strong>{{ x.Descripcion }}</strong></td>
+                        <td style="font-size: 11px;" ng-if="!$last"> {{ x.Total | currency }} </td>
+                        <td style="font-size: 15px;" ng-if="$last"><strong>{{ x.Total | currency }}</strong></td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <div class="row" style="padding-right:20px;">
+                  <p class="text-right">
+                    <button class="btn btn-success btn-sm" type="submit" ng-disabled="ctrl.blockPagar"><i class="fa fa-money" aria-hidden="true"></i> PAGAR</button>
+                  </p>
+                </div>
+              </div>
+              <!--end .panel -->
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

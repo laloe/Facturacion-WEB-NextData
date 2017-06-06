@@ -1,0 +1,38 @@
+<div class="modal-header">
+    <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
+    <a href="" ng-click="ctrl.printDiv('printTicket')" style="color:#2196f3;" ng-show="ctrl.mostrarImprimir"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</a>
+</div>
+<div class="modal-body" style="padding-top:20px;">
+	<div class="row" id="printTicket">
+		<div class="col-md-12">
+			<p class="text-center"><strong>Nota de Crédito</strong></p>
+			<p style="margin-top: -15px;" class="text-center">{{ ctrl.nota.NombreEncabezado }}</p>
+			<p style="margin-top: -15px;"  class="text-center">{{ ctrl.nota.DireccionNombreEncabezado }}, {{ ctrl.nota.ColoniaNombreEncabezado }}, {{ ctrl.nota.CiudadNombreEncabezado }}</p>
+            <p style="margin-top: -15px;">{{ ctrl.nota.rfcNombreEncabezado }} Tel:{{ ctrl.nota.TelefonoNombreEncabezado }}</p>
+			<p style="margin-top: -15px;">Nota de Crédito: {{ ctrl.nota.Clv_notadecredito }}</p>
+            <p style="margin-top: -15px;">Aplicada a: {{ ctrl.nota.Ticket }}</p>
+			<p style="margin-top: -15px;"><strong>Contrato:</strong> {{ ctrl.nota.ContratoCom }}             {{ ctrl.nota.Fecha }}</p>
+			<p style="margin-top: -15px;">{{ ctrl.nota.Nombre }}</p>
+			<p style="margin-top: -15px;">{{ ctrl.nota.Calle }} #: {{ ctrl.nota.Numero }} Col: {{ ctrl.nota.Colonia }}</p>
+			<p style="margin-top: -15px;">{{ ctrl.nota.Ciudad }}</p>
+			<p style="margin-top: -15px;"><strong>Cajera(o): {{ ctrl.nota.Usuario }}</strong></p>
+			<hr>
+			<hr>
+            <div ng-repeat="x in ctrl.notaconceptos">
+                <p style="margin-top: -15px;" ng-if="x.importe > 0">{{ x.Descripcion }}</p>
+                <p class="text-right" style="margin-top: -15px;" ng-if="x.importe > 0">Total: {{ x.importe | currency }}</p>
+            </div>
+			<hr>
+			<hr>
+			<p style="margin-top: -15px;">Cantidad con Letra:</p>
+			<p style="margin-top: -15px;"><strong>{{ ctrl.nota.Cant_Letra }}</strong></p>
+            <hr>
+            <hr>
+			<p style="margin-top: -15px;" class="text-center"><strong>{{ ctrl.nota.Nombre }}</strong></p>
+            <p style="margin-top: -15px;" class="text-center">Original</p>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default btn-sm" type="button" ng-click="ctrl.cancel()">Cancelar</button>
+</div>

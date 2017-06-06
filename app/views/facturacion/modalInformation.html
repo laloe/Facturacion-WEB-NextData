@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
+    <h4 class="modal-title">Información del Cliente</h4>
+</div>
+<div class="modal-body">
+  <div class="row" style="padding-left:10px;">
+  	<p>{{ ctrl.informacionCliente.Periodo }}</p>
+  	<p><strong>FECHAS IMPORTANTES</strong></p>
+  	<p>{{ ctrl.informacionCliente.Puntos }}</p>
+  	<p>{{ ctrl.informacionCliente.Alta }}:</p>
+  	<p>{{ ctrl.informacionCliente.Corte }}</p>
+  	<p><strong>{{ ctrl.informacionCliente.Periodo1 }}</strong></p>
+  </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default btn-sm" type="button" ng-click="ctrl.cancel()">Cancelar</button>
+</div>

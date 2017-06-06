@@ -1,0 +1,57 @@
+<form angular-validator-submit="$ctrl.ok()" name="contratoForm" novalidate angular-validator>
+  <div class="modal-header">
+    <button class="close" aria-label="Close" type="button">×</button>
+    <h4 class="modal-title"><i class="fa fa-thumb-tack"></i> Detalle de contrato </h4>
+  </div>
+  <div class="modal-body" style="overflow-y: scroll; max-height: 500px;">
+
+    <table class="table" style="font-size:12px;">
+      <thead>
+
+        <th style="    vertical-align: middle;">Concepto</th>
+        <th style="    vertical-align: middle;">Importe</th>       
+        <th style="    vertical-align: middle;">Monto para nota de crédito</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="x in $ctrl.conceptos">
+          <td>{{x.Descripcion}}</td>
+          <td>{{x.Total |currency}}</td>        
+          <td ng-if="x.Se_Cobra">
+            <ng-form name="urlForm">
+              <input type="number" ng-disabled="!x.Se_Cobra" name="cant" ng-model="x.ImporteNota" class="form-control input-sm" required min="0"
+                ng-change="$ctrl.calcular()" validate-on="dirty" max="{{x.importe}}">
+              <span class="alert error text-danger" ng-show="urlForm.cant.$error.required">campo requerido</span>
+              <span class="alert error text-danger" ng-show="urlForm.cant.$error.max">cantidad invalida</span>
+
+            </ng-form>
+          </td>
+
+
+
+          <td ng-if="!x.Se_Cobra">
+            <input type="number" ng-disabled="!x.Se_Cobra" name="cant" value="0" class="form-control input-sm">
+
+
+          </td>
+          <td>
+            <label class="checkbox-inline checkbox-styled checkbox-info">
+														<input type="checkbox" ng-model="x.Se_Cobra" ng-change="$ctrl.calcular()"><span></span>
+													</label>
+
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!--<div class="row text-center">
+      <h4><b class="text-danger">{{$ctrl.sumatotal|currency}}</b></h4>
+
+    </div>-->
+</div>
+    <div class="modal-footer">
+      <button class="btn btn-success btn-sm" type="submit">Guardar</button>
+      <button class="btn btn-default btn-sm" type="button" ng-click="$ctrl.cancel()">cerrar</button>
+    </div>
+</form>

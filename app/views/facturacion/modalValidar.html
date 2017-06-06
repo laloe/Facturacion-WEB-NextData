@@ -1,0 +1,26 @@
+<div class="modal-header alert-warning">
+    <button class="close" aria-label="Close" type="button" ng-click="$ctrl.cancel()">×</button>
+    <h4 class="text-center" style="margin-top:5px;">Acceso Cajero(a)</h4>
+</div>
+<form ng-submit="$ctrl.autenticar()">
+    <div class="modal-body" style="padding-top:20px;">
+        <div class="row">
+            <div class="form-group">
+                <label class="col-sm-6 control-label"><strong>Login cajero(a):</strong></label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control input-sm" ng-model="$ctrl.user" required="">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-6 control-label"><strong>Contraseña cajero(a):</strong></label>
+                <div class="col-sm-6">
+                    <input type="password" class="form-control input-sm" ng-model="$ctrl.pass" required="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" type="button" ng-click="$ctrl.cancel()">Cancelar</button>
+        <button class="btn btn-warning" type="submit">Aceptar</button>
+    </div>
+</form>

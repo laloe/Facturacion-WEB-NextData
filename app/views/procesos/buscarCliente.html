@@ -1,0 +1,133 @@
+<div class="modal-header">
+  <button class="close" aria-label="Close" type="button" ng-click="$ctrl.cancel()">×</button>
+  <h4 class="modal-title">Buscar cliente</h4>
+</div>
+<div class="modal-body" style="padding-top:20px;">
+
+  <div class="panel-group" id="accordion3">
+    <div class="card panel">
+      <div class="card-head card-head-xs collapsed " data-toggle="collapse" data-parent="#accordion3" data-target="#accordion3-1"
+        aria-expanded="false">
+        <header><i class="fa fa-search"></i> Buscar Cliente</header>
+        <div class="tools">
+          <a class="btn btn-icon-toggle"><i class="fa fa-angle-down"></i></a>
+        </div>
+      </div>
+      <div id="accordion3-1" class="collapse buscarContrato" aria-expanded="false" style="height: 0px;">
+        <div class="panel-body">
+          <uib-tabset active="active">
+            <uib-tab index="0">
+              <uib-tab-heading>
+                <i class="md md-receipt"></i> Suscriptor
+              </uib-tab-heading>
+              <div class="row">
+                <br>
+                <div class="col-md-3">
+                  <div class="col-md-12">
+                    <div class="input-group">
+                      <input type="text" class="form-control" ng-model="$ctrl.contrato" placeholder="Contrato">
+                      <span class="input-group-btn">
+                            <button class="btn btn-primary btn-xs" ng-click="$ctrl.buscarContrato()">Buscar</button>
+                        </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <input type="text" class="form-control" ng-model="$ctrl.nombre" placeholder="Nombre">
+
+                </div>
+                <div class="col-md-3">
+                  <input type="text" class="form-control" ng-model="$ctrl.paterno" placeholder="Apellido Paterno">
+
+                </div>
+                <div class="col-md-3">
+                  <input type="text" class="form-control" ng-model="$ctrl.materno" placeholder="Apellido Materno">
+                  <p class="text-right">
+                    <button class="btn btn-primary btn-xs" ng-click="$ctrl.buscarNombres()">Buscar</button>
+                  </p>
+                </div>
+              </div>
+            </uib-tab>
+            <uib-tab>
+              <uib-tab-heading>
+                <i class="md md-receipt"></i> Domicilio
+              </uib-tab-heading>
+              <div class="row">
+                <br>
+                <div class="col-md-3">
+                  <input type="text" class="form-control" ng-model="$ctrl.calle" placeholder="Calle">
+                </div>
+                <div class="col-md-3">
+                  <input type="text" class="form-control" ng-model="$ctrl.numero" placeholder="Número">
+                </div>
+                <button class="btn btn-primary btn-xs" ng-click="$ctrl.buscarDomicilio()">Buscar</button>
+              </div>
+            </uib-tab>
+            <uib-tab>
+              <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                  <input type="text" class="form-control" ng-model="$ctrl.setupbox" placeholder="Set Up Box">
+                </div>
+                <div class="col-md-10 col-md-offset-1">
+                  <p class="text-right">
+                    <button class="btn btn-primary btn-xs" ng-click="$ctrl.buscarSetupbox()">Buscar</button>
+                  </p>
+                </div>
+              </div>
+
+            </uib-tab>
+          </uib-tabset>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="row">
+
+    <div class="col-md-12 table-responsive panel form-element-padding">
+      <table class="table-bordered table table-striped table-hover" style="font-size: 9px;">
+        <thead>
+          <tr>
+            <th>Contrato</th>
+            <th>Nombre</th>
+            <th>Apellido Paterno</th>
+            <th>Apellido Materno</th>
+            <th>Calle</th>
+            <th>Colonia</th>
+            <th>Numero</th>
+            <th>Ciudad</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-show="$ctrl.sinRegistros">
+            <td class="text-center" colspan="10">SIN REGISTROS</td>
+          </tr>
+          <tr dir-paginate="x in $ctrl.ordenes|itemsPerPage:7" ng-show="$ctrl.conRegistros">
+            <td>{{ x.CONTRATO }}</td>
+            <td>{{ x.Nombre }}</td>
+            <td>{{ x.Apellido_Paterno }}</td>
+            <td>{{ x.Apellido_Materno }}</td>
+            <td>{{ x.CALLE }}</td>
+            <td>{{ x.COLONIA }}</td>
+            <td>{{ x.NUMERO }}</td>
+            <td>{{ x.CIUDAD }}</td>
+            <td><button class="btn btn-warning btn-xs" ng-click="$ctrl.seleccionar(x)"><i class="fa fa-check" aria-hidden="true"></i></button></td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <dir-pagination-controls max-size="7" direction-links="true" boundary-links="true" ng-if="$ctrl.ordenes.length > 0">
+        </dir-pagination-controls>
+      </div>
+      <br>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-default-bright btn-sm" type="button" ng-click="$ctrl.cancel()">Cancelar</button>
+</div>

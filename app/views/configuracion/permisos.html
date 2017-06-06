@@ -1,0 +1,61 @@
+<div class="card animated fadeIn fast" style="margin-top:20px;">
+  <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+    <header>
+      <strong style="font-weight:bold; border:none; margin-left:10px;">Configuración</strong>
+      <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"> <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Configuración</a>><a href="#" class="paginaActiva">Permisos</a></small>
+
+    </header>
+    <div class="tools">
+      <div class="btn-group" permission permission-only="'permisosUpdate'">
+        <button type="button" ng-click="$ctrl.GuardaPermisos();" class="btn btn-success btn-sm"><i class="fa fa-save" aria-hidden="true"></i> Guardar</button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="col-md-4">
+      <div class="btn-group">
+        Selecciona un rol para asignar permisos:
+        <select class="selectpicker form-control" ng-model="$ctrl.Rol" ng-change="$ctrl.ObtenPermisos()" ng-options="option.Nombre for option in $ctrl.Roles track by option.IdRol">
+              <option value="">Selecciona Rol</option>
+              <option value="">Otro Rol</option>
+          </select><br />
+      </div>
+    </div>
+    <div class="col-md-12">
+      <table class="table" style="padding-left:15px;" id="datos">
+        <thead style="color: #0aa89e;">
+          <tr>
+            <th>Módulo</th>
+            <th>Consultar</th>
+            <th>Agregar</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="x in $ctrl.Modules">
+            <td ng-if="x.ParentId == null"><b>{{x.Description}}</b></td>
+            <td ng-if="x.ParentId != null && x.tipo==2">{{x.Description}}</td>
+            <td ng-if="x.ParentId != null && x.tipo==4"><i><b>{{x.Description}}</b></i></td>
+            <td ng-if="x.ParentId != null && x.tipo==3"><i class="md-chevron-right"></i> <i>{{x.Description}}</i></td>
+
+            <td>
+              <div ng-if="x.ParentId != null|| x.tipo==1 "><label class="checkbox-inline checkbox-styled"><input type="checkbox" ng-model="x.OptSelect"><span></span></label></div>
+            </td>
+            <td>
+              <div ng-if="x.ParentId != null"><label class="checkbox-inline checkbox-styled"><input type="checkbox"  ng-model="x.OptAdd"><span></span></label></div>
+            </td>
+            <td>
+              <div ng-if="x.ParentId != null"><label class="checkbox-inline checkbox-styled"><input type="checkbox" ng-model="x.OptUpdate"><span></span></label></div>
+            </td>
+            <td>
+              <div ng-if="x.ParentId != null"><label class="checkbox-inline checkbox-styled"><input type="checkbox"  ng-model="x.OptDelete"><span></span></label></div>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

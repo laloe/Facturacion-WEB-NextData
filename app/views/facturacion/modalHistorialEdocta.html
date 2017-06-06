@@ -1,0 +1,48 @@
+<div class="modal-header">
+  <button type="button" class="close" ng-click="ctrl.cancel()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <h5 class="modal-title" id="modal-title">Estados de cuenta internet y combo</h5>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <table class="table table-hover" style="font-size:10px;">
+      <thead>
+        <th>Contrato</th>
+        <th>Cliente</th>
+        <th>Saldo</th>
+        <th>Status</th>
+        <th>Ticket</th>
+        <th>Fecha</th>
+        <th>Factura</th>
+        <th>Detalle</th>
+        <th>Opciones</th>
+      </thead>
+      <tbody>
+        <tr dir-paginate="x in ctrl.ListaEstados|itemsPerPage:5">
+          <td>{{x.Contrato}}</td>
+          <td>{{x.Cliente}}</td>
+          <td>{{x.Saldo| currency}}</td>
+          <td>{{x.status}}</td>
+          <td>{{x.Ticket}}</td>
+          <td>{{x.Fecha}}</td>
+          <td>{{x.Factura}}</td>
+          <td><button type="button" ng-click="ctrl.Imprimir(x);" name="button" class="btn btn-primary btn-xs"><i class="fa fa-print" aria-hidden="true"></i>
+   Imprimir</button></td>
+          <td>
+            <button type="button" ng-click="ctrl.Reprocesar(x.IdEstadoCuenta, x.ContratoBueno);" name="button" class="btn btn-default-bright btn-xs"><i class="fa fa-retweet" aria-hidden="true"></i> Reprocesar</button>
+            <button type="button" ng-click="ctrl.Reenviar(x);" name="button" class="btn btn-default-bright btn-xs"><i class="fa fa-envelope-o" aria-hidden="true"></i> Reenviar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="padding-left: 20px;">
+      <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+      </dir-pagination-controls>
+    </div>
+
+  </div>
+
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default btn-sm" type="button" ng-click="ctrl.cancel()">Cerrar</button>
+
+</div>

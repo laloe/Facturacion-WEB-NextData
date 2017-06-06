@@ -1,0 +1,243 @@
+<style type="text/css">
+	.scrollDiv {
+		height: 450px;
+		overflow: auto;
+		overflow-x: hidden;
+	}
+</style>
+<div class="card animated fadeIn" style="margin-top:20px;">
+	<div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+		<header>
+			<strong style="font-weight:bold; border:none; margin-left:10px;">Cancelación y Reimpresión de Tickets</strong>
+			<br /><small class="text-muted" style="font-size:14px; margin-left:10px;"><i class="fa fa-home" aria-hidden="true"></i> Facturación>Cancelación y Reimpresión de Tickets</small>
+
+		</header>
+	</div>
+	<div class="section-body">
+		<div class="col-md-3 card">
+			<h4 class="text-center">Busqueda</h4>
+
+			<div class="row">
+				<div class="panel-group col-md-12" id="normales">
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<strong>Plaza</strong>
+							<select class="form-control input-sm" ng-model="$ctrl.selectedPlaza" ng-options="v.razon_social for v in $ctrl.plazas track by v.id_compania"></select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<strong>Tipo de Tickets</strong>
+							<select class="form-control input-sm" ng-model="$ctrl.selectedTipo" ng-options="v.CONCEPTO for v in $ctrl.tipos track by v.CLAVE"></select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<p class="text-center"><strong>Buscar Ticket Por:</strong></p>
+						</div>
+						<div class="col-md-7 col-md-offset-1" style="margin-top:-15px;">
+							<strong>Serie</strong>
+							<input type="text" class="form-control input-sm" ng-model="$ctrl.serie" ng-change="$ctrl.cambioBusqueda(1)" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-7 col-md-offset-1">
+							<strong>Folio</strong>
+							<input type="text" class="form-control" ng-model="$ctrl.folio" ng-change="$ctrl.cambioBusqueda(2)" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<p class="text-right">
+								<button class="btn btn-primary btn-xs" ng-click="$ctrl.buscarSucursal(1)"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+							</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-8 col-md-offset-1">
+							<strong>Fecha</strong>
+							<input type="date" class="form-control input-sm" ng-model="$ctrl.fecha" ng-change="$ctrl.cambioBusqueda(3)" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<p class="text-right">
+								<button class="btn btn-primary btn-xs" ng-click="$ctrl.buscarSucursal(2)"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+							</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 col-md-offset-1">
+							<strong>Contrato</strong>
+							<input type="text" class="form-control input-sm" ng-model="$ctrl.contrato" ng-change="$ctrl.cambioBusqueda(4)" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<p class="text-right">
+								<button class="btn btn-primary btn-xs" ng-click="$ctrl.buscarSucursal(3)"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+							</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<strong>Nombre</strong>
+							<input type="text" class="form-control input-sm" ng-model="$ctrl.nombre" ng-change="$ctrl.cambioBusqueda(5)" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+							<p class="text-right">
+								<button class="btn btn-primary btn-xs" ng-click="$ctrl.buscarSucursal(4)"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+							</p>
+						</div>
+					</div>
+					<!--end .panel -->
+				</div>
+				<!-- <div class="panel-group col-md-12" id="especiales" style="margin-top:-20px;">
+						<div class="card panel">
+							<div class="card-head card-head-xs collapsed" data-toggle="collapse" data-parent="#especiales" data-target="#especiales-1" aria-expanded="false">
+								<header>Sucursales Especiales</header>
+								<div class="tools">
+									<a class="btn btn-icon-toggle"><i class="fa fa-angle-down"></i></a>
+								</div>
+							</div>
+							<div id="especiales-1" class="collapse especiales" aria-expanded="false" style="height: 0px;">
+								<div class="row">
+									<div class="col-md-10 col-md-offset-1">
+										<strong>Sucursal</strong>
+										<select class="form-control" ng-model="$ctrl.selectedSucursal" ng-options="v.NOMBRE for v in $ctrl.sucursales track by v.CLV_SUCURSAL">
+											</select>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-10 col-md-offset-1">
+										<strong>Tipo de Tickets</strong>
+										<select class="form-control" ng-model="$ctrl.selectedFactura" ng-options="v.CONCEPTO for v in $ctrl.facturas track by v.CLAVE"></select>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-10 col-md-offset-1">
+										<p class="text-center"><strong>Buscar Ticket Por:</strong></p>
+									</div>
+									<div class="col-md-7 col-md-offset-1" style="margin-top:-15px;">
+										<strong>Serie</strong>
+										<input type="text" class="form-control" ng-model="$ctrl.serieE" ng-change="$ctrl.cambioEspecial(1)" />
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-7 col-md-offset-1">
+										<strong>Folio</strong>
+										<input type="text" class="form-control" ng-model="$ctrl.folioE" ng-change="$ctrl.cambioEspecial(2)" />
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-8 col-md-offset-1">
+										<strong>Fecha</strong>
+										<input type="date" class="form-control" ng-model="$ctrl.fechaE" ng-change="$ctrl.cambioEspecial(3)" />
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6 col-md-offset-1">
+										<strong>Contrato</strong>
+										<input type="text" class="form-control" ng-model="$ctrl.contratoE" ng-change="$ctrl.cambioEspecial(4)" />
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-10 col-md-offset-1">
+										<br>
+										<p class="text-right">
+											<button class="btn btn-primary btn-xs" ng-click="$ctrl.buscarEspecial()"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--end .panel -->
+			</div>
+
+		</div>
+	</div>
+	<div class="col-md-9 " ng-show="$ctrl.showSucursales">
+		<div class="col-md-12 table-responsive">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Status</th>
+						<th>Serie</th>
+						<th>Folio</th>
+						<th>Fecha</th>
+						<th>Cliente</th>
+						<th>Nombre</th>
+						<th>Importe</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr dir-paginate="x in $ctrl.ticketsSucuarsales|itemsPerPage:8">
+						<td>{{ x.STATUS }}</td>
+						<td>{{ x.Serie }}</td>
+						<td>{{ x.Folio }}</td>
+						<td>{{ x.FECHA }}</td>
+						<td>{{ x.cliente }}</td>
+						<td>{{ x.NOMBRE }}</td>
+						<td>{{ x.importe | currency }}</td>
+						<td>
+							<button class="btn ink-reaction btn-floating-action btn-xs btn-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Reimprimir Ticket" ng-click="$ctrl.reimprimirTicket(x,'N')">
+									<i class="fa fa-print" aria-hidden="true"></i>
+								</button>
+							<button class="btn ink-reaction btn-floating-action btn-xs btn-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancelar Ticket" ng-click="$ctrl.cancelarTicket(x,'N')">
+									<i class="fa fa-ban" aria-hidden="true"></i>
+								</button>
+								<button class="btn ink-reaction btn-floating-action btn-xs btn-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Enviar Ticket" ng-click="$ctrl.enviarCorreo(x)"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div>
+				<dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+				</dir-pagination-controls>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-9 scrollDiv" ng-show="$ctrl.showEspeciales">
+		<div class="col-md-12">
+			<h4 class="text-center">Sucursales Especiales</h4>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Status</th>
+						<th>Serie</th>
+						<th>Folio</th>
+						<th>Fecha</th>
+						<th>Contrato</th>
+						<th>Importe</th>
+						<th>Cliente</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr dir-paginate="x in $ctrl.ticketsEspeciales|itemsPerPage:8">
+						<td>{{ x.Status}}</td>
+						<td>{{ x.Serie }}</td>
+						<td>{{ x.Folio }}</td>
+						<td>{{ x.Fecha }}</td>
+						<td>{{ x.Contrato }}</td>
+						<td>{{ x.Importe | currency }}</td>
+						<td>{{ x.Cliente }}</td>
+						<td>
+							<button class="btn ink-reaction btn-floating-action btn-xs btn-info" data-toggle="tooltip" data-placement="top" title="" data-original-title="Reimprimir Ticket" ng-click="$ctrl.reimprimirTicket(x,'E')"><i class="fa fa-print" aria-hidden="true"></i></button>
+							<button class="btn ink-reaction btn-floating-action btn-xs btn-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancelar Ticket" ng-click="$ctrl.cancelarTicket(x,'E')"><i class="fa fa-ban" aria-hidden="true"></i></button>
+							<button class="btn ink-reaction btn-floating-action btn-xs btn-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Enviar Ticket" ng-click="$ctrl.enviarCorreo(x)"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div>
+				<dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+				</dir-pagination-controls>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

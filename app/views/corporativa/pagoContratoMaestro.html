@@ -1,0 +1,276 @@
+<div class="row" style="margin-top:10px;">
+
+  <div class="card" style="margin-top:20px;">
+    <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+      <header>
+        <strong style="font-weight:bold; border:none; margin-left:10px; font-size: 16px;">Pago Contratos Maestros</strong>
+        <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"><i class="fa fa-home" aria-hidden="true"></i> Facturación Corporativa>Pago Contratos Maestros</small>
+      </header>
+    </div>
+
+    <div class="card-body">
+      <div class="panel-group" id="accordion3">
+        <div class="card panel">
+          <div class="card-head card-head-xs style-primary-light collapsed" data-toggle="collapse" data-parent="#accordion3" data-target="#accordion3-1"
+            aria-expanded="false">
+            <header><i class="fa fa-search"></i> Buscar contrato</header>
+            <div class="tools">
+              <a class="btn btn-icon-toggle"><i class="fa fa-angle-down"></i></a>
+            </div>
+          </div>
+          <div id="accordion3-1" class="collapse buscarContrato" aria-expanded="false" style="height: 0px;">
+            <div class="panel-body">
+              <uib-tabset active="active">
+                <uib-tab index="0" heading="Contrato">
+                  <div class="row">
+                    <br/>
+                    <div class="col-md-3">
+
+                      <input type="number" placeholder="No.Contrato" class="form-control input-sm" ng-model="$ctrl.contratobusqueda" ng-keypress="$ctrl.enterContrato($event)">
+                    </div>
+                    <div class="col-md-1">
+
+                      <button class="btn btn-info btn-xs" ng-click="$ctrl.Buscarporcontrato(true);"><i class="fa fa-search"></i> Buscar</button>
+                    </div>
+
+                    <div class="col-md-3">
+
+                      <input type="text" placeholder="Nombre comercial" class="form-control input-sm" ng-model="$ctrl.NombreComer" ng-keypress="$ctrl.enterNombre($event)">
+                    </div>
+                    <div class="col-md-1">
+
+                      <button class="btn btn-info btn-xs" ng-click="$ctrl.BuscarNombrec();"><i class="fa fa-search"></i> Buscar</button>
+                    </div>
+
+                    <div class="col-md-3">
+
+                      <input type="text" placeholder="Razón social" class="form-control input-sm" ng-model="$ctrl.RazonS" ng-keypress="$ctrl.enterRazon($event)">
+                    </div>
+                    <div class="col-md-1">
+
+                      <button class="btn btn-info btn-xs" ng-click="$ctrl.BuscarRazonS();"><i class="fa fa-search"></i> Buscar</button>
+                    </div>
+                  </div>
+                </uib-tab>
+                <uib-tab index="1" heading="Ubicación">
+                  <div class="row">
+                    <br>
+                    <div class="col-md-3">
+                      <p>Distribuidor:</p>
+                      <select ng-model="$ctrl.Distribuidor" ng-change="$ctrl.ObtenerCiudades($ctrl.Distribuidor);" class="form-control input-sm"
+                        ng-options="item as item.Nombre for item in $ctrl.Distribuidores track by item.Clv_Plaza">
+                        <option value="">Selecciona</option>
+                    </select>
+                    </div>
+                    <div class="col-md-3">
+                      <p>Ciudad:</p>
+                      <select ng-model="$ctrl.Ciudad" class="form-control input-sm" ng-options="item as item.Nombre for item in $ctrl.Ciudades track by item.Clv_Ciudad">
+                         <option value="">Selecciona</option>
+                    </select>
+
+                    </div>
+                    <div class="col-md-1">
+                      <br>
+                      <button class="btn btn-info btn-sm" ng-click="$ctrl.BuscarCiudad();"><i class="fa fa-search"></i> Buscar</button>
+
+                    </div>
+                  </div>
+
+
+                </uib-tab>
+              </uib-tabset>
+
+
+
+
+            </div>
+          </div>
+          <!-- panel body -->
+        </div>
+      </div>
+      <!--end .panel -->
+    </div>
+
+    <div ng-show="$ctrl.muestraTablaCliente" style="margin-top:-20px;" ng-style="{'background-color': $ctrl.color}">
+      <br>
+      <div class="row" style="padding-left: 30px; padding-right: 30px;">
+        <div class="panel-group" id="datosCliente">
+          <div class="card panel" ng-style="{'background-color': $ctrl.color}">
+            <div class="card-head card-head-xs collapsed" data-toggle="collapse" data-parent="#datosCliente" data-target="#datosCliente-1"
+              aria-expanded="false" ng-click="$ctrl.showDatosCliente = !$ctrl.showDatosCliente">
+              <header class="text-primary-dark" style="font-size: 12px;" ng-show="$ctrl.showDatosCliente">Datos del Cliente</header>
+              <div class="tools">
+                <a class="btn btn-icon-toggle"><i class="fa fa-angle-down"></i></a>
+              </div>
+            </div>
+            <div id="datosCliente-1" class="collapse datosCliente" aria-expanded="false" style="margin-top: -20px">
+              <div class="row" style="padding-left:10px;">
+                <div class="table-responsive col-md-12" style="padding-left: 20px;">
+                  <table class="table" style="font-size:10px;">
+                    <thead>
+                      <tr style="background-color: #B5B6B6;">
+                        <th>#contrato</th>
+                        <th>Razón social</th>
+                        <th>RFC</th>
+                        <th>Nombre Comercial</th>
+                        <th>Distribuidor</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-show="$ctrl.Contratos.length>0" dir-paginate="x in $ctrl.Contratos | itemsPerPage:10">
+                        <td>{{x.IdContratoMaestro}}</td>
+                        <td>{{x.RazonSocial}}</td>
+                        <td>{{x.RFC}}</td>
+                        <td>{{x.NombreComercial}}</td>
+                        <td>{{x.DistribuidorDes}}</td>
+                        <td>{{x.EstadoDes}}</td>
+                        <td>
+                          <button class="btn ink-reaction btn-floating-action btn-xs btn-info" ng-click="$ctrl.tablaContrato(x);"><i class="fa fa-eye"></i></button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div style="padding-left: 20px;">
+                    <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+                    </dir-pagination-controls>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <!--end .panel -->
+        </div>
+
+      </div>
+      <!--end .row -->
+    </div>
+
+
+    <div ng-show="$ctrl.muestraCliente"  ng-style="{'background-color': $ctrl.color}">
+
+      <div class="row" style="padding-left: 30px; padding-right: 30px;">
+        <div class="panel-group" id="datosCliente">
+          <div class="card panel" ng-style="{'background-color': $ctrl.color}">
+          
+            <div id="datosCliente-1" class="collapse datosCliente" aria-expanded="false">
+              <div class="row" style="padding-left:10px;">
+                <div class="col-md-3">
+                  <p class="text-center" style="color:red;" ng-show="$ctrl.showFiscales">EL CLIENTE CUENTA CON DATOS FISCALES</p>
+                  <p class="text-primary"><b><i class="md md-account-box"></i> Detalles del contrato maestro</b></p>
+                  <p style="font-size: 12px;">
+                    <b>Contrato: </b>{{ $ctrl.Contratos.IdContratoMaestro }}<br/>
+                    <b>Nombre Comercial: </b>{{ $ctrl.Contratos.NombreComercial }}<br/>
+                    <b>Razón Social: </b>{{ $ctrl.Contratos.RazonSocial }}
+                  </p>
+                  
+                  <p style="font-size: 12px;">
+                    <b>Calle: </b>{{ $ctrl.Contratos.CalleDes }} <b># Ext: </b>{{ $ctrl.Contratos.NumExt }} <b># Int: </b>{{
+                    $ctrl.Contratos.NumInt }}<br/>
+                    <b>Colonia: </b>{{ $ctrl.Contratos.ColoniaDes }}<br/>
+                    <b>Codigo Postal: </b>{{$ctrl.Contratos.CodigoPostal}}<br/>
+                    <b>Estado: </b>{{ $ctrl.Contratos.EstadoDes }} <b>Ciudad: </b>{{ $ctrl.Contratos.CiudadDes }}
+                    <br/>
+                  </p>
+                </div>
+                <div class="col-md-5">
+                  <uib-tabset active="active">
+                    <uib-tab index="0" heading="Contratos">
+                      <div class="table-responsive">
+
+                        <table st-safe-src="$ctrl.detallePago" st-table="$ctrl.displayCollection" class="table table-bordered">
+                          <thead>
+                            <tr style="background-color: #B5B6B6;">
+                              <th st-sort="ContratoCompuesto" style="font-size: 10px;">Contrato</th>
+                              <th st-sort="Nombre" style="font-size: 10px;">Nombre</th>
+                              <th st-sort="Importe" style="font-size: 10px;">Monto</th>
+                              <th style="font-size: 10px;">Detalle</th>
+                            </tr>
+                            <tr>
+                              <th style="font-size: 10px;">
+                                <input st-search="ContratoCompuesto" placeholder="Contrato" class="input-sm form-control" type="search" />
+                              </th>
+                              <th style="font-size: 10px;">
+                                <input st-search="Nombre" placeholder="Nombre" class="input-sm form-control" type="search" />
+                              </th>
+                              <th style="font-size: 10px;">
+                                <input st-search="Importe" placeholder="Monto" class="input-sm form-control" type="search" />
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                      <!--      ng-if="x.Importe!=null"-->
+                            <tr  dir-paginate="x in $ctrl.displayCollection|orderBy:$ctrl.sortKey:reverse|filter:$ctrl.search|itemsPerPage:5">
+                              <td  style="font-size: 9px;">{{ x.ContratoCompuesto }}</td>
+                              <td style="font-size: 9px;">{{ x.Nombre }}</td>
+                              <td  style="font-size: 9px;">{{ x.Importe |currency }}</td>
+                              <td style="font-size: 9px;">
+                                <button class="btn ink-reaction btn-floating-action btn-xs btn-warning" ng-click="$ctrl.abrirDetalle(x)" data-toggle="tooltip"
+                                  data-placement="top" title="Detalle" data-original-title="Detalle"><i class="fa fa-list"></i></button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <div style="padding-left: 20px;">
+                          <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+                          </dir-pagination-controls>
+                        </div>
+                      </div>
+
+                    </uib-tab>
+                    <uib-tab index="1" heading="Detalle">
+                      <div class="table-responsive" style="overflow-y: scroll; max-height: 350px;">
+
+                        <table class="table table-bordered">
+                          <thead>
+                            <tr style="background-color: #B5B6B6;">
+                              <th style="font-size: 10px;">Concepto</th>
+                              <th style="font-size: 10px;">Importe</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr ng-repeat="x in $ctrl.detalleFactura">
+                              <td style="font-size: 9px;">{{ x.Descripcion }}</td>
+                              <td style="font-size: 9px;">{{ x.Importe |currency }}</td>
+
+                            </tr>
+                          </tbody>
+                        </table>
+                      
+                      </div>
+
+                    </uib-tab>
+
+                  </uib-tabset>
+
+                </div>
+                <div class="col-md-4  text-center vertical-center">
+                  <div class="row">
+                      <label class="text-primary"><b>Conceptos</b></label>
+                  </div>
+                  <br>
+                  <table class="table">
+                    <tr ng-repeat="x in $ctrl.sumaPagos">
+                      <td style="font-size: 11px;" ng-if="!$last"><strong>{{ x.Descripcion }}</strong></td>
+                      <td style="font-size: 15px;" ng-if="$last"><strong>{{ x.Descripcion }}</strong></td>
+                      <td style="font-size: 11px;" ng-if="!$last"> {{ x.Total | currency }} </td>
+                      <td style="font-size: 15px;" ng-if="$last"><strong>{{ x.Total | currency }}</strong></td>
+                    </tr>
+                  </table>
+                  <p class="btn-group text-right" style="padding-right: 10px;">
+                    <button class="btn btn-danger btn-sm" ng-click="$ctrl.PagarCredito($ctrl.saldo, $ctrl.sumaPagos, $ctrl.Contratos,'pagos')" ng-disabled="$ctrl.blockPagar"><i class="fa fa-money" aria-hidden="true"></i> generar factura</button>
+                    <button class="btn btn-default-bright btn-sm" ng-disabled="$ctrl.blockedocta" ng-click="$ctrl.edocta()"><i class="fa fa-eye" aria-hidden="true" ></i> ver estado de cuenta</button>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--end .panel -->
+      </div>
+
+    </div>
+    <!--end .row -->
+  </div>

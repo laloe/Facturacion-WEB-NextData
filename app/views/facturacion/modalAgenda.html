@@ -1,0 +1,29 @@
+<div class="modal-header">
+  <h4 class="modal-title"><i class="fa fa-thumb-tack"></i> Datos para la agenda</h4>
+</div>
+<form angular-validator-submit="ctrl.ok()" name="contratoForm" novalidate angular-validator>
+  <div class="modal-body" style="padding-top:20px;">
+    <div class="row">
+      <div class="col-md-12">
+        <label>Fecha</label>
+        <br/>
+        <input type="date" class="form-control" name="fecha" validate-on="dirty" required="" required-message="'Este campo es obligatorio.'" ng-model="ctrl.FechaAgenda">
+      </div>
+      <div class="col-md-12">
+        <label>Turno</label>
+        <br/>
+        <select class="form-control" ng-model="ctrl.TurnoAgenda" name="turnos" validate-on="dirty" required="" required-message="'Este campo es obligatorio.'" ng-options="v.TURNO for v in ctrl.turnos track by v.ID">
+            <option value="">Selecciona</option>
+            </select>
+      </div>
+      <div class="col-md-12">
+        <label>Comentario</label>
+        <br/>
+        <input type="text" class="form-control" ng-model="ctrl.ComentarioAgenda">
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary btn-sm" type="submit">Aceptar</button>
+  </div>
+</form>

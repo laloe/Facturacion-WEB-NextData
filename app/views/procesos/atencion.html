@@ -1,0 +1,242 @@
+<style type="text/css">
+	.scrollDiv {
+		height: 500px;
+		overflow: auto;
+		overflow-x: hidden;
+	}
+</style>
+
+<div class="card" style="margin-top:20px;">
+	<div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+		<header>
+			<strong style="font-weight:bold; border:none; margin-left:10px;">Atención telefónica</strong>
+			<br /><small class="text-muted" style="font-size:14px; margin-left:10px;"> <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Atención telefónica</a></small>
+
+		</header>
+		<div class="tools">
+			<div class="btn-group">
+				<a class="btn btn-success btn-sm" ui-sref="home.procesos.atencionNueva"> NUEVO</a>
+
+			</div>
+		</div>
+	</div>
+	<div class="card-body">
+
+		<div class="panel-group" id="accordion3">
+			<div class="card panel">
+				<div class="card-head card-head-xs collapsed" data-toggle="collapse" data-parent="#accordion3" data-target="#accordion3-1"
+				 aria-expanded="false">
+					<header>Buscar atención</header>
+					<div class="tools">
+						<a class="btn btn-icon-toggle"><i class="fa fa-angle-down"></i></a>
+					</div>
+				</div>
+				<div id="accordion3-1" class="collapse buscarContrato" aria-expanded="false" style="height: 0px;">
+					<div class="panel-body">
+						<uib-tabset active="active">
+							<uib-tab index="0" heading="Detalle">
+								<br/>
+								<form angular-validator-submit="$ctrl.bucarUsuario()" name="DetalleForm" novalidate angular-validator>
+									<div class="col-md-6">
+										<div class="row">
+											<div class="col-md-10 ">
+												<label class="form-control">Plaza</label>
+												<select id="idplaza" 
+												  ng-change="$ctrl.cambioPlaza()" 
+												  class="form-control input-sm" 
+												  ng-model="$ctrl.selectedPlaza" 
+												  ng-options="v.razon_social for v in $ctrl.plazas track by v.id_compania">
+  													<option value="">Selecciona</option>
+  												</select>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-10 ">
+												<strong>Tipo de Servicio</strong>
+												<select 
+												  class="form-control input-sm" 
+												  ng-model="$ctrl.selectedServicio" 
+												  ng-change="$ctrl.cambioServicio()"
+												  ng-options="v.Concepto for v in $ctrl.servicios track by v.Clv_TipSerPrincipal">
+  													<option value="">Selecciona</option>
+  												</select>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											<div class="col-md-10">
+												<strong>Ver Por</strong><br>
+												<label class="checkbox-inline checkbox-styled">
+													<input type="checkbox" 
+														ng-model="$ctrl.conReporte" 
+														ng-change="$ctrl.cambiaConReporte()" />
+														<span>Llamadas que generaron reporte</span>
+												</label><br>
+												<label class="checkbox-inline checkbox-styled">
+													<input type="checkbox" 
+														ng-model="$ctrl.sinReporte"
+														ng-change="$ctrl.cambiaSinReporte()"/>
+														<span>Llamadas sin reporte</span>
+												</label><br>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-10 ">
+												<strong>Usuario</strong>
+												<select class="form-control input-sm" id="idusuario" ng-model="$ctrl.selectedUsuario" ng-change="$ctrl.bucarUsuario()" ng-options="v.NOMBRE for v in $ctrl.usuarios track by v.Clave"></select>
+											</div>
+										</div>
+									</div>
+									<footer>
+										<p class="text-right">
+
+											<button type="submit" class="btn btn-sm btn-info"><i class="fa fa-search"></i> Buscar</button>
+										</p>
+									</footer>
+								</form>
+							</uib-tab>
+							<uib-tab index="1" heading="Contrato">
+								<br/>
+								<div class="row">
+									<div class="col-md-4">
+										<strong>Contrato</strong>
+										<input type="text" class="form-control" name="contrato" ng-model="$ctrl.contrato" placeholder="Contrato">
+										<button type="button" class="btn btn-sm btn-info" ng-click="$ctrl.buscarContrato()"><i class="fa fa-search"></i> Buscar</button>
+									</div>
+									<div class="col-md-4 ">
+										<strong># Reporte</strong>
+										<input type="number" class="form-control" ng-model="$ctrl.reporte" name="reporte" placeholder="Reporte">
+										<button type="button" class="btn btn-sm btn-info" ng-click="$ctrl.buscarReporte()"><i class="fa fa-search"></i> Buscar</button>
+									</div>
+								</div>
+								<br/>
+								<br/>
+								<br/>
+								<div class="note">
+									<strong>El número de contrato</strong> está formado por 2 grupos de números con un guión intermedio p.e. (1234-1)
+								</div>
+								<footer>
+									<p class="text-right">
+
+
+									</p>
+								</footer>
+
+							</uib-tab>
+
+							<uib-tab index="2" heading="Dirección">
+								<br/>
+								<form ng-submit="$ctrl.buscarColonia()">
+									<div class="row">
+										<div class="col-md-5 ">
+											<strong>Colonia</strong>
+											<select class="form-control" 
+												ng-model="$ctrl.selectedColonia" 
+												ng-options="v.nombre for v in $ctrl.colonias|orderBy:'nombre' track by v.clvColonia">
+ 												<option value="">Primero seleccione una plaza</option>
+											</select>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-5">
+											<strong>Calle</strong>
+											<input type="text" class="form-control" ng-model="$ctrl.calle">
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-5">
+											<strong>Número</strong>
+											<input type="text" class="form-control" ng-model="$ctrl.numero">
+										</div>
+
+									</div>
+									<div class="note">
+										<p>Busqueda por dirección</p>
+									</div>
+									<footer>
+										<p class="text-right">
+											<button type="submit" class="btn btn-sm btn-info">
+	 											 <i class="fa fa-search"></i> Buscar
+	 											 </button>
+										</p>
+									</footer>
+								</form>
+							</uib-tab>
+							<uib-tab index="3" heading="Nombre">
+								<br/>
+								<form ng-submit="$ctrl.buscarNombres()">
+									<div class="row">
+										<div class="col-md-7">
+											<strong>Nombre</strong>
+											<input type="text" class="form-control" ng-model="$ctrl.nombre">
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-5">
+											<strong>Apellido Paterno</strong>
+											<input type="text" class="form-control" ng-model="$ctrl.paterno">
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-5">
+											<strong>Apellido Materno</strong>
+											<input type="text" class="form-control" ng-model="$ctrl.materno">
+										</div>
+									</div>
+									<div class="note">
+										<p>Busqueda por nombre</p>
+									</div>
+									<footer>
+										<p class="text-right">
+											<button type="submit" class="btn btn-sm btn-info">
+	 											 <i class="fa fa-search"></i> Buscar
+	 											 </button>
+										</p>
+									</footer>
+								</form>
+							</uib-tab>
+						</uib-tabset>
+					</div>
+					<!-- panel body -->
+				</div>
+			</div>
+			<!--end .panel -->
+		</div>
+
+
+		<div class="col-md-12 table-responsive">
+			<div class="col-md-12" style="padding-left: 25px; padding-right: 25px;">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>#Llamada</th>
+							<th>Fecha</th>
+							<th>Contrato</th>
+							<th>Nombre</th>
+							<th>Domicilio</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr dir-paginate="x in $ctrl.atenciones|itemsPerPage:7">
+							<td>{{ x.llamada }}</td>
+							<td>{{ x.FECHA }}</td>
+							<td>{{ x.Contrato }}</td>
+							<td>{{ x.NOMBRE }}</td>
+							<td>{{ x.CALLE }} #{{ x.NUMERO}}</td>
+							<td><button class="btn ink-reaction btn-floating-action btn-xs btn-info" ng-click="$ctrl.DetalleLlamada(x)"><i class="fa fa-eye"></i></button>
+								<a ui-sref="home.procesos.atencionEditar({ id: x.llamada})" class="btn ink-reaction btn-floating-action btn-xs btn-warning"
+								 ng-click="$ctrl.editarEntrada(x.Consecutivo)"><i class="fa fa-edit"></i></a>
+
+						</tr>
+					</tbody>
+				</table>
+				<div style="margin-top:-40px;">
+					<dir-pagination-controls max-size="7" direction-links="true" boundary-links="true" ng-if="$ctrl.atenciones.length > 0">
+					</dir-pagination-controls>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

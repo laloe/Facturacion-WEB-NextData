@@ -1,0 +1,50 @@
+<style type="text/css">
+	.scrollDiv {
+		height: 350px;
+		overflow: auto;
+		overflow-x: hidden;
+	}
+</style>
+<div class="modal-header">
+  <button class="close" aria-label="Close" type="button" ng-click="$ctrl.cancel()">×</button>
+  <h4 class="modal-title">Detalles del ticket: <span style="color:red">{{$ctrl.ticket}}</span></h4>
+</div>
+<div class="modal-body" style="padding-top:20px;">
+
+
+  <div class="row">
+    <div class="col-md-12 scrollDiv">
+      <table class="table">
+        <thead>
+            <tr style="background-color: #B5B6B6;">
+                <th style="font-size: 10px;">Concepto</th>
+                <th style="font-size: 10px;">Importe</th>
+                <th style="font-size: 10px;">Puntos APPO</th>
+                <th style="font-size: 10px;">Puntos APA</th>
+                <th style="font-size: 10px;">Puntos APPA</th>
+                <th style="font-size: 10px;">Puntos Combo</th>
+                <th style="font-size: 10px;">Importe a Bonificar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="w in $ctrl.detalles">
+                <td style="font-size: 9px;">{{ w.DESCORTA }}</td>
+                <td style="font-size: 9px;">{{ w.importe | currency }}</td>
+                <td style="font-size: 9px;">{{ w.PuntosAplicadosOtros }}</td>
+                <td style="font-size: 9px;">{{ w.puntosAplicadosAnt }}</td>
+                <td style="font-size: 9px;">{{ w.PuntosAplicadosPagoAdelantado }}</td>
+                <td style="font-size: 9px;">{{ w.DescuentoNet }}</td>
+                <td style="font-size: 9px;">{{ w.importeBonifica }}</td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+
+
+  </div>
+
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default btn-sm" type="button" ng-click="$ctrl.cancel()">cerrar</button>
+
+</div>

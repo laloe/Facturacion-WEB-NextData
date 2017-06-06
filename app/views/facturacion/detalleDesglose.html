@@ -1,0 +1,294 @@
+<div class="card" style="margin-top:20px;">
+  <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+    <header>
+      <strong style="font-weight:bold; border:none; margin-left:10px;">Detalle Desglose De Moneda</strong>
+      <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"><i class="fa fa-home" aria-hidden="true"></i> Facturación>Desglose De Moneda>Detalle</small>
+    </header>
+    <div class="tools">
+      <button class="btn btn-default btn-sm" type="button" ui-sref="home.facturacion.desglose">Cancelar</button>
+    </div>
+  </div>
+  <div class="panel" ng-show="$ctrl.showModal" style="padding-top:20px;">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="col-md-4 control-label">Clave Entrega:</label>
+            <div class="col-md-8">
+              <input style="font-size: 13px;" type="text" class="form-control input-sm" required="" ng-model="$ctrl.clave" ng-disabled="$ctrl.showClave">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="col-md-4 control-label">Fecha:</label>
+            <div class="col-md-8">
+              <input style="font-size: 13px;" type="text" class="form-control input-sm" required="" ng-model="$ctrl.fecha" ng-disabled="$ctrl.showFecha">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="col-md-4 control-label">Cajero(a):</label>
+            <div class="col-md-8">
+              <select class="form-control input-sm" ng-model="$ctrl.selectedCajero" ng-disabled="$ctrl.showCajero">
+                        <option>{{$ctrl.selectedCajero}}</option>
+                      </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h5 ng-show="$ctrl.showNota" class="text-center">NOTA: Al Capturar el Desglose debe Complementar el Efectivo del Saldo Anterior</h5>
+    <div class="row">
+      <!--billetesInicio-->
+      <div class="col-md-4" align="center">
+        <h4>Billetes:</h4>
+        <div class="form-group">
+          <label class="col-sm-4 control-label" style="font-size: 11px;"><strong>B1000:</strong></label>
+          <div class="col-sm-4 ">
+            <input type="number" class="form-control input-sm" min="0" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" ng-model="$ctrl.desglose.b1000" ng-disabled="$ctrl.showb1000" ng-change="$ctrl.changeImportes()">
+          </div>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" ng-value="$ctrl.desglose.b1000 * 1000" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4 control-label" style="font-size: 11px;"><strong>B500:</strong></label>
+          <div class="col-sm-4 ">
+            <input type="number" class="form-control input-sm" min="0" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" ng-model="$ctrl.desglose.b500" ng-disabled="$ctrl.showb500" ng-change="$ctrl.changeImportes()">
+          </div>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" ng-value="$ctrl.desglose.b500 * 500" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4 control-label" style="font-size: 11px;"><strong>B200:</strong></label>
+          <div class="col-sm-4 ">
+            <input type="number" class="form-control input-sm" min="0" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" ng-model="$ctrl.desglose.b200" ng-disabled="$ctrl.showb200" ng-change="$ctrl.changeImportes()">
+          </div>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" ng-value="$ctrl.desglose.b200 * 200" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4 control-label" style="font-size: 11px;"><strong>B100:</strong></label>
+          <div class="col-sm-4 ">
+            <input type="number" class="form-control input-sm" min="0" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" ng-model="$ctrl.desglose.b100" ng-disabled="$ctrl.showb100" ng-change="$ctrl.changeImportes()">
+          </div>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" ng-value="$ctrl.desglose.b100 * 100" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4 control-label" style="font-size: 11px;"><strong>B50:</strong></label>
+          <div class="col-sm-4 ">
+            <input type="number" class="form-control input-sm" min="0" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" ng-model="$ctrl.desglose.b50" ng-disabled="$ctrl.showb50" ng-change="$ctrl.changeImportes()">
+          </div>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" ng-value="$ctrl.desglose.b50 * 50" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4 control-label" style="font-size: 11px;"><strong>B20:</strong></label>
+          <div class="col-sm-4 ">
+            <input type="number" class="form-control input-sm" min="0" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" ng-model="$ctrl.desglose.b20" ng-disabled="$ctrl.showb20" ng-change="$ctrl.changeImportes()">
+          </div>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" ng-value="$ctrl.desglose.b20 * 20" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4 control-label"></label>
+          <div class="col-sm-4 ">
+          </div>
+          <div class="col-sm-4">
+            <p style="padding-top:15px;">{{ $ctrl.importeBillete | currency }}</p>
+          </div>
+        </div>
+        <br>
+        <div class="form-group">
+          <label class="col-sm-6 control-label"><strong>Cheques:</strong></label>
+          <div class="col-sm-6">
+            <input type="number" class="form-control input-sm" min="0" step="any" ng-model="$ctrl.desglose.cheques" ng-disabled="$ctrl.showCheques" ng-change="$ctrl.changeImportes()">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-6 control-label"><strong>Transferencia:</strong></label>
+          <div class="col-sm-6">
+            <input type="number" class="form-control input-sm" min="0" step="any" ng-model="$ctrl.desglose.transferencia" ng-disabled="$ctrl.showTransferencia" ng-change="$ctrl.changeImportes()">
+          </div>
+        </div>
+        <div class="col-md-12" ng-show="$ctrl.showNota2">
+          <span style="font-size: 10px;">Para usar decimales en "CHEQUES Y TRANSFERENCIA" coloque una coma (,).</span>
+        </div>
+      </div>
+      <!--billetesFin-->
+      <!--monedasInicio-->
+      <div class="col-md-4" align="center">
+        <h4>Monedas:</h4>
+        <div class="form-group">
+          <label class="col-sm-4 control-label" style="font-size: 11px;"><strong>M100:</strong></label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" min="0" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" ng-model="$ctrl.desglose.m100" ng-disabled="$ctrl.showm100" ng-change="$ctrl.changeImportes()">
+          </div>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" ng-value="$ctrl.desglose.m100 * 100" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4 control-label" style="font-size: 11px;"><strong>M50:</strong></label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" min="0" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" ng-model="$ctrl.desglose.m50" ng-disabled="$ctrl.showm50" ng-change="$ctrl.changeImportes()">
+          </div>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" ng-value="$ctrl.desglose.m50 * 50" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4 control-label" style="font-size: 11px;"><strong>M20:</strong></label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" min="0" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" ng-model="$ctrl.desglose.m20" ng-disabled="$ctrl.showm20" ng-change="$ctrl.changeImportes()">
+          </div>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" ng-value="$ctrl.desglose.m20 * 20" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4 control-label" style="font-size: 11px;"><strong>M10:</strong></label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" min="0" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" ng-model="$ctrl.desglose.m10" ng-disabled="$ctrl.showm10" ng-change="$ctrl.changeImportes()">
+          </div>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" ng-value="$ctrl.desglose.m10 * 10" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4 control-label" style="font-size: 11px;"><strong>M5:</strong></label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" min="0" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" ng-model="$ctrl.desglose.m5" ng-disabled="$ctrl.showm50" ng-change="$ctrl.changeImportes()">
+          </div>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" ng-value="$ctrl.desglose.m5 * 5" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4 control-label" style="font-size: 11px;"><strong>M2:</strong></label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" min="0" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" ng-model="$ctrl.desglose.m2" ng-disabled="$ctrl.showm2" ng-change="$ctrl.changeImportes()">
+          </div>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" ng-value="$ctrl.desglose.m2 * 2" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4 control-label" style="font-size: 11px;"><strong>M1:</strong></label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" min="0" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" ng-model="$ctrl.desglose.m1" ng-disabled="$ctrl.showm1" ng-change="$ctrl.changeImportes()">
+          </div>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" ng-value="$ctrl.desglose.m1 * 1" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4 control-label" style="font-size: 11px;"><strong>M050:</strong></label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" min="0" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" ng-model="$ctrl.desglose.m050" ng-disabled="$ctrl.showm050" ng-change="$ctrl.changeImportes()">
+          </div>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" ng-value="$ctrl.desglose.m050 * 0.50" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4 control-label" style="font-size: 11px;"><strong>M020:</strong></label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" min="0" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" ng-model="$ctrl.desglose.m020" ng-disabled="$ctrl.showm020" ng-change="$ctrl.changeImportes()">
+          </div>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" ng-value="$ctrl.desglose.m020 * 0.20" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4 control-label" style="font-size: 11px;"><strong>M010:</strong></label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" min="0" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" ng-model="$ctrl.desglose.m010" ng-disabled="$ctrl.showm010" ng-change="$ctrl.changeImportes()">
+          </div>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" ng-value="$ctrl.desglose.m010 * 0.10" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4 control-label" style="font-size: 11px;"><strong>M005:</strong></label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" min="0" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57" ng-model="$ctrl.desglose.m005" ng-disabled="$ctrl.showm005" ng-change="$ctrl.changeImportes()">
+          </div>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" ng-value="$ctrl.desglose.m005 * 0.05" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-4 control-label"></label>
+          <div class="col-sm-4">
+          </div>
+          <div class="col-sm-4">
+            <p style="padding-top:15px;">{{ $ctrl.importeMoneda | currency }}</p>
+          </div>
+        </div>
+      </div>
+      <!--monedasFin-->
+      <!--dolaresInicio-->
+      <div class="col-md-4" align="center">
+        <h4>Dólares:</h4>
+        <div class="form-group">
+          <label class="col-sm-6 control-label"><strong>Importe en Dólares:</strong></label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" min="0" step="any" ng-model="$ctrl.desglose.dolares" ng-disabled="$ctrl.showImporte" ng-change="$ctrl.changeImportes()">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-6 control-label"><strong>Tipo de Cambio:</strong></label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" min="0" step="any" ng-model="$ctrl.desglose.cambio" ng-disabled="$ctrl.showCambio" ng-change="$ctrl.changeImportes()">
+          </div>
+        </div>
+        <div class="col-md-12" ng-show="$ctrl.showNota2">
+          <span style="font-size: 10px;">Para usar decimales en "TIPO DE CAMBIO" coloque una coma (,).</span>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-6 control-label"><strong>Conversión a Pesos:</strong></label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control input-sm" ng-model="$ctrl.desglose.conversion" ng-disabled="$ctrl.showConversion">
+          </div>
+        </div>
+        <br><br>
+        <h4>Otros:</h4>
+        <div class="form-group">
+          <label class="col-sm-6 control-label"><strong>Gastos:</strong></label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" ng-model="$ctrl.desglose.gastos" ng-disabled="$ctrl.showGastos" placeholder=".00">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-6 control-label"><strong>Saldo Anterior:</strong></label>
+          <div class="col-sm-4">
+            <input type="number" class="form-control input-sm" ng-model="$ctrl.desglose.saldoAnterior" ng-disabled="$ctrl.showSaldoAnterior" placeholder=".00">
+          </div>
+        </div>
+        <br><br />
+        <div class="form-group">
+          <label class="col-sm-6"><strong>Gran Total:</strong></label>
+          <div class="col-sm-4">
+            <strong>{{ $ctrl.granTotal | currency }}</strong>
+          </div>
+        </div>
+      </div>
+      <!--dolaresFin-->
+    </div>
+    <!--finRow-->
+    <div class="row">
+      <div class="col-md-3  col-md-offset-1" style="margin-top:-50px; padding-left:50px;">
+        <h5>Total en pesos: <strong>{{ $ctrl.total | currency }}</strong></h5>
+      </div>
+    </div>
+  </div>
+</div>

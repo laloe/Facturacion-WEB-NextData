@@ -1,0 +1,58 @@
+<div class="modal-header">
+    <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
+    <a href="" ng-click="ctrl.printDiv('printTicket')" style="color:#2196f3;" ng-show="ctrl.mostrarImprimir"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</a>
+</div>
+<div class="modal-body" style="padding-top:20px;">
+	<div class="row" id="printTicket">
+		<div class="col-md-12">
+			<p class="text-center"><strong>{{ ctrl.datosTicket.NombreEncabezado }}<br>
+				{{ ctrl.datosTicket.RFCEncabezado }}<br>
+				{{ ctrl.datosTicket.DireccionEncabezado }} {{ ctrl.datosTicket.NumExtEncabezado }} INT {{ ctrl.datosTicket.NumIntEncabezado}}<br>
+				{{ ctrl.datosTicket.ColoniaEncabezado }}<br>
+				C.P. {{ ctrl.datosTicket.CPEncabezado }}<br>
+				{{ ctrl.datosTicket.CiudadEncabezado }}<br>
+				{{ ctrl.datosTicket.EstadoEncabezado }}</strong></p>
+			<p style="margin-top: -15px;">Nota de Venta: {{ ctrl.datosTicket.NotaVenta }}</p>
+			<p style="margin-top: -15px;" class="text-center"><strong>{{ ctrl.datosTicket.FechaEncabezado }}</strong></p>
+			<p style="margin-top: -15px;">Distribuidor: {{ ctrl.datosTicket.DistribuidorEncabezado }}</p>
+            <p style="margin-top: -15px;" class="text-center">{{ ctrl.datosTicket.CalleDistribuidorEncabezado }} {{ ctrl.datosTicket.NumExDistribuidorEncabezado }} {{ ctrl.datosTicket.ColoniaDistribuidorEncabezado }} {{ ctrl.datosTicket.MunicipioDistribuidorEncabezado }} {{ ctrl.datosTicket.RFCDistribuidorEncabezado }} {{ ctrl.datosTicket.TelefonoDistribuidorEncabezado }}</p>
+			<hr>
+			<p style="margin-top: -15px;" class="text-center">Sucursal: {{ ctrl.datosTicket.NombreSucursal }}</p>
+            <p style="margin-top: -15px;">{{ ctrl.datosTicket.CalleSucursal }} {{ ctrl.datosTicket.NumSucursal }}</p>
+			<p style="margin-top: -15px;"><strong>Contrato: {{ ctrl.datosTicket.Contrato }}</strong></p>
+			<p style="margin-top: -15px;">{{ ctrl.datosTicket.NombreCliente }}</p>
+			<p style="margin-top: -15px;">{{ ctrl.datosTicket.CalleCliente }} Número: {{ ctrl.datosTicket.NumeroC }} C.P.: {{ ctrl.datosTicket.CPCliente }} Col: {{ ctrl.datosTicket.ColoniaC }}</p>
+			<p style="margin-top: -15px;">{{ ctrl.datosTicket.CiudadC }}</p>
+			<p style="margin-top: -15px;"><strong>Cajera(o): {{ ctrl.datosTicket.Cajera }}</strong></p>
+			<hr>
+			<hr>
+            <div ng-repeat="x in ctrl.datosPago">
+                <p style="margin-top: -15px;" >{{ x.Descripcion }} <span>{{ x.importe | currency }}</span></p>
+                <p class="text-center" style="margin-top: -15px;" ng-if="x.importeBonifica > 0"><strong>Bonificación: </strong><span>{{ x.importeBonifica | currency }}</span></p>
+                <p style="margin-top: -15px; color:red;" class="text-right" ng-if="x.PeriodoPagado != '' ">{{ x.PeriodoPagado }}</p>
+                <p class="text-center" style="margin-top: -15px;" ng-if="x.PuntosCombo > 0"><strong>Puntos Combo: </strong><span>{{ x.PuntosCombo | currency }}</span></p>
+            </div>
+			<!-- <p style="margin-top: -15px; color:red;" class="text-right"> Periodo Pagado: {{ ctrl.datosTicket.PeriodoPagado }}</p> -->
+			<p style="margin-top: -15px;" class="text-right"><strong>Periodo Por Pronto Pago:</strong> -{{ ctrl.datosTicket.PuntosDescuento | currency }}</p>
+			<hr>
+			<hr>
+			<p style="margin-top: -15px;">Cantidad con Letra:</p>
+			<p style="margin-top: -15px;"><strong>{{ ctrl.datosTicket.CantidadLetra }}</strong></p>
+			<p style="margin-top: -15px;" class="text-right"><strong>Total: {{ ctrl.datosTicket.TotalAPagar | currency }}</strong></p>
+			<p style="margin-top: -15px;" ng-if="ctrl.datosTicket.Efectivo > 0"><strong>Pago en Efectivo:</strong> {{ ctrl.datosTicket.Efectivo | currency }}</p>
+			<p style="margin-top: -15px;" ng-if="ctrl.datosTicket.Efectivo > 0"><strong>Cambio:</strong> {{ ctrl.datosTicket.Cambio | currency }}</p>
+            <p style="margin-top: -15px;" ng-if="ctrl.datosTicket.Transferencia > 0"><strong>Pagó con Transferencia:</strong> {{ ctrl.datosTicket.Transferencia | currency }}</p>
+            <p style="margin-top: -15px;" ng-if="ctrl.datosTicket.Cheque > 0"><strong>Pagó con Cheque:</strong> {{ ctrl.datosTicket.Cheque | currency }}</p>
+            <p style="margin-top: -15px;" ng-if="ctrl.datosTicket.Oxxo > 0"><strong>Pagó con Oxxo:</strong> {{ ctrl.datosTicket.Oxxo | currency }}</p>
+            <p style="margin-top: -15px;" ng-if="ctrl.datosTicket.Cargo > 0"><strong>Pagó con Cargo:</strong> {{ ctrl.datosTicket.Cargo | currency }}</p>
+            <br/>
+            <p style="margin-top: -15px;"><strong>Próximo Pago antes del</strong> {{ ctrl.datosTicket.ProximoPago }}</p>
+			<p style="margin-top: -15px;" class="text-center">¡Gracias por su pago!</p>
+            <p style="margin-top: -15px;" class="text-center">{{ ctrl.datosTicket.Hora  }}</p>
+            <p style="margin-top: -15px;" class="text-center">Copia</p>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default btn-sm" type="button" ng-click="ctrl.cancel()">Cancelar</button>
+</div>

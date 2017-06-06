@@ -1,0 +1,44 @@
+<div class="card animated fadeIn" style="margin-top:30px;">
+    <div class="card-head">
+        <div class="col-md-6">
+            <header>
+                <div>
+                    <strong style="font-weight:bold; border:none; color: #0aa89e; font-size: 20px;">Roles</strong>
+                </div>
+            </header>
+        </div>
+        <div class="col-md-1 col-md-offset-5">
+            <div class="btn-group" permission permission-only="'rolesAdd'">
+                <button class="btn ink-reaction btn-success" type="button"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo</button>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <table class="table" id="datos">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Tipo de Almacen</th>
+                <th>Autoriza Ordenes</th>
+                <th>Administrador de Material</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Autorización</td>
+                <td>Almacen principal</td>
+                <td><label class="checkbox-inline checkbox-styled"><input type="checkbox"><span></span></label></td>
+                <td><label class="checkbox-inline checkbox-styled"><input type="checkbox"><span></span></label></td>
+                <td><button class="btn ink-reaction btn-floating-action btn-xs btn-warning"  permission permission-only="'rolesUpdate'" style="border-radius: 60px;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6" id="paginador"></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

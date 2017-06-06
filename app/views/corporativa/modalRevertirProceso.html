@@ -1,0 +1,27 @@
+<div class="modal-header">
+  <button class="close" aria-label="Close" type="button" ng-click="$ctrl.cancel()">×</button>
+
+
+  <h4 class="modal-title"><i class="fa fa-thumb-tack"></i> Detalle Nota de crédito No.</h4>
+</div>
+<div class="modal-body">
+
+
+<div class="row">
+  <div class="col-md-8">
+    <b class="text-danger"> Revertir el proceso que genero el ticket al que se esta aplicando la nota de crédito</b>
+
+  </div>
+  <div class="col-md-4">
+    <label class="checkbox-inline checkbox-styled checkbox-primary">
+														<input type="checkbox" ng-model="$ctrl.revertir" ><span></span>
+													</label>
+
+  </div>
+</div>
+
+</div>
+<div class="modal-footer">
+  <button class="btn btn-warning btn-sm" type="button" ng-disabled="!$ctrl.revertir" ng-click="$ctrl.ok()">Confirmar</button>
+  <button class="btn btn-default btn-sm" type="button" ng-click="$ctrl.cancel()">cerrar</button>
+</div>

@@ -1,0 +1,52 @@
+<div class="modal-header">
+  <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
+  <h4 class="modal-title">Detalle llamada #{{ctrl.NumeroLlamada}}</h4>
+</div>
+<div class="modal-body" style="padding-top:20px;">
+  <div class="row">
+    <div class="col-md-4 form-group">
+      <div class="col-md-12"><b><h4><i class="md md-perm-contact-cal"></i> Detalle de cliente</h4></b></div>
+      <div class="col-md-5"><b>Contrato:</b></div>
+      <div class="col-md-7">{{ctrl.Contrato}}</div>
+      <div class="col-md-5"><b>Servicio:</b></div>
+      <div class="col-md-7">{{ctrl.Servicio}}</div>
+
+      <div class="col-md-12"><b>Nombre:</b></div>
+      <div class="col-md-12">{{ctrl.NombreCliente}}</div>
+      <div class="col-md-12"><b>Dirección:</b></div>
+      <div class="col-md-12">{{ctrl.DireccionCliente}}</div>
+
+    </div>
+    <div class="col-md-4">
+      <b>
+        <h4><i class="md md-settings-remote"></i> Servicios asignados</h4></b>
+      <div class="row" style="    overflow-y: scroll; max-height: 250px;  background-color: gainsboro;" style="background-color: #E2EBEA;">
+        <p ng-repeat="x in ctrl.ServiciosCliente" class="text-center">{{x.Servicio}}</p>
+
+      </div>
+
+    </div>
+    <div class="col-md-4 form-group">
+      <div class="col-md-12"><b><h4><i class="md md-phone-in-talk"></i> Llamada</h4> </b></div>
+      <div class="col-md-5"><b>Hora inicial: </b></div>
+      <div class="col-md-7">{{ctrl.Hora}}</div>
+      <div class="col-md-5"><b>Fecha: </b></div>
+      <div class="col-md-7">{{ctrl.Fecha}}</div>
+      <div class="col-md-5"><b>Atención: </b></div>
+      <div class="col-md-7" ng-if="ctrl.Atencion=='T'">{{ctrl.Atencion}}</div>
+      <div class="col-md-7" ng-if="ctrl.Atencion=='S'">{{ctrl.Atencion}}</div>
+      <div class="col-md-12"><b>Tipo de Problema: </b></div>
+      <div class="col-md-12">{{ctrl.CProblema}}</div>
+      <div class="col-md-12 "><b>Descripción: </b></div>
+      <div class="col-md-12">{{ctrl.Problema}}</div>
+      <div class="col-md-12"><b>Tipo de Solución</b></div>
+      <div class="col-md-12">{{ctrl.CSolucion}}</div>
+      <div class="col-md-12"><b>Solución</b></div>
+      <div class="col-md-12">{{ctrl.CSolucion}}</div>
+
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default-bright btn-sm" type="button" ng-click="ctrl.cancel()">Cerrar</button>
+</div>

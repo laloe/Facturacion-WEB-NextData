@@ -1,0 +1,167 @@
+<div class="modal-header">
+  <button class="close" aria-label="Close" type="button" ng-click="$ctrl.cancel()">×</button>
+  <h4 class="modal-title"><i class="fa fa-thumb-tack"></i> Detalle Nota de crédito No.</h4>
+</div>
+<div class="modal-body" style="    font-size: 11px;">
+
+<div class="row">
+       <div class="col-md-4">
+         <div class="col-md-4">
+            Contrato maestro
+         </div>
+        <div class="col-md-4">         
+          <input type="number" class="form-control input-sm" ng-model="$ctrl.ContratoMaestro" ng-disabled="true">
+        </div>
+        <div class="col-md-4">
+         
+        
+        </div>
+
+      </div>
+       <div class="col-md-2 text-right" >
+        <b class="text-danger"> Estatus</b>
+       </div>
+       <div class="col-md-3" >
+      {{$ctrl.detalle.Status}}
+       </div>
+       <div class="col-md-3">
+         <div class="col-md-4"><b class="text-danger">No.Nota</b></div>
+          <div class="col-md-8">
+            <input type="text" ng-disabled="true" ng-model="$ctrl.nota" class="form-control input-sm">
+          </div>
+       </div>
+     </div>
+
+
+<hr>
+
+      <div class="row" >        
+       
+        <div class="col-md-6">
+         <div class="col-md-12">
+            
+            <label class="col-md-3 control-label blod">Nombre Comercial:</label>
+            <div class="col-md-9" style="padding-left:-10px;">
+              <input type="text" ng-disabled="true" 
+               class="form-control input-sm"  
+               ng-value="$ctrl.DetalleContrato.NombreComercial"               
+               >
+             
+            </div>
+          </div>
+             <div class="col-md-12">
+            
+
+            <label class="col-md-3 control-label blod">Razón social:</label>
+            <div class="col-md-9" style="padding-left:-10px;">
+              <input type="text" ng-disabled="true" 
+               class="form-control input-sm"  
+               ng-value="$ctrl.DetalleContrato.RazonSocial"               
+               >               
+             
+            </div>
+          </div>
+           <div class="col-md-12">
+          
+            <label class="col-md-3 control-label blod">RFC:</label>
+            <div class="col-md-9" style="padding-left:-10px;">
+              <input type="text" ng-disabled="true" 
+               class="form-control input-sm"  
+               ng-value="$ctrl.DetalleContrato.RFC">
+              
+            </div>
+          </div>
+            <div class="col-md-12">
+           
+            <label class="col-md-3 control-label blod">Distribuidor:</label>
+            <div class="col-md-9" style="padding-left:-10px;">
+              <input type="text" ng-disabled="true" 
+               class="form-control input-sm"  
+               ng-value="$ctrl.DetalleContrato.DistribuidorDes">
+             
+            </div>
+          </div>       
+          <div class="col-md-12">
+            <br>
+            <label class="col-md-3 control-label blod">Ticket:</label>
+            <div class="col-md-9" style="padding-left:-10px;">
+              <input type="text" class="form-control input-sm" ng-model="$ctrl.ticket" ng-disabled="true">
+         
+            </div>
+          </div>
+          <div class="col-md-12">
+            <label class="col-md-3 control-label blod">Caja:</label>
+            <div class="col-md-9" style="padding-left:-10px;">
+              <input type="text" ng-disabled="true"  class="form-control input-sm" ng-model="$ctrl.caja">
+            </div>
+          </div>
+          <div class="col-md-12">
+            <label class="col-md-3 control-label blod">Cajero:</label>
+            <div class="col-md-9" style="padding-left:-10px;">
+              <input type="text" ng-disabled="true" class="form-control input-sm" ng-model="$ctrl.cajero">   
+
+            </div>
+          </div>
+          <div class="col-md-12">
+            <label class="col-md-3 control-label blod">Usuario:</label>
+            <div class="col-md-9" style="padding-left:-10px;">
+              <input type="text" ng-disabled="true"  class="form-control input-sm" ng-model="$ctrl.usuario" >
+            </div>
+          </div>
+             <div class="col-md-12">
+            <label class="col-md-3 control-label blod">Fecha Generación:</label>
+            <div class="col-md-9" style="padding-left:-10px;">
+              <input type="text" ng-disabled="true" class="form-control input-sm" 
+               ng-model="$ctrl.fechag">
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <label class="col-md-3 control-label blod">Fecha caducidad:</label>
+            <div class="col-md-9" style="padding-left:-10px;">
+              <input type="text" ng-disabled="true" class="form-control input-sm" ng-model="$ctrl.fechac">
+            </div>
+          </div>
+          <div class="col-md-12">
+            <label class="col-md-3 control-label blod">Observaciones:</label>
+            <div class="col-md-9" style="padding-left:-10px;">
+              <textarea type="text" class="form-control input-sm" ng-model="$ctrl.obs" ng-disabled="true"></textarea>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-6">
+         <table class="table">
+              <thead style="background-color: khaki;">
+                <th>DESCRIPCION</th>
+                <th>IMPORTE PAGADO</th>
+                
+                
+              </thead>
+              <tbody >
+                <!-- ng-keyup="$ctrl.validaMonto(x,x.cantidad)"-->
+              <tr ng-repeat="x in $ctrl.DetalleNota">
+                 <td>{{x.descripcion}}</td>
+                 <td>{{x.importe |currency}} </td>
+
+              </tr>
+              </tbody>
+
+            </table>
+            <div class="row">
+              <div class="col-md-6" class="text-right"><b  class="text-danger">Monto: $</b></div>
+              <div class="col-md-6">
+                <b>{{$ctrl.sumatotal|currency}}</b>
+               
+              </div>
+            </div>
+
+
+        </div>
+
+
+</div>
+<div class="modal-footer">  
+  <button class="btn btn-default btn-sm" type="button" ng-click="$ctrl.cancel()">cerrar</button>
+</div>
+

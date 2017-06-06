@@ -1,0 +1,298 @@
+<style>
+  .input-yellow {
+    border-bottom-color: #ff9800 !important;
+    background: rgba(255, 152, 0, 0.18);
+  }
+
+  .input-normal {
+    background: rgba(255, 152, 0, 0.39);
+    background-color: #f2f3f3;
+  }
+
+  .wrapper {
+    height: 140px;
+    overflow: auto;
+  }
+
+</style>
+
+
+<div class="card" style="margin-top:20px;">
+  <form angular-validator-submit="$ctrl.Ejecutaqueja()" name="QuejaForm" novalidate angular-validator>
+    <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+      <header>
+        <strong style="font-weight:bold; border:none; margin-left:10px;">Ejecutar Quejas</strong>
+        <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"> <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Procesos</a>><a href="#" class="paginaActiva">Reportes</a></small>
+
+      </header>
+      <div class="tools">
+        <button type="submit" ng-show="$ctrl.BtnGuarda" class="btn btn-success btn-sm">Guardar</button>
+        <button type="button" ui-sref="home.procesos.reportes" class="btn btn-default-bright btn-sm" name="button">Cancelar</button>
+      </div>
+    </div>
+
+
+    <div class="card-body">
+
+
+
+
+
+
+
+      <div class="row card" style="    background-color: #f2f3f3">
+        <div class="col-md-3 col-md-offset-2">
+          <b class="text-danger">Generó: </b> {{$ctrl.UsuarioGenero}}
+        </div>
+        <div class="col-md-3 ">
+          <b class="text-danger">Ejecutó: </b>{{$ctrl.UsuarioEjecuto}}
+        </div>
+
+        <div class="col-md-1">
+          <b class="text-danger">Status</b>
+        </div>
+        <div class="col-md-3">
+
+          <select class="form-control input-sm" name="Estatus" ng-disabled="$ctrl.IEstatus" ng-model="$ctrl.Estatus" ng-class="$ctrl.ISelectEstatus"
+            ng-change="$ctrl.CambiaEstatus()" ng-options="item as item.Nombre for item in $ctrl.Status track by item.Clave">
+                                     <!-- <option value="">Selecciona estatus</option>-->
+                        </select>
+        </div>
+      </div>
+      <div class="row" style="padding: 10px;
+    border: 1px solid #e5e6e6;">
+
+        <div class="col-md-4" style="font-size:12px;">
+
+          <div class="col-md-12 text-center" style="font-size:14px; color: #06599a;">
+            <button type="button" class="btn btn-block ink-reaction btn-flat btn-info"><i class="md md-account-box"></i> Suscriptor</button>
+          </div>
+          <div class="col-md-12">
+            <b>Tipo de servicio</b>
+            <select class="form-control input-sm" ng-model="$ctrl.Servicio" ng-options="item as item.Concepto for item in $ctrl.Servicios track by item.Clv_TipSerPrincipal"
+              ng-disabled="true">
+               <option value="">Selecciona</option>
+                             </select>
+          </div>
+          <div class="col-md-6">
+            <b>Clave</b>
+            <input class="form-control input-sm" ng-disabled="true" ng-model="$ctrl.clv_queja">
+          </div>
+          <div class="col-md-6">
+            <b>Contrato</b>
+            <input class="form-control input-sm" ng-model="$ctrl.contrato" ng-disabled="true">
+          </div>
+          <div class="col-md-12">
+            <b>Nombre: </b>{{$ctrl.NombreCliente}} <br>
+            <b>Calle: </b>{{$ctrl.Calle}} <b>#:</b>{{$ctrl.Numero}}<br>
+            <b>Colonia: </b>{{$ctrl.Colonia}}<br>
+            <b>Ciudad: </b>{{$ctrl.Ciudad}}
+
+          </div>
+        
+        </div>
+
+        <div class="col-md-4 form-group" style="font-size:12px;">
+
+          <div class="col-md-12 text-center " style="font-size:14px; color: #06599a;">
+            <button type="button" class="btn btn-block ink-reaction btn-flat btn-info"><i class="fa fa-clock-o"></i> Fechas</button>
+          </div>
+          <div class="col-md-5 "><b>Fecha solicitud</b></div>
+          <div class="col-md-4">
+            <input type="text" class="form-control input-sm" ng-model="$ctrl.FechaSolicitud" ng-disabled="true" placeholder="DD/MM/YYYY"
+              ui-mask="99/99/9999">
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control input-sm" ng-model="$ctrl.HoraSolicitud" ng-disabled="true" placeholder="hh:mm AA"
+              ui-mask="99:99 AA">
+          </div>
+          <div class="col-md-5"><b>Ejecución</b></div>
+          <div class="col-md-4">
+            <input type="text" class="form-control input-sm" ng-class="$ctrl.Iejecucion" ng-model="$ctrl.FechaEjecucion" placeholder="DD/MM/YYYY"
+              ui-mask="99/99/9999" model-view-value="true" ng-disabled="$ctrl.FEjecucion">
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control input-sm" ng-class="$ctrl.Iejecucion" ng-model="$ctrl.HoraEjecucion" placeholder="hh:mm AA"
+              ui-mask="99:99 AA" model-view-value="true" ng-disabled="$ctrl.FEjecucion">
+          </div>
+          <div class="col-md-5"><b>Visita1</b></div>
+          <div class="col-md-4">
+            <input type="text" class="form-control input-sm" ng-model="$ctrl.Fechavisita1" ng-class="$ctrl.Ivisita1" placeholder="DD/MM/YYYY"
+              ui-mask="99/99/9999" model-view-value="true" ng-disabled="$ctrl.FVisita1">
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control input-sm" ng-model="$ctrl.Horavisita1" ng-class="$ctrl.Ivisita1" placeholder="hh:mm AA"
+              ui-mask="99:99 AA" model-view-value="true" ng-disabled="$ctrl.FVisita1">
+          </div>
+          <div class="col-md-5"><b>Visita2</b></div>
+          <div class="col-md-4">
+            <input type="text" class="form-control input-sm" ng-model="$ctrl.Fechavisita2" ng-class="$ctrl.Ivisita2" placeholder="DD/MM/YYYY"
+              ui-mask="99/99/9999" model-view-value="true" ng-disabled="$ctrl.FVisita2">
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control input-sm" ng-model="$ctrl.Horavisita2" ng-class="$ctrl.Ivisita2" placeholder="hh:mm AA"
+              ui-mask="99:99 AA" model-view-value="true" ng-disabled="$ctrl.FVisita2">
+          </div>
+          <div class="col-md-5"><b>Visita3</b></div>
+          <div class="col-md-4">
+            <input type="text" class="form-control input-sm" ng-model="$ctrl.Fechavisita3" ng-class="$ctrl.Ivisita3" placeholder="DD/MM/YYYY"
+              ui-mask="99/99/9999" model-view-value="true" ng-disabled="$ctrl.FVisita3">
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control input-sm" ng-model="$ctrl.Horavisita3" ng-class="$ctrl.Ivisita3" placeholder="hh:mm AA"
+              ui-mask="99:99 AA" model-view-value="true" ng-disabled="$ctrl.FVisita3">
+          </div>
+          <div class="col-md-5"><b>En proceso</b></div>
+          <div class="col-md-4">
+            <input type="text" class="form-control input-sm" ng-model="$ctrl.FechaProceso" ng-class="$ctrl.Iproceso" placeholder="DD/MM/YYYY"
+              ui-mask="99/99/9999" model-view-value="true" ng-disabled="$ctrl.FProceso">
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control input-sm" ng-model="$ctrl.HoraProceso" ng-class="$ctrl.Iproceso" placeholder="hh:mm AA"
+              ui-mask="99:99 AA" model-view-value="true" ng-disabled="$ctrl.FProceso">
+          </div>
+          <div class="col-md-5">Ejecución real</div>
+          <div class="col-md-4">
+            <input type="text" class="form-control input-sm" ng-model="$ctrl.FechaEjecucuionReal" placeholder="DD/MM/YYYY" ui-mask="99/99/9999"
+              model-view-value="true" ng-disabled="true">
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control input-sm" ng-model="$ctrl.HoraEjecucuionReal" placeholder="hh:mm AA" ui-mask="99:99 AA"
+              model-view-value="true" ng-disabled="true">
+          </div>
+        </div>
+        <div class="col-md-4" style="font-size:12px;">
+
+          <div class="col-md-12 text-center" style="font-size:14px; color: #06599a;">
+            <button type="button" class="btn btn-block ink-reaction btn-flat btn-info"><i class="md md-assignment-ind"></i> Asignación</button>
+
+
+          </div>
+          <div class="col-md-12">
+            <b>Departamento Responsable:</b>
+            <input type="text" required-message="'Este campo es obligatorio.'" required validate-on="dirty" class="form-control input-sm"
+              ng-model="$ctrl.Departamento" ng-disabled="true">
+          </div>
+          <div class="col-md-12">
+            <b>Selecciona Técnico:</b>
+            <select class="form-control input-sm" name="Tecnico" required-message="'Este campo es obligatorio.'" required validate-on="dirty"
+              ng-model="$ctrl.Tecnico" ng-options="item as item.Nombre for item in $ctrl.Tecnicos track by item.clv_Tecnico">
+                       <option value="">Selecciona</option>
+                       </select>
+          </div>
+          <div class="col-md-12">
+            <br>
+            <div class="col-md-6">
+              <button type="button" class="btn btn-xs btn-success" ng-click="$ctrl.abrirBonificacion()"><i class="fa fa-money"></i> Bonificación</button>
+            </div>
+            <div class="col-md-6">
+              <button type="button" class="btn btn-xs btn-warning" ng-click="$ctrl.DescargaMaterial()"><i class="fa fa-wrench"></i> Descar. Material</button>
+            </div>
+
+
+          </div>
+          <!-- <b><h5>Servicios asignados</h5></b>
+                  <div class=" card wrapper text-center">
+                    <p ng-repeat="x in $ctrl.ServiciosCliente" style="font-size:10px;">{{x.Servicio}}</p>
+                  </div> -->
+
+
+
+        </div>
+        
+      </div>
+      <div class=" row card   ">
+        <div class="card-head card-head-xs  text-center">
+
+          <header style="color: #2196f3; font-weight: bold;" >Problema y solución</header>
+        </div>
+      <div class="card-body">
+
+         <div class="col-md-4">
+          <div class="col-md-6">
+
+            <b>Clasificación del problema</b>
+            <select class="form-control input-sm" ng-disabled="$ctrl.IClasproblema" ng-model="$ctrl.Problema" ng-options="item as item.descripcion for item in $ctrl.Problemas track by item.clvProblema"></select>
+          </div>
+          <div class="col-md-6">
+            <b> Prioridad</b>
+            <select class="form-control input-sm" name="Prioridad" required-message="'Este campo es obligatorio.'" required validate-on="dirty"
+              ng-disabled="$ctrl.Iprioridad" ng-model="$ctrl.Prioridad" ng-options="item as item.Descripcion for item in $ctrl.Prioridades track by item.clvPrioridadQueja">
+          <option value="">selecciona</option>
+                    </select>
+          </div>
+          <div class="col-md-12">
+            <b>Reporte del cliente</b>
+            <textarea class="form-control input-sm" ng-disabled="$ctrl.IDetProblema" ng-model="$ctrl.DetalleProblema">
+                        </textarea>
+          </div>
+          <div class="col-md-12">
+            <b> Observaciones</b>
+            <textarea class="form-control input-sm" ng-model="$ctrl.Observaciones" ng-disabled="$ctrl.Iobser">
+
+                    </textarea>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="col-md-6">
+            <b>Tipo solución</b>
+            <select class="form-control input-sm" name="solucion" required-message="'Este campo es obligatorio.'" required validate-on="dirty"
+              ng-disabled="$ctrl.Itrabajo" ng-model="$ctrl.Trabajo" ng-options="item as item.DESCRIPCION for item in $ctrl.Trabajos track by item.CLV_TRABAJO">
+                    <option value="">selecciona</option>
+                      </select>
+          </div>
+          <div class="col-md-4">
+            <label class="checkbox-inline checkbox-styled checkbox-success">
+                                      <input type="checkbox" ng-model="$ctrl.Visita" value="option3" ng-checked=""><span>Requirió visita</span>
+                                    </label> </div>
+          <div class="col-md-12">
+            <b> Problema real:</b>
+            <textarea class="form-control input-sm" name="Problema" required-message="'Este campo es obligatorio.'" required validate-on="dirty"
+              ng-disabled="$ctrl.Iprobreal" ng-model="$ctrl.ProblemaReal" placeholder="Redacta brevemente el problema real que derivo la queja">
+
+                      </textarea>
+          </div>
+        </div>
+        <div class="col-md-3 s" style="font-size: 10px; margin-top:5px; ">
+          <div class="col-md-12 text-center style-danger" style="font-size:14px;"><b><i class="fa fa-calendar"></i> Agenda</b></div>
+
+          <div class="col-md-3">
+            Técnico
+          </div>
+          <div class="col-md-9">
+            <input type="text" class="form-control input-sm" ng-model="$ctrl.TecnicoAgenda">
+          </div>
+          <div class="col-md-3">
+            Turno
+          </div>
+          <div class="col-md-9">
+            <input type="text" class="form-control input-sm" ng-model="$ctrl.TurnoAgenda">
+          </div>
+          <div class="col-md-3">
+            Fecha
+          </div>
+          <div class="col-md-9">
+            <input type="text" class="form-control input-sm" ng-model="$ctrl.FechaAgenda">
+          </div>
+          <div class="col-md-12">
+            <b>Observaciones</b>
+          </div>
+          <div class="col-md-12">
+            <textarea type="text" class="form-control input-sm " ng-model="$ctrl.ComentarioAgenda"></textarea>
+          </div>
+        </div>
+
+
+      </div>
+
+        
+      </div>
+
+    </div>
+</div>
+</form>
+</div>
+
+
+
+				

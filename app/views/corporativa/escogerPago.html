@@ -1,0 +1,46 @@
+<div class="modal-header">
+    <button class="close" aria-label="Close" type="button" ng-click="$ctrl.cancel()">×</button>
+    <h4 class="modal-title">Escoga tipo de pago</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <label class="radio-inline radio-styled">
+                <input type="radio" name="inlineRadioOptions" ng-change="$ctrl.cambio($ctrl.pagos)" ng-value="1" ng-model="$ctrl.pagos"><span>Pagos Fijos</span>
+            </label>
+            <label class="radio-inline radio-styled">
+                <input type="radio" name="inlineRadioOptions" ng-change="$ctrl.cambio($ctrl.pagos)" ng-value="2" ng-model="$ctrl.pagos"><span>Pagos Variables</span>
+            </label>
+        </div>
+    </div>
+    <div class="row text-left" style="padding-left: 15px;">
+        <h3>Monto: {{$ctrl.monto | currency}}</h3>
+    </div>
+
+    <div class="row" ng-show="$ctrl.fijos" style="padding-top: 15px;">
+        <div class="col-md-9 form-group">
+            <label class="label-control">Pago inicial</label>
+            <input type="number" class="form-control" ng-change="$ctrl.operacion()" ng-model="$ctrl.pagoInicial">
+        </div>
+        <div class="col-md-6 form-group">
+            <label class="label-control">Número de pagos mensuales.</label>
+            <input type="number" class="form-control" ng-change="$ctrl.operacion()" ng-model="$ctrl.numeroPagos">
+        </div>
+        <div class="col-md-6 form-group">
+            <label class="label-control">Monto mensual.</label>
+            <p>{{$ctrl.mensualidad | currency}}</p>
+        </div>
+    </div>
+
+    <div class="row" ng-show="$ctrl.variables" style="padding-top: 15px;">
+        <div class="col-md-9 form-group">
+            <label class="label-control">Abono</label>
+            <input type="number" class="form-control" ng-change="$ctrl.abonoMenor()" ng-model="$ctrl.abono">
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default btn-sm" type="button" ng-click="$ctrl.cancel()">Cancelar</button>
+    <button class="btn btn-success btn-sm" type="button" ng-show="$ctrl.botonFijo" ng-click="$ctrl.guardarFijo()">Siguiente</button>
+    <button class="btn btn-success btn-sm" type="button" ng-show="$ctrl.botonVariable" ng-click="$ctrl.guardarVariable()">Siguiente</button>
+</div>

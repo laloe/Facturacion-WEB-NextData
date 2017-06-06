@@ -1,0 +1,41 @@
+<div class="card animated fadeIn fast" style="margin-top:20px;">
+	<div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+		<header>
+			<strong style="font-weight:bold; border:none; margin-left:10px;">Arqueo De Cajas</strong>
+			<br /><small class="text-muted" style="font-size:14px; margin-left:10px;"><i class="fa fa-home" aria-hidden="true"></i> Facturación>Arqueo De Cajas</small>
+
+		</header>
+	</div>
+	<div class="section-body">
+		<div class="row">
+			<div class="col-md-3" style="padding-top: 10px;">
+				<h4 class="text-center">Selección de Cajera (Arqueo)</h4>
+				<div class="col-md-12">
+					<span>Plaza</span>
+					<select class="form-control" ng-model="$ctrl.selectedPlaza" ng-change="$ctrl.changePlaza()" ng-options="v.razon_social for v in $ctrl.plazas track by v.id_compania"></select>
+				</div>
+				<div class="col-md-12">
+					<span>Fecha</span>
+					<input type="date" class="form-control" ng-model="$ctrl.fecha">
+				</div>
+				<div class="col-md-12">
+					<span>Nombre Cajero(a)</span>
+					<select class="form-control" ng-model="$ctrl.selectedCajero" ng-options="v.Nombre for v in $ctrl.cajeros track by v.Clv_Usuario"></select>
+				</div>
+				<div class="col-md-12">
+					<br>
+					<p>
+						<button class="btn btn-block btn-warning" ng-click="$ctrl.generarArqueo()"><i class="fa fa-tasks" aria-hidden="true"></i> Generar</button>
+					</p>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<div class="row" ng-show="$ctrl.showReporte">
+					<div style="padding-top:10px; height:600px;">
+						<iframe id="reporteID" style="width:95%; height:100%;"></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,124 @@
+<style type="text/css">
+  .scrollDiv {
+    height: 300px;
+    overflow: auto;
+    overflow-x: hidden;
+  }
+
+</style>
+<div class="modal-header" style="background-color: #f2f3f3;">
+  <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
+  <h4 class="modal-title">Detalle Contrato #{{ ctrl.contrato.IdContratoMaestro }}</h4>
+</div>
+<div class="modal-body" style="padding-top:20px;">
+  <div class="row" style="font-size:10px;">
+    <div class="col-md-4">
+      <div class="col-md-12">
+        <b>Razón Social:</b>
+        <p>{{ctrl.contrato.RazonSocial}}</p>
+      </div>
+      <div class="col-md-12">
+        <b>Nombre comercial:</b>
+        <p>{{ctrl.contrato.NombreComercial}}</p>
+      </div>
+
+    </div>
+    <div class="col-md-3">
+
+      <div class="col-md-12">
+        <b>Distribuidor:</b>
+        <p>{{ctrl.contrato.DistribuidorDes}}</p>
+      </div>
+      <div class="col-md-12">
+        <b>RFC:</b>
+        <p>{{ctrl.contrato.RFC}}</p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="col-md-6">
+        <b>Teléfono:</b>
+        <p>{{ctrl.contrato.Tel}}</p>
+      </div>
+      <div class="col-md-6">
+        <b>Correo:</b>
+        <p>{{ctrl.contrato.Email}}</p>
+      </div>
+      <div class="col-md-6">
+        <b>Fax:</b>
+        <p>{{ctrl.contrato.Fax}}</p>
+      </div>
+
+
+    </div>
+
+
+
+  </div>
+  <hr>
+  <div class="row" style="font-size:10px;">
+
+    <div class="col-md-12 ">
+      <div class="col-md-3">
+        <b>Domicilio Fiscal:</b><br>
+        <p>Calle: {{ctrl.contrato.CalleDes}}<br>
+		Entre Calles: {{ctrl.contrato.EntreCalles}}<br>
+		 No.Exterior: {{ctrl.contrato.NumExt}} <br>No.Interior: {{ctrl.contrato.NumInt}}<br>
+      </div>
+      <div class="col-md-3">
+        Colonia: {{ctrl.contrato.ColoniaDes}}<br> CP: {{ctrl.contrato.CodigoPostal}}<br> Ciudad: {{ctrl.contrato.CiudadDes}}
+        <br>Estado: {{ctrl.contrato.EstadoDes}}
+
+      </div>
+      <div class="col-md-3">
+        <p> <b>Días de crédito:</b>{{ctrl.contrato.DiasCredito}} </p>
+        <p> <b>Días de gracia:</b>{{ctrl.contrato.DiasGracia}} </p>
+        <p> <b>Limite de Crédito:</b>{{ctrl.contrato.LimiteCredito}} </p>
+        <p ng-if="ctrl.contrato.FacturacionDolares"><b>Pago en Dolares:  </b> <span class="badge">Si</span></p>
+        <p ng-if="!ctrl.contrato.FacturacionDolares"><b>Pago en Dolares:  </b> <span class="badge">No</span></p>
+
+      </div>
+
+      <div class="col-md-3">
+        <p ng-if="ctrl.contrato.PagoEdoCuetna==true"> <b>Tipo de pago:</b> Pago con Edo.Cuenta</p>
+        <p ng-if="ctrl.contrato.PagoFac==true"> <b>Tipo de pago:</b> Pago Factura</p>
+        <p ng-if="ctrl.contrato.PostPago==true"><b>Forma de pago:</b> Postpago</p>
+        <p ng-if="ctrl.contrato.Prepago==true"><b>Forma de pago:</b> Prepago</p>
+        <b>Dia de  facturación:</b>{{ctrl.contrato.FechaFac}}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row form-group" >
+  <div class="col-md-11" ng-class="ctrl.contrato.lstCliS.length > 3 ? 'scrollDiv':''" style="padding-left: 40px;">
+    <h5 class="text-center">Contratos Asignados</h5>
+    <table class="table" style="font-size:10px;">
+      <thead style="background-color: #cecece;">
+        <th class="text-center">Contrato</th>
+        <th class="text-center">Dirección</th>
+        <th class="text-center">Cliente</th>
+        <th class="text-center">Nivel afec.</th>
+        <th class="text-center">Proporcional</th>
+      </thead>
+      <tbody>
+        <tr ng-if="ctrl.contrato.lstCliS.length >0" ng-repeat="x in ctrl.contrato.lstCliS | orderBy:'Nivel'">
+          <td style="font-size:8px;">{{ x.ContratoCom }}</td>
+          <td style="font-size:8px;">{{ x.Direccion }}</td>
+          <td style="font-size:8px;">{{ x.NombreCli }}</td>
+          <td>{{ x.Nivel }}</td>
+          <td>
+            <label class="checkbox-inline checkbox-styled checkbox-primary">
+														<input type="checkbox" value="x.ContratoCom" ng-checked="{{ x.Proporcional }}" disabled><span></span>								
+
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-default btn-sm" type="button" ng-click="ctrl.cancel()">Cerrar</button>
+</div>

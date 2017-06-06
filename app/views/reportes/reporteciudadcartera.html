@@ -1,0 +1,55 @@
+<div class="card" style="margin-top:20px;">
+	<div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+		<header>
+			<strong style="font-weight:bold; border:none; margin-left:10px;">Reportes Por Ciudad y Cartera</strong>
+			<br /><small class="text-muted" style="font-size:14px; margin-left:10px;"><i class="fa fa-home" aria-hidden="true"></i> Facturación>Reportes Por Ciudad y Cartera</small>
+
+		</header>
+	</div>
+	<div class="section-body">
+		<div class="col-md-4">
+			<div style="height:90%;">
+				<h4 class="text-center">Opciones</h4>
+				<hr>
+				<label><b>Selecciona servicio</b></label>
+				<select ng-model="$ctrl.servicio" class="form-control">
+			           <option value="" > - Selecciona  - </option>
+			           <option ng-repeat="a in $ctrl.servicios" value="{{a.Clv_TipSer}}" >{{a.Concepto}}  </option>
+			         </select>
+				<br>
+				<label><b>Selecciona fecha</b></label>
+				<select ng-model="$ctrl.fecha" class="form-control">
+			          <option value="" > - Selecciona  - </option>
+			           <option ng-repeat="a in $ctrl.fechas" value="{{a}}" >{{a}}</option>
+			         </select>
+				<br>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Selecciona el tipo de reporte</label>
+					<div class="col-sm-9">
+						<div class="radio radio-styled radio-info">
+							<label>
+								<input type="radio" ng-model="$ctrl.TipoReporte"  value="cartera">
+								<span>Reporte de Cartera</span>
+			                </label>
+						</div>
+						<div class="radio radio-styled radio-info">
+							<label>
+								<input type="radio" ng-model="$ctrl.TipoReporte" value="ciudad">
+			                    <span>Reporte por Ciudad</span>
+			                 </label>
+						</div>
+					</div>
+				</div>
+				<br>
+				<button ng-click="$ctrl.ObtenReporte();" class="btn btn-block btn-warning">Obtener reporte</button>
+			</div>
+		</div>
+		<div class="col-md-8">
+			<div class="row">
+				<div style="padding-left:20px; padding-right:20px; padding-top:10px; height:600px;">
+					<iframe ng-src="{{$ctrl.carteraurl}}" style="width:100%; height:100%;">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

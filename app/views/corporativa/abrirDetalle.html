@@ -1,0 +1,89 @@
+<style>
+  .wrapper {
+    height: 140px;
+    overflow: auto;
+  }
+
+  .esmeralda {
+    background-color: #DDEAE9;
+  }
+
+  .sizeTr {
+    height: 20px;
+  }
+
+  .sizeTd {
+    padding: 5px !important;
+  }
+</style>
+<div class="modal-header">
+    <button class="close" aria-label="Close" type="button" ng-click="$ctrl.cancel()">×</button>
+    <h4 class="modal-title">Detalle Contrato</h4>
+</div>
+<div class="modal-body" style="padding-top:20px;">
+    <div class="table-responsive" style="padding-left: 8px; width: 95%">
+        <table class="table table-bordered">
+            <thead>
+                <tr style="background-color: #B5B6B6;">
+                    <th style="font-size: 10px;">Aparato</th>
+                    <th style="font-size: 10px;">Concepto</th>
+                    <th style="font-size: 10px;">Pagos Adelantados</th>
+                    <th style="font-size: 10px;">Tv's Extra</th>
+                    <th style="font-size: 10px;">Meses Cortesia</th>
+                    <th style="font-size: 10px;">Meses a Pagar</th>
+                    <th style="font-size: 10px;">Importe</th>
+                    <th style="font-size: 10px;" title="Periodo Pagado Inicial">Periodo PI</th>
+                    <th style="font-size: 10px;" title="Periodo Pagado Final">Periodo PF</th>
+                    <th style="font-size: 10px;" title="Puntos Aplicados Por Pago Oportuno">Puntos APPO</th>
+                    <th style="font-size: 10px;" title="Puntos Aplicados Por Antiguedad">Puntos APA</th>
+                    <th style="font-size: 10px;" title="Puntos Aplicados Por Pagos Adelantados">Puntos APPA</th>
+                    <th style="font-size: 10px;">Puntos Combo</th>
+                    <th style="font-size: 10px;">Importe a Bonificar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="x in $ctrl.detallePago" class="sizeTr" ng-click="$ctrl.guardaconcepto(x,$index)" ng-class="x.isChecked == true ? 'esmeralda':''">
+                    <td class="sizeTd" style="font-size: 9px; width:100px;">{{ x.MacCableModem }}</td>
+                    <td class="sizeTd" style="font-size: 9px; width:170px;">{{ x.DESCORTA }} <button class="btn ink-reaction btn-icon-toggle btn-primary btn-xs " ng-click="$ctrl.InformacionCobro(x);"><i class="md md-help"></i></buttontn> </td>
+                    <td class="sizeTd" style="font-size: 9px;"><button class="btn btn-default btn-xs" ng-if="x.Pagos_Adelantados != null" ng-disabled="$ctrl.blockBaja" ng-click="$ctrl.adelantaPagos(x)">{{ x.Pagos_Adelantados }}</button></td>
+                    <td class="sizeTd" style="font-size: 9px;">{{ x.tvAdic }}</td>
+                    <td class="sizeTd" style="font-size: 9px;">{{ x.Meses_Cortesia }}</td>
+                    <td class="sizeTd" style="font-size: 9px;">{{ x.mesesApagar }}</td>
+                    <td class="sizeTd" style="font-size: 9px;">{{ x.importe | currency }}</td>
+                    <td class="sizeTd" style="font-size: 9px;">{{ x.periodoPagadoIni }}</td>
+                    <td class="sizeTd" style="font-size: 9px;">{{ x.periodoPagadoFin }}</td>
+                    <td class="sizeTd" style="font-size: 9px;">{{ x.PuntosAplicadosOtros }}</td>
+                    <td class="sizeTd" style="font-size: 9px;">{{ x.puntosAplicadosAnt }}</td>
+                    <td class="sizeTd" style="font-size: 9px;">{{ x.PuntosAplicadosPagoAdelantado }}</td>
+                    <td class="sizeTd" style="font-size: 9px;">{{ x.DescuentoNet }}</td>
+                    <td class="sizeTd" style="font-size: 9px;">{{ x.importeBonifica }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div>
+               <label class="col-sm-3 control-label text-right" style="font-size: 12px;">Seleccione el servicio</label>
+                <div class="col-sm-5">
+                    <select class="form-control" ng-model="$ctrl.selectedService" ng-options="v.DescripcionFac for v in $ctrl.servicios track by v.Clv_Servicio"></select>
+                </div>
+                <button class="btn btn-info btn-xs" ng-click="$ctrl.ok()">AGREGAR A LA LISTA</button>
+                <button class="btn btn-danger btn-xs" ng-click="$ctrl.openDeleteList()">QUITAR DE LA LISTA</button>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <table class="table">
+                <tr ng-repeat="x in $ctrl.sumaPagos">
+                    <td style="font-size: 11px;" ng-if="!$last"><strong>{{ x.Descripcion }}</strong></td>
+                    <td style="font-size: 15px;" ng-if="$last"><strong>{{ x.Descripcion }}</strong></td>
+                    <td style="font-size: 11px;" ng-if="!$last"> {{ x.Total | currency }} </td>
+                    <td style="font-size: 15px;" ng-if="$last"><strong>{{ x.Total | currency }}</strong></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default btn-sm" type="button" ng-click="$ctrl.cancel()">Cerrar</button>
+</div>

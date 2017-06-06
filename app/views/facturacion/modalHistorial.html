@@ -1,0 +1,33 @@
+<div class="modal-header">
+    <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
+    <h4 class="modal-title">Historial del Cliente</h4>
+</div>
+<div class="modal-body">
+  <div class="row" style="padding-left:10px;">
+    <p>Selecciona el historial que deseas ver</p>
+    <div class="col-md-12">
+        <label class="radio-inline radio-styled">
+            <input type="radio" name="inlineRadioOptions" ng-value="1" ng-model="ctrl.historial"><span>Historial de Pagos</span>
+        </label>
+    </div>
+    <div class="col-md-12">
+        <label class="radio-inline radio-styled col-md-12">
+            <input type="radio" name="inlineRadioOptions" ng-value="2" ng-model="ctrl.historial"><span>Historial de Ordenes de Servicio</span>
+        </label>
+    </div>
+    <div class="col-md-12">
+        <label class="radio-inline radio-styled col-md-12">
+            <input type="radio" name="inlineRadioOptions" ng-value="3" ng-model="ctrl.historial"><span>Historial de Reportes</span>
+        </label>
+    </div>
+    <div class="col-md-12" ng-if="ctrl.tieneSaldo==true">
+        <label class="radio-inline radio-styled col-md-12">
+            <input type="radio" name="inlineRadioOptions" ng-value="4" ng-model="ctrl.historial"><span>Historial de Estados de cuenta</span>
+        </label>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default btn-sm" type="button" ng-click="ctrl.cancel()">Cancelar</button>
+    <button class="btn btn-primary btn-sm" type="button" ng-click="ctrl.ok()">Aceptar</button>
+</div>

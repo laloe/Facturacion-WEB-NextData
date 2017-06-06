@@ -1,0 +1,11 @@
+<div class="modal-header alert-danger">
+    <button class="close" aria-label="Close" type="button" ng-click="$ctrl.cancel()">×</button>
+    <h4 class="text-center" style="margin-top:5px;">Eliminar Desglose de Moneda</h4>
+</div>
+<div class="modal-body" style="padding-top:20px;">
+	<p style="color:red; font-size: 14px;"><strong>¿Realmente deseas eliminar el desglose de moneda con el número consecutivo {{ $ctrl.consecutivo }}?</strong></p>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default btn-sm" type="button" ng-click="$ctrl.cancel()">Cancelar</button>
+    <button class="btn btn-danger btn-sm" type="button" ng-click="$ctrl.eliminarEntrega()">Eliminar</button>
+</div>

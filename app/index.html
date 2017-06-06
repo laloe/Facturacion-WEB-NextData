@@ -1,0 +1,237 @@
+<!doctype html>
+<html ng-app="softvApp">
+
+<head>
+  <meta charset="utf-8">
+  <title ng-bind="$state.current.data.pageTitle">SOFTV WEB</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <link rel="shortcut icon" href="images/logo.ico">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
+  <link rel="stylesheet" href="bower_components/ng-notify/src/styles/ng-notify.css" />
+  <link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.css" />
+  <link rel="stylesheet" href="bower_components/pnotify/dist/pnotify.brighttheme.css" />
+  <link rel="stylesheet" href="bower_components/pnotify/dist/pnotify.buttons.css" />
+  <link rel="stylesheet" href="bower_components/pnotify/dist/pnotify.css" />
+  <link rel="stylesheet" href="bower_components/pnotify/dist/pnotify.history.css" />
+  <link rel="stylesheet" href="bower_components/pnotify/dist/pnotify.mobile.css" />
+  <link rel="stylesheet" href="bower_components/pnotify/dist/pnotify.nonblock.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link type="text/css" rel="stylesheet" href="styles/main.css" />
+  <!-- endbuild -->
+  <link href='http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900' rel='stylesheet' type='text/css'
+  />
+  <link type="text/css" rel="stylesheet" href="libs/theme-default/materialadmin.css?1425466319" />
+  <link type="text/css" rel="stylesheet" href="libs/theme-default/font-awesome.min.css?1422529194" />
+  <link type="text/css" rel="stylesheet" href="libs/theme-default/material-design-iconic-font.min.css?1421434286" />
+  <link type="text/css" rel="stylesheet" href="libs/theme-default/libs/rickshaw/rickshaw.css?1422792967" />
+  <link type="text/css" rel="stylesheet" href="libs/theme-default/libs/morris/morris.core.css?1420463396" />
+</head>
+
+<body class="menubar-hoverable header-fixed" ng-controller="MainCtrl as $ctrl">
+  <!--[if lte IE 8]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+      <![endif]-->
+  <!-- BEGIN HEADER-->
+  <div ui-view="loginview"></div>
+  <div ui-view="homeview"></div>
+
+  <!-- build:js(.) scripts/vendor.js -->
+  <!-- bower:js -->
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
+  <script src="bower_components/ng-notify/src/scripts/ng-notify.js"></script>
+  <script src="bower_components/angular-block-ui/dist/angular-block-ui.js"></script>
+  <script src="bower_components/ngstorage/ngStorage.js"></script>
+  <script src="bower_components/angularUtils-pagination/dirPagination.js"></script>
+  <script src="bower_components/pnotify/dist/pnotify.js"></script>
+  <script src="bower_components/pnotify/dist/pnotify.animate.js"></script>
+  <script src="bower_components/pnotify/dist/pnotify.buttons.js"></script>
+  <script src="bower_components/pnotify/dist/pnotify.callbacks.js"></script>
+  <script src="bower_components/pnotify/dist/pnotify.confirm.js"></script>
+  <script src="bower_components/pnotify/dist/pnotify.desktop.js"></script>
+  <script src="bower_components/pnotify/dist/pnotify.history.js"></script>
+  <script src="bower_components/pnotify/dist/pnotify.mobile.js"></script>
+  <script src="bower_components/pnotify/dist/pnotify.nonblock.js"></script>
+  <script src="bower_components/nodep-date-input-polyfill/nodep-date-input-polyfill.dist.js"></script>
+  <script src="bower_components/angular-permission/dist/angular-permission.js"></script>
+  <script src="bower_components/angular-permission/dist/angular-permission-ui.js"></script>
+  <script src="bower_components/angular-permission/dist/angular-permission-ng.js"></script>
+  <script src="bower_components/tg-angular-validator/dist/angular-validator.js"></script>
+  <script src="bower_components/angular-ui-mask/dist/mask.js"></script>
+  <script src="bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js"></script>
+  <script src="bower_components/angular-smart-table/dist/smart-table.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="bower_components/ng-csv/build/ng-csv.min.js"></script>
+  <script src="bower_components/jspdf/dist/jspdf.debug.js"></script>
+  <script src="bower_components/jspdf-autotable/dist/jspdf.plugin.autotable.js"></script>
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- build:js({.tmp,app}) scripts/scripts.js -->
+  <script src="scripts/app.js"></script>
+  <script src="scripts/global.js"></script>
+  <script src="scripts/modules.js"></script>
+  <script src="scripts/factories/authFactory.js"></script>
+  <script src="scripts/factories/inMenu.js"></script>
+  <script src="scripts/components/multiSelect.js"></script>
+  <script src="scripts/controllers/main.js"></script>
+  <script src="scripts/controllers/home/home.js"></script>
+  <script src="scripts/controllers/login/login.js"></script>
+  <script src="scripts/controllers/dashboard/module.js"></script>
+  <script src="scripts/controllers/dashboard/dashboardCtrl.js"></script>
+  <script src="scripts/factories/authFactory.js"></script>
+  <script src="scripts/controllers/procesos/modules.js"></script>
+  <script src="scripts/controllers/procesos/atencion/atencion.js"></script>
+  <script src="scripts/controllers/procesos/atencion/atencionDetalle.js"></script>
+  <script src="scripts/controllers/procesos/atencion/AtencionEditarCtrl.js"></script>
+  <script src="scripts/controllers/procesos/atencion/AtencionNuevaCtrl.js"></script>
+  <script src="scripts/controllers/procesos/atencion/ModalAgendaCtrl.js"></script>
+  <script src="scripts/controllers/procesos/atencion/ModalBuscaClienteCtrl.js"></script>
+  <script src="scripts/controllers/procesos/atencion/ModalDetalleCobroCtrl.js"></script>
+  <script src="scripts/controllers/procesos/atencion/ModalDetalleLlamadaCtrl.js"></script>
+  <!--quejas-->
+  <script src="scripts/controllers/procesos/Quejas/ModalBonificacionCtrl.js"></script>
+  <script src="scripts/controllers/procesos/Quejas/ModalConsultaQuejaCtrl.js"></script>
+  <script src="scripts/controllers/procesos/Quejas/QuejaEjecutaCtrl.js"></script>
+  <script src="scripts/controllers/procesos/Quejas/quejasCtrl.js"></script>
+  <script src="scripts/controllers/procesos/Quejas/ModalDescargaMaterialCtrl.js"></script>
+  <script src="scripts/controllers/procesos/Quejas/ModalEliminaQuejaCtrl.js"></script>
+  <script src="scripts/factories/quejasFactory.js"></script>
+  <!---->
+  <script src="scripts/controllers/configuracion/modules.js"></script>
+  <script src="scripts/factories/cajasFactory.js"></script>
+  <script src="scripts/controllers/facturacion/modules.js"></script>
+  <script src="scripts/controllers/facturacion/cajas/FacturacionCajasCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/cajas/ModalAddListCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/cajas/ModalHistorialCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/cajas/ModalClabeCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/cajas/ModalInformationCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/cajas/ModalOrdenesCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/cajas/ModalPagarCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/cajas/ModalRegresarCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/cajas/ModalReportesCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/cajas/ModalTicketsCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/cajas/ModalAdelantaPagoCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/cajas/ModalYaPagoCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/cajas/ModalCambioDomicilioCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/cajas/ModalSingleTicketCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/cajas/ModalSingleOrdenCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/cajas/ModalEdoCuentaCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/cajas/ModalSingleQuejaCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/cajas/ModalSingleNotaCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/cajas/ModalMotivoCancelacionCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/cajas/ModalPreguntaCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/cajas/ModalHistorialEdoctaCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/cajas/ModalNuevoEdoctaCtrl.js"></script>
+  <script src="scripts/controllers/reportes/ReporteCiudadCartera/CiudadCarteraCtrl.js"></script>
+  <script src="scripts/controllers/reportes/modules.js"></script>
+  <script src="scripts/factories/reportesFactory.js"></script>
+  <script src="scripts/controllers/reportes/reporteciudadcartera/CiudadCarteraCtrl.js"></script>
+  <script src="scripts/controllers/reportes/cortes/ReporteCortesCtrl.js"></script>
+  <script src="scripts/controllers/reportes/especiales/ReporteSucursalesCtrl.js"></script>
+  <script src="scripts/factories/CiudadCarteraFactory.js"></script>
+  <script src="scripts/controllers/facturacion/ventas/FacturacionVentasCtrl.js"></script>
+  <script src="scripts/factories/desgloseFactory.js"></script>
+  <script src="scripts/controllers/facturacion/desglose/DesgloseMonedaCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/desglose/ModalEliminarCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/desglose/NuevoDesgloseCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/desglose/DetalleDesgloseCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/desglose/EditarDesgloseCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/desglose/ModalValidarCtrl.js"></script>
+  <script src="scripts/factories/entregasFactory.js"></script>
+  <script src="scripts/controllers/facturacion/entregas/EntregasParcialesCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/entregas/EliminarEntregaCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/entregas/NuevaEntregaCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/entregas/DetalleEntregaCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/entregas/EditarEntregaCtrl.js"></script>
+  <script src="scripts/factories/arqueoFactory.js"></script>
+  <script src="scripts/controllers/facturacion/arqueo/ArqueoCajasCtrl.js"></script>
+  <script src="scripts/controllers/reportes/ReporteCiudadCartera/CiudadCarteraCtrl.js"></script>
+  <script src="scripts/controllers/procesos/ordenes/OrdenesServicioCtrl.js"></script>
+  <script src="scripts/controllers/procesos/ordenes/OrdenNuevaCtrl.js"></script>
+  <script src="scripts/controllers/procesos/ordenes/ModalAgregarServicioCtrl.js"></script>
+  <script src="scripts/controllers/procesos/ordenes/BuscarNuevoCtrl.js"></script>
+  <script src="scripts/controllers/procesos/ordenes/CambioDomicilioOrdenesCtrl.js"></script>
+  <script src="scripts/controllers/procesos/ordenes/BajaServiciosCtrl.js"></script>
+  <script src="scripts/controllers/configuracion/Permisos/PermisosCtrl.js"></script>
+  <script src="scripts/controllers/configuracion/Roles/RolCtrl.js"></script>
+  <script src="scripts/controllers/configuracion/Roles/ModalAddRolCtrl.js"></script>
+  <script src="scripts/factories/rolFactory.js"></script>
+  <script src="scripts/factories/permisosFactory.js"></script>
+  <script src="scripts/factories/ticketsFactory.js"></script>
+  <script src="scripts/controllers/facturacion/tickets/TicketsCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/tickets/ReimprimirCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/tickets/cancelarTicketCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/tickets/MotivoTicketCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/tickets/CorreoCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/modules.js"></script>
+  <script src="scripts/controllers/corporativa/contrato/ContratoMaestroCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/contrato/NuevoMaestroCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/contrato/EditarMaestroCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/contrato/ContratosLigadosCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/contrato/BuscaContratoLCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/contrato/RecepcionPagoCtrl.js"></script>
+  <script src="scripts/factories/atencion.js"></script>
+  <script src="scripts/controllers/corporativa/contrato/ModalDetalleContratoCtrl.js"></script>
+  <script src="scripts/factories/ContratoMaestroFactory.js"></script>
+  <script src="scripts/factories/corporativoFactory.js"></script>
+  <script src="scripts/controllers/facturacion/cajas/ModalInformacionCobroCtrl.js"></script>
+  <script src="scripts/controllers/facturacion/cajas/ModalAgendaVentasCtrl.js"></script>
+  <script src="scripts/directives/UploadFile.js"></script>
+  <script src="scripts/controllers/facturacion/desglose/PrintArchivosCtrl.js"></script>
+  <script src="scripts/factories/ordenesFactory.js"></script>
+  <script src="scripts/factories/pagosMaestrosFactory.js"></script>
+  <script src="scripts/controllers/corporativa/pagoContrato/PagoContratoMaestroCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/pagoContrato/AbrirPagoCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/pagoContrato/EscogerPagoCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/pagoContrato/PagarContadoCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/pagoContrato/PagarCreditoCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/pagoContrato/YaPagoCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/pagoContrato/MontoAbonoCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/pagoContrato/HistorialCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/pagoContrato/DetalleCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/pagoContrato/FacturasCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/pagoContrato/ReporteRecepcionCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/pagoContrato/ReportesPendientesCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/pagoContrato/AbrirDetalleCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/contrato/ModalProporcionalCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/contrato/DesconexionCtrl.js"></script>
+  <script src="scripts/factories/reportesVariosFactory.js"></script>
+  <script src="scripts/controllers/reportes/reportesvarios/ReportesVariosCtrl.js"></script>
+  <script src="scripts/factories/reportesCortesCorporativaFactory.js"></script>
+  <script src="scripts/controllers/corporativa/reportesCortes/reportesCortesCorporativaCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/tickets/ticketsCorporativaCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/NotaCredito/notaCreditoCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/NotaCredito/nuevaNotaCreditoCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/NotaCredito/ModalBusquedaCMCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/NotaCredito/ModalDetalleNotaCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/NotaCredito/ModalDetalleFacCliCtrl.js"></script>
+   <script src="scripts/controllers/corporativa/pagoContrato/ModalHazPreguntaCtrl.js"></script>
+ 
+  <script src="scripts/controllers/corporativa/NotaCredito/ModalTicketNotaCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/tickets/ticketsCorporativaCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/tickets/modalCancelaTicketCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/tickets/modalMotivoCanMaestroCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/NotaCredito/modalRevertirProcesoCtrl.js"></script>
+  <script src="scripts/controllers/corporativa/recepcionpago/ModalCancelaFacturaCtrl.js"></script>
+
+
+
+
+  <!-- endbuild -->
+</body>
+
+
+</html>

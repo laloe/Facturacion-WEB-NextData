@@ -1,0 +1,55 @@
+<div class="modal-header">
+    <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
+    <h4 class="modal-title">Historial de Ordenes de Servicio</h4>
+</div>
+<div class="modal-body">
+    <div class="col-md-3">
+        <select class="form-control" ng-model="ctrl.selectStatus" ng-change="ctrl.statusChange()">
+            <option value="E">Ejecutadas</option>
+            <option value="P">Pendientes</option>
+            <option value="V">Visita</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="Busqueda por Orden" ng-model="ctrl.search">
+    </div>
+    <br/>
+    <br/>
+    <table id="tableHistorialPago" class="table table-bordered table-hover dataTable">
+        <thead>
+            <tr>
+                <td><b>Orden</b></td>
+                <td><b>Status</b></td>
+                <td><b>Contrato</b></td>
+                <td><b>Nombre</b> </td>
+                <td><b>Calle</b></td>
+                <td><b>Número</b></td>
+                <td><b>Consultar</b></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-show="ctrl.mostrarMensaje">
+                <td colspan="7"><p class="text-center">El cliente no tiene ordenes de servicio</p></td>
+            </tr>
+            <tr dir-paginate="x in ctrl.ordenes|orderBy:ctrl.sortKey:reverse|filter:ctrl.search|itemsPerPage:5">
+                <td>{{ x.Clv_Orden }}</td>
+                <td>{{ x.STATUS }}</td>
+                <td>{{ x.Contrato }}</td>
+                <td>{{ x.Nombre }}</td>
+                <td>{{ x.CALLE }}</td>
+                <td>{{ x.NUMERO }}</td>
+                <td class="text-center"><button class="btn btn-default btn-sm" ng-click="ctrl.sigleOrder(x.Clv_Orden)"><i class="fa fa-eye" aria-hidden="true"></i> Ver</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="padding-left: 20px;">
+        <dir-pagination-controls
+            max-size="5"
+            direction-links="true"
+            boundary-links="true" >
+        </dir-pagination-controls>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default btn-sm" type="button" ng-click="ctrl.cancel()">Cancelar</button>
+</div>

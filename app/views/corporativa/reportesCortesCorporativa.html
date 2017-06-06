@@ -1,0 +1,237 @@
+<style type="text/css">
+
+
+	.custom{
+    	height:36px;
+    	font-size: 13px;
+    }
+
+</style>
+<div class="card" style="margin-top:20px;">
+	<div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+		<header>
+			<strong style="font-weight:bold; border:none; margin-left:10px; font-size: 16px;">Reporte cortes facturación corporativa </strong>
+			<br /><small class="text-muted" style="font-size:14px; margin-left:10px;"> <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Reportes facturación</a></small>
+		</header>
+		<div class="tools"></div>
+	</div>
+	<div class="card-body">
+		<div class="col-md-3">		
+			<div class="row">
+ 				<div class="col-md-11">	
+					<strong>Seleccione la opción del reporte: </strong> 
+						
+						<select  class='form-control'
+									ng-model='$ctrl.opcReporte' 
+	                        		ng-options='option.name for option in $ctrl.opcReporteArray track by option.value'></select>
+
+				
+			  			<div  id="ordenarDiv"  align="left" style="margin-top:10px;">
+     						<div class="col-md-10 col-md-offset-1">
+		               			<strong>Ordenar reporte por:</strong>
+		               			<br>
+								<label class="checkbox-inline checkbox-styled">
+							    	<input type="checkbox" ng-model="$ctrl.status"		                                       
+			                            class=" filled-in chk-col-amber" >
+			                                           <!--     ng-change="$ctrl.s1stateChanged(s1.id)" -->
+							    	<span>Status</span>
+								</label>
+							</div>
+                		</div>	        			
+					 
+						<strong>Seleccione el reporte: </strong>
+						<div class="list-group">			
+							<!-- <button ng-click="pdistribuidores = true" class="btn btn-primary">  Add new Client    </button>-->
+						    <button type="button" class="list-group-item btn-block {{$ctrl.myButton1}}" ng-click="$ctrl.changeBgColor(1)" value="1">Corte General de Cobros</button> 
+						    <button type="button" class="list-group-item btn-block {{$ctrl.myButton3}}" ng-click="$ctrl.changeBgColor(3)" value="3">Resumen de Ingresos por Sucursal </button>
+						    <button type="button" class="list-group-item btn-block {{$ctrl.myButton2}}" ng-click="$ctrl.changeBgColor(2)" value="2">Corte General de Ventas</button>
+						    
+						<!--    <button type="button" class="list-group-item btn-block {{$ctrl.myButton4}}" ng-click="$ctrl.changeBgColor(4)" value="4">Resumen de Ingresos por Sucursal Fiscal</button>
+						    <button type="button" class="list-group-item btn-block {{$ctrl.myButton5}}" ng-click="$ctrl.changeBgColor(5)" value="5" ng-hide="$ctrl.principales">Por Cajero(a) con puntos </button>
+						    <button type="button" class="list-group-item btn-block {{$ctrl.myButton6}}" ng-click="$ctrl.changeBgColor(6)" value="6">Por Plaza </button>
+						-->
+						</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="col-md-9">
+
+			<!-- D I S T R I B U I D O R E S -->
+			<div id="panelDistribuidores" class="col-md-12" style="padding-left: 25px; padding-right: 25px; padding-top: 25px" ng-hide="$ctrl.pdistribuidores"  >
+			<!-- ng-hide="pdistribuidores"     ng-show="pdistribuidores"-->
+				<div class="content table-responsive table-full-width">
+					<form class="form-inline">			
+						
+					
+
+						<div >
+								<label> Distribuidores </label>
+						</div>	
+
+					
+
+
+						<div class="col-md-12" >
+
+							<div style="padding-left: 30px" class="col-md-4">
+							<input type="text" ng-model="$ctrl.search" class="form-control" placeholder="buscar distribuidor..."><i class="fa fa-search" aria-hidden="true"></i>
+							</div>
+
+							<div class="col-md-8">						
+							    	<label for="fechaInicial">Fecha inicial: </label>
+		                        	<input ng-model="$ctrl.fechaInicial" type="date" id="fechaInicial" placeholder="yyyy-MM-dd"  style='width:130px'  required />	
+								    <label for="fechaFinal">Fecha final: </label>
+			                        <input ng-model="$ctrl.fechaFinal" type="date" id="fechaFinal" placeholder="yyyy-MM-dd"  style='width:130px' required />						
+							</div>
+
+						</div>
+
+						<br>
+						<div class="col-md-5 p-t-5" align="right">
+							<label class="checkbox-inline checkbox-styled">				
+		                    	<input type="checkbox" 
+		                                    ng-model="$ctrl.distriTodo"	                                 
+		                                    ng-click="$ctrl.distribuidorPadre()"
+		                                    class=" filled-in chk-col-amber" >
+								<span>Seleccionar todos los distribuidores</span>
+							</label>
+		                </div>
+				
+					</form>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+	                        	<th ng-click="sort('upc')">
+	                                        Id
+	                    	            <span class="glyphicon sort-icon" ng-show="$ctrl.sortKey=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                            </th>
+	                            <th ng-click="sort('proveedor')">
+	                                        Nombre
+	                                    <span class="glyphicon sort-icon" ng-show="$ctrl.sortKey=='proveedor'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                            </th>
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+	                        <tr dir-paginate="dist in $ctrl.DistribuidoresTable|orderBy:sortKey:reverse|filter:$ctrl.search|itemsPerPage:5">					
+	                            <td>
+									<label class="checkbox-inline checkbox-styled">  
+										<input type="checkbox" 		
+											ng-model="dist.selected"							      									   
+										    ng-click="$ctrl.distribuidorHijo(dist)"  />	
+										    <span> </span>
+									 </label>   
+								</td>
+
+	                            <td>{{dist.Nombre}}</td> 
+	                        </tr>
+	                    </tbody>
+	                </table>
+	                <dir-pagination-controls max-size="5"
+	                                            direction-links="true"
+	                                            boundary-links="true">
+	                </dir-pagination-controls>
+
+
+					<div class="col-md-6    col-md-offset-3">
+		                <!--	<button type="button" class="btn ink-reaction   btn btn-success" ng-click="filtroDistribuidores();">-->
+
+
+		                		<button class="btn btn-success" ng-click="$ctrl.filtroDistribuidores()">Aceptar</button>
+								<button class="btn btn-default" ng-click="$ctrl.cleanArray(); $ctrl.showOpcion();">Cancelar</button>
+					</div>
+				</div>
+			</div>
+
+
+
+			<!-- S U C U R S A L E S -->
+			<div id="panelSucursales" class="col-md-12" style="padding-left: 25px; padding-right: 25px; padding-top: 25px" ng-hide="$ctrl.psucursales"  >
+			
+				<div class="content table-responsive table-full-width">
+					<form class="form-inline">	
+						<div >
+								<label> Sucursales </label>
+						</div>		
+
+						<div class="col-md-12" >
+							<div style="padding-left: 30px" class="col-md-4">
+									<input type="text" ng-model="$ctrl.search" class="form-control" placeholder="buscar sucursal..."><i class="fa fa-search" aria-hidden="true"></i>
+							</div>
+						</div>
+						<br>
+						<div class="col-md-5 p-t-5" align="right">
+							<label class="checkbox-inline checkbox-styled">				
+		                    	<input type="checkbox" 
+		                                    ng-model="$ctrl.sucurTodo"	                                 
+		                                    ng-click="$ctrl.sucursalPadre()"
+		                                    class=" filled-in chk-col-amber" >
+								<span>Seleccionar todas las sucursales</span>
+							</label>
+		                </div>
+
+		                <div class="col-md-5 col-md-offset-1">
+							<label class="checkbox-inline checkbox-styled">
+							    <input type="checkbox" ng-model="$ctrl.resumen"		                                       
+			                            class=" filled-in chk-col-amber" >
+							    <span>Resumen</span>
+							</label>
+						</div>
+				
+					</form>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+	                        	<th ng-click="sort('upc')">
+	                                        Id
+	                    	            <span class="glyphicon sort-icon" ng-show="$ctrl.sortKey=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                            </th>
+	                            <th ng-click="sort('proveedor')">
+	                                        Nombre
+	                                    <span class="glyphicon sort-icon" ng-show="$ctrl.sortKey=='proveedor'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                            </th>
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+	                        <tr dir-paginate="sucur in $ctrl.SucursalesTable|orderBy:sortKey:reverse|filter:$ctrl.search|itemsPerPage:5">					
+	                            <td>
+									<label class="checkbox-inline checkbox-styled">  
+										<input type="checkbox" 		
+											ng-model="sucur.selected"							      									   
+										    ng-click="$ctrl.sucursalHijo(sucur)"  />	
+										    <span> </span>
+									 </label>   
+								</td>
+
+	                            <td>{{sucur.Nombre}}</td> 
+	                        </tr>
+	                    </tbody>
+	                </table>
+	                <dir-pagination-controls max-size="5"
+	                                            direction-links="true"
+	                                            boundary-links="true">
+	                </dir-pagination-controls>
+
+
+					<div class="col-md-6    col-md-offset-3">
+
+		                		<button class="btn btn-success" ng-click="$ctrl.filtroSucursales()">Aceptar</button>
+								<button class="btn btn-default" ng-click="$ctrl.cleanArray(); $ctrl.showOpcion();">Cancelar</button>
+					</div>
+				</div>
+			</div>
+
+
+
+			<!-- R E P O R T E   P D F -->
+			<div id="panleReporte" class="col-md-12" style="padding-left: 25px; padding-right: 25px; padding-top: 25px; height: 650px"  ng-hide="$ctrl.preporte">		
+				<iframe ng-src="{{$ctrl.reporteUrl}}" style="position:absolute;top:0px;width:98%;height:100%;" frameborder= 0>			
+        		</iframe>
+			</div>
+
+
+		</div>
+    </div>
+</div>

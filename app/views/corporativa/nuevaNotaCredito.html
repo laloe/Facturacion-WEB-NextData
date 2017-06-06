@@ -1,0 +1,225 @@
+<div class="card animated fadeIn" style="margin-top:20px;">
+  <form angular-validator-submit="$ctrl.guardar()" name="contratoForm" novalidate angular-validator>
+    <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+      <header>
+        <strong style="font-weight:bold; border:none; margin-left:10px; font-size: 16px;">Nueva nota de crédito</strong>
+        <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"><i class="fa fa-home" aria-hidden="true"></i> Facturación Corporativa>Nueva nota</small>
+      </header>
+      <div class="tools">
+        <button class="btn btn-default btn-sm" ui-sref="home.corporativa.notas" type="button"><i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar</button>
+        <button class="btn btn-primary btn-sm" ng-show="$ctrl.mostrarbtn" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+
+      </div>
+    </div>
+
+    <div class="card-body">
+
+
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="col-md-4">
+            Contrato maestro
+          </div>
+          <div class="col-md-4">
+            <input type="number" class="form-control input-sm" placeholder="No.Contrato" ng-model="$ctrl.Contrato" ng-keypress="$ctrl.enter($event)">
+          </div>
+          <div class="col-md-4">
+
+            <button class="btn ink-reaction btn-floating-action btn-sm btn-default" ng-click="$ctrl.abrirContratos()" type="button"><i class="fa fa-search"></i> </button>
+          </div>
+
+        </div>
+        <div class="col-md-2 text-right" ng-show="$ctrl.MuestraDet">
+          <b class="text-danger"> Estatus</b>
+        </div>
+        <div class="col-md-3" ng-show="$ctrl.MuestraDet">
+          <select ng-model="$ctrl.Status" ng-disabled="true" class="form-control input-sm" ng-options="item as item.Status for item in $ctrl.StatusList track by item.Clv_Status">
+         <option value="" selected>Activa</option>
+         </select>
+        </div>
+        <div class="col-md-3">
+          <div class="col-md-4"><b class="text-danger">No.Nota</b></div>
+          <div class="col-md-8">
+            <input type="text" ng-disabled="true" ng-model="$ctrl.clvnota" class="form-control input-sm">
+          </div>
+        </div>
+      </div>
+
+
+      <hr>
+
+      <div class="row" ng-show="$ctrl.MuestraDet">
+
+        <div class="col-md-6">
+          <div class="col-md-12">
+
+            <label class="col-md-3 control-label blod">Nombre Comercial:</label>
+            <div class="col-md-9" style="padding-left:-10px;">
+              <input type="text" ng-disabled="true" class="form-control input-sm" ng-value="$ctrl.DetalleContrato.NombreComercial">
+
+            </div>
+          </div>
+          <div class="col-md-12">
+
+
+            <label class="col-md-3 control-label blod">Razón social:</label>
+            <div class="col-md-9" style="padding-left:-10px;">
+              <input type="text" ng-disabled="true" class="form-control input-sm" ng-value="$ctrl.DetalleContrato.RazonSocial">
+
+            </div>
+          </div>
+          <div class="col-md-12">
+
+            <label class="col-md-3 control-label blod">RFC:</label>
+            <div class="col-md-9" style="padding-left:-10px;">
+              <input type="text" ng-disabled="true" class="form-control input-sm" ng-value="$ctrl.DetalleContrato.RFC">
+
+            </div>
+          </div>
+          <div class="col-md-12">
+
+            <label class="col-md-3 control-label blod">Distribuidor:</label>
+            <div class="col-md-9" style="padding-left:-10px;">
+              <input type="text" ng-disabled="true" class="form-control input-sm" ng-value="$ctrl.DetalleContrato.DistribuidorDes">
+
+            </div>
+          </div>
+
+
+          <!-- <div class="col-md-12">
+           <b>Nombre Comercial: </b>{{$ctrl.DetalleContrato.NombreComercial}}<br>
+           <b>RFC: </b>{{$ctrl.DetalleContrato.RFC}}<br>
+          <b>Distribuidor: </b>{{$ctrl.DetalleContrato.DistribuidorDes}}</br>
+          <b>Dirección: </b>  {{$ctrl.DetalleContrato.CalleDes}} No.Int #{{$ctrl.DetalleContrato.NumInt}} No.Ext #{{$ctrl.DetalleContrato.NumExt}}<br>
+        </div>-->
+          <div class="col-md-12">
+            <br>
+            <label class="col-md-3 control-label blod">Ticket:</label>
+            <div class="col-md-9" style="padding-left:-10px;">
+              <select class="form-control input-sm" ng-model="$ctrl.factura" name="ticket" required ng-change="$ctrl.cambioFactura()" required-message="'Este campo es obligatorio.'"
+                validate-on="dirty" ng-options="item as item.FACTURAS for item in $ctrl.facturas track by item.CLV_FACTURA">
+          <option value="">selecciona</option>
+          </select>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <label class="col-md-3 control-label blod">Caja:</label>
+            <div class="col-md-9" style="padding-left:-10px;">
+              <input type="text" ng-disabled="true" name="razon" validate-on="dirty" class="form-control input-sm" ng-model="$ctrl.Caja"
+                required-message="'Este campo es obligatorio.'" required>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <label class="col-md-3 control-label blod">Cajero:</label>
+            <div class="col-md-9" style="padding-left:-10px;">
+              <select class="form-control input-sm" ng-model="$ctrl.scajero" ng-options="item as item.NOMBRE for item in $ctrl.Cajero track by item.CLV_USUARIO">
+          <option value="">selecciona</option>
+          </select>
+
+            </div>
+          </div>
+          <div class="col-md-12">
+            <label class="col-md-3 control-label blod">Usuario:</label>
+            <div class="col-md-9" style="padding-left:-10px;">
+              <input type="text" ng-disabled="true" name="Usuario" validate-on="dirty" class="form-control input-sm" ng-model="$ctrl.usuario"
+                required-message="'Este campo es obligatorio.'" required>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <label class="col-md-3 control-label blod">Fecha Generación:</label>
+            <div class="col-md-9" style="padding-left:-10px;">
+              <input type="text" ng-disabled="true" class="form-control input-sm" ng-model="$ctrl.FechaG">
+            </div>
+          </div>
+        
+          <div class="col-md-12">
+            <label class="col-md-3 control-label blod">Observaciones:</label>
+            <div class="col-md-9" style="padding-left:-10px;">
+              <textarea type="text" placeholder="Observaciones" name="observaciones" validate-on="dirty" class="form-control input-sm"
+                ng-model="$ctrl.Observaciones" required-message="'Este campo es obligatorio.'" required></textarea>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <br>
+           
+
+
+          </div>
+        </div>
+        <div class="col-md-6">
+          <uib-tabset active="activeJustified" justified="true">
+            <uib-tab index="0" heading="Detalle">
+              <div class="row" style="overflow-y: scroll; max-height: 400px;">
+                <table class="table">
+                  <thead style="background-color: khaki;">
+                    <th>DESCRIPCION</th>
+                    <th>IMPORTE PAGADO</th>
+                    <!--<th>IMPORTE PARA NOTA</th>
+-->
+                  </thead>
+                  <tbody>
+                    <!-- ng-keyup="$ctrl.validaMonto(x,x.cantidad)"-->
+                    <tr ng-repeat="x in $ctrl.DetalleNota">
+                      <td>{{x.descripcion}}</td>
+                      <td>${{x.importe}}</td>
+                      <!-- <td>
+                  <ng-form name="urlForm">
+                    <input type="number" name="cant" ng-model="x.cantidad" class="form-control input-sm" required min="0" ng-change="$ctrl.calcular()"
+                      validate-on="dirty" max="{{x.importe}}">
+                    <span class="alert error text-danger" ng-show="urlForm.cant.$error.required">campo requerido</span>
+                    <span class="alert error text-danger" ng-show="urlForm.cant.$error.max">cantidad invalida</span>
+
+                  </ng-form>
+                </td>-->
+                    </tr>
+                  </tbody>
+
+                </table>
+              </div>
+            </uib-tab>
+            <uib-tab index="1" heading="Contratos">
+              <div class="row" style="overflow-y: scroll; max-height: 400px; padding: 15px;">
+                <br>
+                <table class="table">
+                  <thead>
+                    <th>Contrato</th>
+                    <th>Importe</th>
+                    <th></th>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="x in $ctrl.contratos">
+                      <td>{{x.ContratoCompuesto}}</td>
+                      <td>{{x.Importe|currency}}</td>
+                      <td><button class="btn btn-xs btn-info" type="button" ng-click="$ctrl.Detallefactura(x)">Detalle</button></td>
+                    </tr>
+                  </tbody>
+
+                </table>
+              </div>
+
+            </uib-tab>
+
+
+          </uib-tabset>
+          <div class="row">
+            <div class="col-md-6" class="text-right">
+              <b class="text-danger">Monto: $</b></div>
+            <div class="col-md-6">
+              <label class="text-danger"><b>
+                {{$ctrl.sumatotal | currency}}</b>
+              </label>
+
+            </div>
+          </div>
+          <div class="row">
+<label class="checkbox-inline checkbox-styled checkbox-info">
+														<input type="checkbox" ng-change="$ctrl.MarcarContratos()" ng-model="$ctrl.marcar"><span>Marcar/Desmarcar contratos</span>
+													</label>
+
+          </div>
+
+          </div>
+      </div>
+  </form>
+  </div>

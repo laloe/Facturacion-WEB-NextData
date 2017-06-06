@@ -1,0 +1,73 @@
+<style>
+  .conceptos {
+    font-size: 10px;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-style: double;
+  }
+
+</style>
+
+<div class="modal-header">
+  <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
+  <a href="" ng-click="ctrl.printDiv('printTicket')" style="color:#2196f3;"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</a>
+</div>
+<div class="modal-body" style="padding-top:20px;">
+  <div class="row" id="printTicket">
+    <div class="col-md-12 text-center" style="font-size:10px;">
+      <b>Nota de crédito</b></br>
+      {{ctrl.det.Fecha}}<br> {{ctrl.det.NombreEncabezado}}
+      </br>
+      {{ctrl.det.DireccionNombreEncabezado}}</br>
+      {{ctrl.det.ColoniaNombreEncabezado}}</br>
+      {{ctrl.det.CiudadNombreEncabezado}}</br>
+      {{ctrl.det.TelefonoNombreEncabezado}}</br>
+      {{ctrl.det.rfcNombreEncabezado}}</br>
+    </div>
+    <div class="col-md-12 text-center" style="font-size:10px;">
+
+      Nota de crédito No.{{ctrl.det.Clv_notadecredito}}<br> Aplicada a :{{ctrl.det.Ticket}}
+    </div>
+    <div class="col-md-12" style="font-size:10px;">
+      <b>Contrato :</b> {{ctrl.cmaestro}}</br>
+      {{ctrl.det.Nombre}}<br> {{ctrl.det.Calle}} #{{ctrl.det.Numero}}<br> {{ctrl.det.Colonia}}
+      <br> {{ctrl.det.Ciudad}}
+      <br>
+      <b>Cajero(a):</b> {{ctrl.det.Usuario}}
+    </div>
+    <div class="col-md-12">
+
+      <table class="table conceptos" style="font-size:10px;">
+        <tr ng-repeat="x in ctrl.conceptos" ng-if="x.Se_Cobra==true">
+          <td>{{x.Descripcion}}</td>
+          <td>{{x.importe |currency}}</td>
+        </tr>
+      </table>
+
+    </div>
+    <div class="col-md-12 text-right">
+      <b>Total {{ctrl.total | currency}}</b>
+
+    </div>
+
+    <div class="col-md-12" style="font-size:10px; ">
+
+      <b>Cantidad con letra</b> {{ctrl.det.Monto|currency}} ({{ctrl.det.Cant_Letra}})
+
+    </div>
+    <div class="col-md-12">
+      <br>
+      <br>
+      <div class="col-md-3"></div>
+      <div class="col-md-6 text-center " style="font-size:10px; border-top:black solid 1px;">
+        {{ctrl.det.Nombre}}
+
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+  </div>
+
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default-bright btn-sm" type="button" ng-click="ctrl.cancel()">Cancelar</button>
+</div>

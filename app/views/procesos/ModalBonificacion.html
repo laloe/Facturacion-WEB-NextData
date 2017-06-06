@@ -1,0 +1,75 @@
+<div class="modal-header">
+  <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
+  <h4 class="modal-title">Bonificación de cliente</h4>
+</div>
+<div class="modal-body" style="padding:20px;">
+  <div class="row">
+    <div class="col-md-12">
+      <div class=" form-inline">
+        <div class="radio radio-styled">
+          <label>
+                      <input type="radio" ng-model="ctrl.Tipo" name="optionsRadios" value="D" checked="" ng-change="ctrl.CambioTipo()" ng-disabled="ctrl.bloquear">
+                      <span>Por dia</span>
+                  </label>
+        </div>
+        <div class="radio radio-styled">
+          <label>
+                      <input type="radio" ng-model="ctrl.Tipo" name="optionsRadios" value="M" checked="" ng-change="ctrl.CambioTipo()" ng-disabled="ctrl.bloquear">
+                      <span>Por monto</span>
+                  </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+
+    
+    <div class="col-md-5  col-md-offset-1">
+      <div class="row" ng-show="ctrl.ShowConceptosDia">
+        <b>Dias a bonificar</b>
+        <input type="number" name="" value="" ng-model="ctrl.DiasBonificar" class="form-control input-sm" min="1" max="30" ng-disabled="ctrl.bloquear" >
+        <b>Cantidad</b>
+        <input type="text" name="" value="" ng-model="ctrl.CantidadBoNificar" class="form-control input-sm" disabled>
+      </div>
+      <div class="row" ng-show="ctrl.ShowConceptosMonto">
+        <b>Cantidad</b>
+        <input type="text" name="" value="" ng-model="ctrl.CantidadMonto" class="form-control input-sm" ng-disabled="ctrl.bloquear">
+      </div>
+      <div class="row">
+        <b>Observaciones:</b>
+        <textarea class="form-control input-sm" ng-model="ctrl.observa" ng-disabled="ctrl.bloquear"></textarea>
+      </div>
+    </div>
+
+
+    <div class="col-md-5">
+      <div class="col-md-12">
+        <label class="checkbox-inline checkbox-styled checkbox-info">
+           <input type="checkbox" value="option3" checked="" ng-model="ctrl.Aplicada" disabled><span>Aplicada</span>
+       </label>
+      </div>
+      <div class="col-md-12">
+        <b>Importe Facturación</b>
+        <input type="text" class="form-control input-sm" name="" value="" ng-model="ctrl.ImporteFac" ng-disabled="ctrl.bloquear">
+
+      </div>
+      <div class="col-md-12">
+        <b>Fecha</b>
+        <input type="text"  class="form-control input-sm" name="" value="" ng-model="ctrl.Fecha" disabled>
+      </div>
+      <div class="col-md-12">
+        <b>Ticket</b>
+        <input type="text"  class="form-control input-sm" name="" value="" ng-model="ctrl.Ticket" disabled>
+
+      </div>
+
+
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default-bright btn-sm" type="button" ng-click="ctrl.Eliminar()">Salir</button>
+  <button class="btn btn-info btn-sm" type="button" ng-click="ctrl.ok()" ng-disabled="ctrl.bloquear">Guardar</button>
+  <button class="btn btn-danger btn-sm" type="button" ng-click="ctrl.eliminarBonificacion()" ng-disabled="ctrl.bloquear">Eliminar bonificación</button>
+</div>
+

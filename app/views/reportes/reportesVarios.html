@@ -1,0 +1,1080 @@
+<style type="text/css">
+
+
+	.custom{
+    	height:36px;
+    	font-size: 13px;
+    }
+
+</style>
+<div class="card" style="margin-top:20px;">
+	<div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+		<header>
+			<strong style="font-weight:bold; border:none; margin-left:10px;">Reportes varios</strong>
+			<br /><small class="text-muted" style="font-size:14px; margin-left:10px;"> <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>><a href="#" class="paginaActiva">Reportes varios</a></small>
+		</header>
+		<div class="tools"></div>
+	</div>
+	<div class="card-body">
+		<div class="col-md-3">		
+			<div class="row">
+ 				<div class="col-md-11">	
+					<strong>Seleccione el servicio: </strong> 
+						<select class="form-control" id="selectServicioDigitalInternet"
+								ng-model="$ctrl.ServicioDigitalInternet" 
+								ng-change="$ctrl.cambiaServicio($ctrl.ServicioDigitalInternet);"
+	  							ng-options="v.Concepto for v in $ctrl.tipoServicios track by v.Clv_TipSer">
+						</select> 
+				
+			  		<div  id="soloInternetDiv"  align="left" style="margin-top:10px;" ng-hide="$ctrl.soloInternet_esconde" >
+	     			
+		               	<strong>Filtrar por:</strong>
+		               	<br>
+
+						<label class="checkbox-inline checkbox-styled">
+							<input type="checkbox" id="soloInternet"
+				                            ng-model="$ctrl.soloInter"		                                       
+				                            class=" filled-in chk-col-amber" >
+				                                           <!--     ng-change="$ctrl.s1stateChanged(s1.id)" -->
+							<span>Solo internet</span>
+						</label>
+						
+	                </div>
+	        
+					 
+					<div id="ordenarDiv" style="margin-top:10px;" >
+
+						<div class="col-md-10 col-md-offset-1">
+						  	<strong>Ordenar reporte por: </strong>
+						  	<br>
+							<div class="radio radio-styled radio-info">
+								<label>
+	                              <input type="radio" ng-model="$ctrl.ordenRadio"  value="1">
+	                              <span>Contrato</span>
+	                            </label>
+							</div>
+							<div class="radio radio-styled radio-info">
+								<label>
+	                              <input type="radio" ng-model="$ctrl.ordenRadio" value="2">
+	                              <span>Colonia y calle</span>
+	                            </label>
+							</div>
+						</div>
+
+					</div>
+
+					<strong>Seleccione el reporte: </strong>
+					<div class="list-group">			
+								<!-- <button ng-click="pdistribuidores = true" class="btn btn-primary">  Add new Client    </button>-->
+					    <button type="button" class="custom list-group-item btn-block {{$ctrl.myButton1}}" ng-click="$ctrl.changeBgColor(1)" value="1">Desconectados </button> <!-- ng-click="pdistribuidores = true" || goCats = !goCats" -->
+					    <button type="button" class="custom list-group-item btn-block {{$ctrl.myButton2}}" ng-click="$ctrl.changeBgColor(2)" value="2">Suspendidos {{myButton2}}</button>
+					    <button type="button" class="custom list-group-item btn-block {{$ctrl.myButton3}}" ng-click="$ctrl.changeBgColor(3)" value="3">Al corriente </button>
+					    <button type="button" class="custom list-group-item btn-block {{$ctrl.myButton4}}" ng-click="$ctrl.changeBgColor(4)" value="4">Adelantados </button>
+					    <button type="button" class="custom list-group-item btn-block {{$ctrl.myButton5}}" ng-click="$ctrl.changeBgColor(5)" value="5" ng-hide="$ctrl.principales">Contrataciones principales </button>
+					    <button type="button" class="custom list-group-item btn-block {{$ctrl.myButton6}}" ng-click="$ctrl.changeBgColor(6)" value="6">Contrataciones </button>
+					    <button type="button" class="custom list-group-item btn-block {{$ctrl.myButton7}}" ng-click="$ctrl.changeBgColor(7)" value="7">Por pagar </button>
+					    <button type="button" class="custom list-group-item btn-block {{$ctrl.myButton8}}" ng-click="$ctrl.changeBgColor(8)" value="8">Instalaciones </button>
+					    <button type="button" class="custom list-group-item btn-block {{$ctrl.myButton9}}" ng-click="$ctrl.changeBgColor(9)" value="9">Cancelaciones </button>
+					    <button type="button" class="custom list-group-item btn-block {{$ctrl.myButton10}}" ng-click="$ctrl.changeBgColor(10)" value="10">Por instalar </button>
+					    <button type="button" class="custom list-group-item btn-block {{$ctrl.myButton11}}" ng-click="$ctrl.changeBgColor(11)" value="11">Fuera de area </button>
+					    <button type="button" class="custom list-group-item btn-block {{$ctrl.myButton12}}" ng-click="$ctrl.changeBgColor(12)" value="12">Paquetes de cortesía</button>
+					    <button type="button" class="custom list-group-item btn-block {{$ctrl.myButton13}}" ng-click="$ctrl.changeBgColor(13)" value="13">Ciudad </button>
+					    <button type="button" class="custom list-group-item btn-block {{$ctrl.myButton14}}" ng-click="$ctrl.changeBgColor(14)" value="14">Resumen por colonia y status</button>
+					</div>	
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="col-md-9">
+
+			<!-- D I S T R I B U I D O R E S -->
+			<div id="panelDistribuidores" class="col-md-12" style="padding-left: 25px; padding-right: 25px; padding-top: 25px" ng-hide="$ctrl.pdistribuidores"  >
+			<!-- ng-hide="pdistribuidores"     ng-show="pdistribuidores"-->
+				<div class="content table-responsive table-full-width">
+					<form class="form-inline">			
+
+						<div>
+								<label> Distribuidores </label>
+						</div>					
+
+						<div style="padding-left: 30px">
+							<input type="text" ng-model="$ctrl.search" class="form-control" placeholder="buscar distribuidor..."><i class="fa fa-search" aria-hidden="true"></i>
+
+						</div>
+						<br>
+						<div class="col-md-5 p-t-5" align="right">
+							<label class="checkbox-inline checkbox-styled">				
+		                    	<input type="checkbox" 
+		                                    ng-model="$ctrl.distriTodo"	                                 
+		                                    ng-click="$ctrl.distribuidorPadre()"
+		                                    class=" filled-in chk-col-amber" >
+								<span>Seleccionar todos los distribuidores</span>
+							</label>
+		                </div>
+						<div class="col-md-7" align="left">
+							<label class="checkbox-inline checkbox-styled">
+								<input type="checkbox"  id="todoTodo"
+		                            ng-model="$ctrl.todoTodoselected"
+		                            ng-change="$ctrl.seleccionarTodo();"
+		                            class="filled-in chk-col-amber">
+		                        <span> Seleccionar todas las plazas, estados, ciudades, localidades, colonias y calles</span>
+							</label>
+						</div>
+					</form>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+	                        	<th ng-click="sort('upc')">
+	                                        Id
+	                    	            <span class="glyphicon sort-icon" ng-show="$ctrl.sortKey=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                            </th>
+	                            <th ng-click="sort('proveedor')">
+	                                        Nombre
+	                                    <span class="glyphicon sort-icon" ng-show="$ctrl.sortKey=='proveedor'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                            </th>
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+	                        <tr dir-paginate="dist in $ctrl.DistribuidoresTable|orderBy:sortKey:reverse|filter:$ctrl.search|itemsPerPage:5">					
+	                            <td>
+									<label class="checkbox-inline checkbox-styled">  
+										<input type="checkbox" 		
+											ng-model="dist.selected"							      									   
+										    ng-click="$ctrl.distribuidorHijo(dist)"  />	
+										    <span> </span>
+									 </label>   
+								</td>
+
+	                            <td>{{dist.Nombre}}</td> 
+	                        </tr>
+	                    </tbody>
+	                </table>
+	                <dir-pagination-controls max-size="5"
+	                                            direction-links="true"
+	                                            boundary-links="true">
+	                </dir-pagination-controls>
+
+					<div class="col-md-6    col-md-offset-3">
+		                <!--	<button type="button" class="btn ink-reaction   btn btn-success" ng-click="filtroDistribuidores();">-->
+
+
+		                		<button class="btn btn-success" ng-click="$ctrl.filtroDistribuidores()">Aceptar</button>
+								<button class="btn btn-default" ng-click="$ctrl.cleanArray(); $ctrl.showOpcion();">Cancelar</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- P L A Z A S -->
+			<div id="panelPlazas" class="col-md-12" style="padding-left: 25px; padding-right: 25px; padding-top: 25px"  ng-hide="$ctrl.pplazas">
+				<div class="content table-responsive table-full-width">
+					<form class="form-inline">
+						<div>
+								<label> Plazas </label>
+						</div>
+						<div style="padding-left: 30px">
+							<input type="text" ng-model="$ctrl.search" class="form-control" placeholder="buscar plaza..."><i class="fa fa-search" aria-hidden="true"></i>
+						</div>
+						<br>
+						<div class="col-md-5 p-t-5" align="right">
+							<label class="checkbox-inline checkbox-styled">
+							<input type="checkbox" id="todosPlazas"
+	                                        ng-model="$ctrl.plazaTodo"
+	                                        ng-click="$ctrl.plazaPadre()"
+		                                    class=" filled-in chk-col-amber" > 
+							<span>Seleccionar todas las plazas</span>
+							</label>
+		                </div>
+						<div class="col-md-7" align="left">
+						</div>
+					</form>
+					<table class="table table-striped">
+	                    <thead>
+	                        <tr>
+	                        	<th ng-click="sort('upc')">
+	                                 Id
+	                            	<span class="glyphicon sort-icon" ng-show="$ctrl.sortKey=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                            </th>
+	                            <th ng-click="sort('proveedor')">
+	                                Nombre
+	                                <span class="glyphicon sort-icon" ng-show="$ctrl.sortKey=='proveedor'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                            </th>
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+	                    	<tr dir-paginate="plaz in $ctrl.PlazasTable|orderBy:sortKey:reverse|filter:$ctrl.search|itemsPerPage:5">
+	                        	
+								<td>
+									<label class="checkbox-inline checkbox-styled">  
+										<input type="checkbox" 		
+										        ng-model="plaz.selected"
+										        ng-click="$ctrl.plazaHijo(plaz)"  />	
+										         <span> </span>
+									 </label>   
+								</td>
+	                            <td>{{plaz.razon_social}}</td>
+	                        </tr>
+	                    </tbody>
+	                 </table>
+
+	                <dir-pagination-controls max-size="5"
+	                                            direction-links="true"
+	                                            boundary-links="true">
+	                </dir-pagination-controls>
+
+				    <div class="col-md-6    col-md-offset-3">
+		                <!--	<button type="button" class="btn ink-reaction   btn btn-success" ng-click="filtroDistribuidores();">-->
+	                			<button class="btn btn-success" ng-click="$ctrl.showEstados()">Aceptar</button>
+								<button class="btn btn-default" ng-click="$ctrl.cleanArray(); $ctrl.showOpcion();">Cancelar</button>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- E S T A D O S -->
+			<div id="panelEstados" class="col-md-12" style="padding-left: 25px; padding-right: 25px; padding-top: 25px"  ng-hide="$ctrl.pestados">
+				<div class="content table-responsive table-full-width">
+					<form class="form-inline">
+						<div>
+								<label> Estados </label>
+						</div>
+						<div style="padding-left: 30px">
+							<input type="text" ng-model="$ctrl.search" class="form-control" placeholder="buscar estado..."><i class="fa fa-search" aria-hidden="true"></i>
+						</div>
+						<br>
+						<div class="col-md-5 p-t-5" align="right">
+							<label class="checkbox-inline checkbox-styled">
+							<input type="checkbox" id="todosEstados"
+	                                           ng-model="$ctrl.estadoTodo"
+	                                           ng-click="$ctrl.estadoPadre()"
+		                                       class=" filled-in chk-col-amber" >
+							<span>Seleccionar todos los estados</span>
+							</label>
+		                </div>
+						<div class="col-md-7" align="left">
+						</div>
+					</form>
+	                <table class="table table-striped">
+	                     <thead>
+	                         <tr>
+	                            <th ng-click="sort('upc')">
+	                                        Id
+	                                        <span class="glyphicon sort-icon" ng-show="sortKey=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                                </th>
+	                                <th ng-click="sort('proveedor')">
+	                                        Nombre
+	                                        <span class="glyphicon sort-icon" ng-show="sortKey=='proveedor'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                                </th>
+	                            </tr>
+	                            </thead>
+	                            <tbody>
+	                                <tr dir-paginate="est in $ctrl.EstadosTable|orderBy:sortKey:reverse|filter:$ctrl.search|itemsPerPage:5">
+	                                    <td>
+	                                  
+	                                      	<label class="checkbox-inline checkbox-styled">  
+												<input type="checkbox" 
+	                                        	ng-model="est.selected"                                
+	                                            ng-click="$ctrl.estadoHijo(est)"/> 
+										         <span> </span>
+											</label> 
+	                                    </td>                                   
+	                                    <td>{{est.Nombre}}</td>
+	                                </tr>
+	                    </tbody>
+	                </table>
+
+	                <dir-pagination-controls max-size="5"
+	                                            direction-links="true"
+	                                            boundary-links="true">
+	                </dir-pagination-controls>
+
+					<div class="col-md-6    col-md-offset-3">
+		                <!--	<button type="button" class="btn ink-reaction   btn btn-success" ng-click="filtroDistribuidores();">-->
+
+
+		                		<button class="btn btn-success" ng-click="$ctrl.showCiudades()">Aceptar</button>
+								<button class="btn btn-default" ng-click="$ctrl.cleanArray(); $ctrl.showOpcion();">Cancelar</button>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- C I U D A D E S -->
+			<div id="panelCiudad" class="col-md-12" style="padding-left: 25px; padding-right: 25px; padding-top: 25px"  ng-hide="$ctrl.pciudades">
+				<div class="content table-responsive table-full-width">
+					<form class="form-inline">
+						<div>
+								<label> Ciudades </label>
+						</div>
+						<div style="padding-left: 30px">
+
+							<input type="text" ng-model="$ctrl.search" class="form-control" placeholder="buscar ciudad..."><i class="fa fa-search" aria-hidden="true"></i>
+
+						</div>
+						<br>
+						<div class="col-md-5 p-t-5" align="right">
+							<label class="checkbox-inline checkbox-styled">
+							<input type="checkbox" id="todosCiudades"
+	                                           ng-model="$ctrl.ciudadTodo"
+	                                           ng-click="$ctrl.ciudadPadre()"
+		                                       class=" filled-in chk-col-amber" >
+							<span>Seleccionar todas las ciudades</span>
+							</label>
+		                </div>
+						<div class="col-md-7" align="left">
+
+						</div>
+					</form>
+	                <table class="table table-striped" id="todasLasCiudades">
+	                            <thead>
+	                                <tr>
+	                                    <th ng-click="sort('upc')">
+	                                        Id    <span class="glyphicon sort-icon" ng-show="$ctrl.sortKey=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                                    </th>
+	                                    <th ng-click="$ctrl.sort('proveedor')">
+	                                        Nombre     <span class="glyphicon sort-icon" ng-show="$ctrl.sortKey=='proveedor'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                                    </th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                <tr dir-paginate="ciu in $ctrl.CiudadesTable|orderBy:sortKey:reverse|filter:$ctrl.search|itemsPerPage:5">
+	                             
+	                                    <td>
+											<label class="checkbox-inline checkbox-styled">  
+												<input type="checkbox" 
+												        ng-model="ciu.selected"
+												        ng-click="$ctrl.ciudadHijo(ciu)" />	
+												        <span> </span>
+											</label>   
+										</td>
+	                                    <td>{{ciu.nombre}}</td>
+	                                </tr>
+	                            </tbody>
+	                </table>
+	                <dir-pagination-controls max-size="5"
+	                                            direction-links="true"
+	                                            boundary-links="true">
+	                </dir-pagination-controls>
+
+					<div class="col-md-6    col-md-offset-3">
+		                <!--	<button type="button" class="btn ink-reaction   btn btn-success" ng-click="filtroDistribuidores();">-->
+
+
+		                		<button class="btn btn-success" ng-click="$ctrl.showLocalidades()">Aceptar</button>
+								<button class="btn btn-default" ng-click="$ctrl.cleanArray(); $ctrl.showOpcion();">Cancelar</button>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- L O C A L I D A D E S -->
+			<div id="panelLocalidad" class="col-md-12" style="padding-left: 25px; padding-right: 25px; padding-top: 25px"  ng-hide="$ctrl.plocalidades">
+				<div class="content table-responsive table-full-width">
+					<form class="form-inline">
+						<div>
+								<label> Localidades </label>
+						</div>
+						<div style="padding-left: 30px">
+
+							<input type="text" ng-model="$ctrl.search" class="form-control" placeholder="buscar localidad..."><i class="fa fa-search" aria-hidden="true"></i>
+
+						</div>
+						<br>
+
+						<div class="col-md-5 p-t-5" align="right">
+							<label class="checkbox-inline checkbox-styled">
+							<input type="checkbox" id="todosCiudades"
+	                                           ng-model="$ctrl.localidadTodo"
+	                                           ng-click="$ctrl.localidadPadre()"
+		                                       class=" filled-in chk-col-amber" >
+							<span>Seleccionar todas las localidades</span>
+							</label>
+		                </div>
+						<div class="col-md-7" align="left">
+
+						</div>
+					</form>
+	               <table class="table table-striped">
+	                            <thead>
+	                                <tr>
+	                                    <th ng-click="sort('upc')">
+	                                        Id
+	                                        <span class="glyphicon sort-icon" ng-show="$ctrl.sortKey=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                                    </th>
+	                                    <th ng-click="$ctrl.sort('proveedor')">
+	                                        Nombre
+	                                        <span class="glyphicon sort-icon" ng-show="$ctrl.sortKey=='proveedor'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                                    </th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                <tr dir-paginate="loca in $ctrl.LocalidadesTable|orderBy:sortKey:reverse|filter:$ctrl.search|itemsPerPage:5">
+	                                 	<td>
+											<label class="checkbox-inline checkbox-styled">  
+												<input type="checkbox" 												      
+												       ng-model="loca.selected"
+												       ng-click="$ctrl.localidadHijo(loca)" />	
+												         <span> </span>
+											 </label>   
+										</td>
+	                                    <td>{{loca.Nombre}}</td>
+	                                </tr>
+	                            </tbody>
+	                        </table>
+	                <dir-pagination-controls max-size="5"
+	                                            direction-links="true"
+	                                            boundary-links="true">
+	                </dir-pagination-controls>
+
+					<div class="col-md-6    col-md-offset-3">
+		                <!--	<button type="button" class="btn ink-reaction   btn btn-success" ng-click="filtroDistribuidores();">-->
+
+
+		                		<button class="btn btn-success" ng-click="$ctrl.showColonias()">Aceptar</button>
+								<button class="btn btn-default" ng-click="$ctrl.cleanArray(); $ctrl.showOpcion();">Cancelar</button>
+					</div>
+				</div>
+			</div>
+
+
+
+			<!-- C O L O N I A S -->
+			<div id="panelColonia" class="col-md-12" style="padding-left: 25px; padding-right: 25px; padding-top: 25px"  ng-hide="$ctrl.pcolonias">
+				<div class="content table-responsive table-full-width">
+					<form class="form-inline">
+						<div>
+								<label> Colonias </label>
+						</div>
+						<div style="padding-left: 30px">
+
+							<input type="text" ng-model="$ctrl.search" class="form-control" placeholder="buscar colonia..."><i class="fa fa-search" aria-hidden="true"></i>
+
+						</div>
+						<br>
+
+
+						<div class="col-md-5 p-t-5" align="right">
+							<label class="checkbox-inline checkbox-styled">
+							<input type="checkbox" id="todosColonia"
+	                                           ng-model="$ctrl.coloniaTodo"
+	                                           ng-click="$ctrl.coloniaPadre()"
+		                                       class=" filled-in chk-col-amber" >
+							<span>Seleccionar todas las colonias</span>
+							</label>
+		                </div>
+						<div class="col-md-7" align="left">
+
+						</div>
+					</form>
+	                 <table class="table table-striped">
+	                            <thead>
+	                                <tr>
+	                                    <th ng-click="sort('upc')">
+	                                        Id
+	                                        <span class="glyphicon sort-icon" ng-show="$ctrl.sortKey=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                                    </th>
+	                                    <th ng-click="sort('proveedor')">
+	                                        Nombre
+	                                        <span class="glyphicon sort-icon" ng-show="$ctrl.sortKey=='proveedor'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                                    </th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                <tr dir-paginate="col in $ctrl.ColoniasTable|orderBy:sortKey:reverse|filter:$ctrl.search|itemsPerPage:5">							
+										<td>						
+
+											<label class="checkbox-inline checkbox-styled">  
+												<input type="checkbox" 		
+												ng-model="col.selected"										   
+											    ng-click="$ctrl.coloniaHijo(col)"  />	
+											    <span> </span>
+											</label> 
+										</td>
+	                                    <td>{{col.Nombre}}</td>
+	                                </tr>
+	                            </tbody>
+	                </table>
+	                <dir-pagination-controls max-size="5"
+	                                            direction-links="true"
+	                                            boundary-links="true">
+	                </dir-pagination-controls>
+
+					<div class="col-md-6    col-md-offset-3">
+		                		<button class="btn btn-success" ng-click="$ctrl.showServiciosDI()">Aceptar</button>
+								<button class="btn btn-default" ng-click="$ctrl.cleanArray(); $ctrl.showOpcion();">Cancelar</button>
+					</div>
+				</div>
+			</div>
+
+
+
+		    <!-- S E R V I C I O S   I N T E R N E T -->
+			<div id="panelServiciosInternet" class="col-md-12" style="padding-left: 25px; padding-right: 25px; padding-top: 25px"  ng-hide="$ctrl.pserviciosInternet">
+				<div class="content table-responsive table-full-width">
+					<form class="form-inline">
+						<div>
+								<label> Servicios de Internet </label>
+						</div>
+						<div style="padding-left: 30px">
+							<input type="text" ng-model="$ctrl.search" class="form-control" placeholder="buscar servicio..."><i class="fa fa-search" aria-hidden="true"></i>
+						</div>
+						<br>
+
+
+						<div class="col-md-5 p-t-5" align="right">
+							<label class="checkbox-inline checkbox-styled">
+							<input type="checkbox" id="todosServ"
+	                                           ng-model="$ctrl.serviciosInternetTodo"
+	                                           ng-click="$ctrl.serviciosInternetPadre()"
+		                                       class=" filled-in chk-col-amber" >
+							<span>Seleccionar todos los servicios</span>
+							</label>
+		                </div>
+						<div class="col-md-7" align="left">
+
+						</div>
+					</form>
+	                <table class="table table-striped">
+	                    <thead>
+	                        <tr>
+	                            <th ng-click="sort('upc')">
+	                                        Id
+	                                        <span class="glyphicon sort-icon" ng-show="$ctrl.sortKey=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                                    </th>
+	                                    <th ng-click="$ctrl.sort('proveedor')">
+	                                        Nombre
+	                                        <span class="glyphicon sort-icon" ng-show="$ctrl.sortKey=='proveedor'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                                    </th>
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+	                        <tr dir-paginate="int in $ctrl.ServInternetTable|orderBy:sortKey:reverse|filter:$ctrl.search|itemsPerPage:5">                        
+										<td>
+											<label class="checkbox-inline checkbox-styled">  
+												<input type="checkbox" 												    
+												        ng-model="int.selected"
+												        ng-click="$ctrl.serviciosInternetHijo(int)" />	
+												         <span> </span>
+											 </label>   
+										</td>
+
+	                                    <td>{{int.Descripcion}}</td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	                <dir-pagination-controls max-size="5"
+	                                            direction-links="true"
+	                                            boundary-links="true">
+	                </dir-pagination-controls>
+
+					<div class="col-md-6    col-md-offset-3">
+		                		<button class="btn btn-success" ng-click="$ctrl.showTipoClientes()">Aceptar</button>
+								<button class="btn btn-default" ng-click="$ctrl.cleanArray(); $ctrl.showOpcion();">Cancelar</button>
+					</div>
+				</div>
+			</div>
+
+
+
+		    <!-- S E R V I C I O S   D I G I T A L -->
+			<div id="panelServiciosDigital" class="col-md-12" style="padding-left: 25px; padding-right: 25px; padding-top: 25px"  ng-hide="$ctrl.pserviciosDigital">
+				<div class="content table-responsive table-full-width">
+					<form class="form-inline">
+						<div>
+								<label> Servicios de Digital </label>
+						</div>
+						<div style="padding-left: 30px">
+
+							<input type="text" ng-model="$ctrl.search" class="form-control" placeholder="buscar servicio..."><i class="fa fa-search" aria-hidden="true"></i>
+
+						</div>
+						<br>
+
+
+						<div class="col-md-5 p-t-5" align="right">
+							<label class="checkbox-inline checkbox-styled">
+							<input type="checkbox" id="todosServD"
+	                                           ng-model="$ctrl.serviciosDigitalTodo"
+	                                           ng-click="$ctrl.serviciosDigitalPadre()"
+		                                       class=" filled-in chk-col-amber" >
+							<span>Seleccionar todos los servicios</span>
+							</label>
+		                </div>
+						<div class="col-md-7" align="left">
+
+						</div>
+					</form>
+	               <table class="table table-striped">
+	                            <thead>
+	                                <tr>
+	                                    <th ng-click="sort('upc')">
+	                                        Id
+	                                        <span class="glyphicon sort-icon" ng-show="$ctrl.sortKey=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                                    </th>
+	                                    <th ng-click="sort('proveedor')">
+	                                        Nombre
+	                                        <span class="glyphicon sort-icon" ng-show="$ctrl.sortKey=='proveedor'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                                    </th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                <tr dir-paginate="dig in $ctrl.ServDigitalTable|orderBy:sortKey:reverse|filter:$ctrl.search|itemsPerPage:5">                                  
+										<td>
+											<label class="checkbox-inline checkbox-styled">  
+												<input type="checkbox"									      
+												        ng-model="dig.selected"
+												        ng-click="$ctrl.serviciosDigitalHijo(dig)"/>	
+												         <span> </span>
+											 </label>   
+										</td>
+
+	                                    <td>{{dig.Descripcion}}</td>
+	                                </tr>
+	                            </tbody>      
+					</table>
+	                <dir-pagination-controls max-size="5"
+	                                            direction-links="true"
+	                                            boundary-links="true">
+	                </dir-pagination-controls>
+
+					<div class="col-md-6    col-md-offset-3">
+		                		<button class="btn btn-success" ng-click="$ctrl.showTipoClientes()">Aceptar</button>
+								<button class="btn btn-default" ng-click="$ctrl.cleanArray(); $ctrl.showOpcion();">Cancelar</button>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- T I P O S   D E   C L I E N T E -->
+			<div id="panelTipoClientes" class="col-md-12" style="padding-left: 25px; padding-right: 25px; padding-top: 25px"  ng-hide="$ctrl.ptipoclientes">
+				<div class="content table-responsive table-full-width">
+					<form class="form-inline">
+						<div>
+								<label> Tipos de clientes </label>
+						</div>
+						<div style="padding-left: 30px">
+
+							<input type="text" ng-model="$ctrl.search" class="form-control" placeholder="buscar tipo de cliente..."><i class="fa fa-search" aria-hidden="true"></i>
+
+						</div>
+						<br>
+
+
+						<div class="col-md-5 p-t-5" align="right">
+							<label class="checkbox-inline checkbox-styled">
+							<input type="checkbox" id="todosTiposCliente"
+	                                           ng-model="$ctrl.tipoTodo"
+	                                           ng-click="$ctrl.tipoClientesPadre()"
+		                                       class=" filled-in chk-col-amber" >
+							<span>Seleccionar todos los tipos de clientes</span>
+							</label>
+		                </div>
+						<div class="col-md-7" align="left">
+
+						</div>
+					</form>
+	               <table class="table table-striped">
+	                            <thead>
+	                                <tr>
+	                                    <th ng-click="sort('upc')">
+	                                        Id
+	                                        <span class="glyphicon sort-icon" ng-show="$ctrl.sortKey=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                                    </th>
+	                                    <th ng-click="$ctrl.sort('proveedor')">
+	                                        Nombre
+	                                        <span class="glyphicon sort-icon" ng-show="$ctrl.sortKey=='proveedor'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                                    </th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                <tr dir-paginate="tip in $ctrl.TipoClientesTable|orderBy:sortKey:reverse|filter:$ctrl.search|itemsPerPage:5">
+										<td>
+											<label class="checkbox-inline checkbox-styled">  
+												<input type="checkbox" 												   
+												        ng-model="tip.selected"
+												        ng-click="$ctrl.tipoClientesHijo(tip)" />	<!-- checkbox9 -->
+												         <span> </span>
+											 </label>   
+										</td>
+	                                    <td>{{tip.Descripcion}}</td>
+	                                </tr>
+	                            </tbody>
+	                 </table>
+	                <dir-pagination-controls max-size="5"
+	                                            direction-links="true"
+	                                            boundary-links="true">
+	                </dir-pagination-controls>
+
+					<div class="col-md-6    col-md-offset-3">
+		                		<button class="btn btn-success" ng-click="$ctrl.showPeriodos()">Aceptar</button>
+								<button class="btn btn-default" ng-click="$ctrl.cleanArray(); $ctrl.showOpcion();">Cancelar</button>
+					</div>
+				</div>
+			</div>
+
+
+		    <!-- P E R I O D O S -->
+			<div id="panelPeriodos" class="col-md-12" style="padding-left: 25px; padding-right: 25px; padding-top: 25px"  ng-hide="$ctrl.pperiodos">
+				<div class="content table-responsive table-full-width">
+					<form class="form-inline">
+						<div>
+								<label> Periodos </label>
+						</div>
+						<div style="padding-left: 30px">
+
+							<input type="text" ng-model="$ctrl.search" class="form-control" placeholder="buscar periodo..."><i class="fa fa-search" aria-hidden="true"></i>
+
+						</div>
+						<br>
+
+
+						<div class="col-md-5 p-t-5" align="right">
+							<label class="checkbox-inline checkbox-styled">
+							<input type="checkbox" id="todosPeriodo"
+	                                           ng-model="$ctrl.periodoTodo"
+	                                           ng-click="$ctrl.periodoPadre()"
+		                                       class=" filled-in chk-col-amber" >
+							<span>Seleccionar todos los periodos</span>
+							</label>
+		                </div>
+						<div class="col-md-7" align="left">
+
+						</div>
+					</form>
+	                <table class="table table-striped">
+	                    <thead>
+	                                <tr>
+	                                    <th ng-click="$ctrl.sort('upc')">
+	                                        Id
+	                                        <span class="glyphicon sort-icon" ng-show="sortKey=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                                    </th>
+	                                    <th ng-click="$ctrl.sort('proveedor')">
+	                                        Nombre
+	                                        <span class="glyphicon sort-icon" ng-show="$ctrl.sortKey=='proveedor'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                                    </th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                <tr dir-paginate="per in $ctrl.PeriodosTable|orderBy:sortKey:reverse|filter:$ctrl.search|itemsPerPage:5">
+										<td>
+											<label class="checkbox-inline checkbox-styled">  
+												<input type="checkbox" 												    
+												        ng-model="per.selected"
+												        ng-click="$ctrl.periodoHijo(per)"/>	
+												         <span> </span>
+											 </label>   
+										</td>
+	                                    <td>{{per.Descripcion}}</td>
+	                                </tr>
+	                    </tbody>
+
+	                 </table>
+	                <dir-pagination-controls max-size="5"
+	                                            direction-links="true"
+	                                            boundary-links="true">
+	                </dir-pagination-controls>
+
+					<div class="col-md-6    col-md-offset-3">
+		                		<button class="btn btn-success" ng-click="$ctrl.showRangosFecha()">Aceptar</button>
+								<button class="btn btn-default" ng-click="$ctrl.cleanArray(); $ctrl.showOpcion();">Cancelar</button>
+					</div>
+				</div>
+			</div>
+
+
+		    <!-- R A N G O S   F E C H A -->
+			<div id="panelRangosFecha" class="col-md-12" style="padding-left: 25px; padding-right: 25px; padding-top: 25px"  ng-hide="$ctrl.prangosfecha">
+				<div class="content table-responsive table-full-width">
+					<form class="form-inline">
+						<div>
+								<label> Seleccione los rangos de fecha </label>
+						</div>
+						<br>
+
+
+						<div class="col-md-6	col-md-offset-3">
+							<div align="left">
+							    <label for="fechaInicial">Fecha inicial: </label>
+		                        <input ng-model="$ctrl.fechaInicial" type="date" id="fechaInicial" placeholder="yyyy-MM-dd"  required />
+			                </div>
+			                <br>
+							<div align="left">
+							    <label for="fechaFinal">Fecha final: </label>
+		                        <input ng-model="$ctrl.fechaFinal" type="date" id="fechaFinal" placeholder="yyyy-MM-dd" required />
+							</div>
+							<br>
+							<div id="MotcanDiv" class="col-xs-12" align="left" ng-hide="$ctrl.MotcanDiv">
+		                    	<label>Seleccione el motivo de cancelación:</label>
+		                        <br>
+								<select id="selectMotcan1" class="form-control" style='width:300px'
+			                        ng-model="$ctrl.selectedMotcan1"
+			                        ng-options="v.MOTCAN for v in $ctrl.motivos1 track by v.Clv_MOTCAN">
+			                    </select> 					
+		                    </div>
+						</div>
+
+
+					</form>
+
+					<div class="col-md-6    col-md-offset-3" align="left" style="padding-top: 30px;">
+		                		<button class="btn btn-success" ng-click="$ctrl.showMesAnio()">Aceptar</button>
+								<button class="btn btn-default" ng-click="$ctrl.cleanArray(); $ctrl.showOpcion();">Cancelar</button>
+					</div>
+				</div>
+			</div>
+
+
+		    <!-- M E S   A N I O -->
+			<div id="panelMesAnio" class="col-md-12" style="padding-left: 25px; padding-right: 25px; padding-top: 25px"  ng-hide="$ctrl.pmesanio">
+				<div class="content table-responsive table-full-width">
+					<form class="form-inline">
+						<div>
+							<label> Último mes y año </label>
+						</div>
+						<br>
+						<div>
+							<div class="col-md-4 col-md-offset-1">
+							    <strong>Último mes:</strong>
+								<select id='ultimoMes'  class='form-control' style='width:200px'
+										ng-model='$ctrl.ultimoMes' 
+		                        		ng-options='option.name for option in $ctrl.meses track by option.value'></select>
+
+							</div>
+							<div class="col-md-4">
+								<strong>Último año:</strong>
+								<input type="number" id="anioC" ng-model="$ctrl.anioC.value" min="2010" style='width:100px'
+										class="form-control" placeholder=" año" required>
+							</div>
+						</div>
+					</form>
+
+					<div class="col-md-6    col-md-offset-3"  style="padding-top: 30px">
+		                		<button class="btn btn-success" ng-click="$ctrl.showCalles()">Aceptar</button>
+								<button class="btn btn-default" ng-click="$ctrl.cleanArray(); $ctrl.showOpcion();">Cancelar</button>
+					</div>
+				</div>
+			</div>
+
+
+		    <!-- C A L L E S -->
+			<div id="panelCalles" class="col-md-12" style="padding-left: 25px; padding-right: 25px; padding-top: 25px"  ng-hide="$ctrl.pcalles">
+				<div class="content table-responsive table-full-width">
+					<form class="form-inline">
+						<div>
+								<label> Calles </label>
+						</div>
+						<div style="padding-left: 30px">
+
+							<input type="text" ng-model="$ctrl.search" class="form-control" placeholder="buscar calle..."><i class="fa fa-search" aria-hidden="true"></i>
+
+						</div>
+						<br>
+
+
+						<div class="col-md-5 p-t-5" align="right">
+							<label class="checkbox-inline checkbox-styled">
+							<input type="checkbox" id="todosCalles"
+	                                           ng-model="$ctrl.calleTodo"
+	                                           ng-click="$ctrl.callePadre()"
+		                                       class=" filled-in chk-col-amber" >
+							<span>Seleccionar todas las calles</span>
+							</label>
+		                </div>
+						<div class="col-md-7" align="left">
+
+						</div>
+					</form>
+	                <table class="table table-striped">
+	                            <thead>
+	                                <tr>
+	                                    <th ng-click="sort('upc')">
+	                                        Id
+	                                        <span class="glyphicon sort-icon" ng-show="$ctrl.sortKey=='id'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                                    </th>
+	                                    <th ng-click="$ctrl.sort('proveedor')">
+	                                        Nombre
+	                                        <span class="glyphicon sort-icon" ng-show="sortKey=='proveedor'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+	                                    </th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                <tr dir-paginate="cal in $ctrl.CallesTable|orderBy:sortKey:reverse|filter:$ctrl.search|itemsPerPage:5">
+	                           
+										<td>
+											<label class="checkbox-inline checkbox-styled">  
+												<input type="checkbox" 												    
+												        ng-model="cal.selected"
+												        ng-click="$ctrl.calleHijo(cal)"/>	
+												         <span> </span>
+											 </label>  
+										</td>
+	                                    <td>{{cal.Nombre}}</td>
+	                                </tr>
+	                            </tbody>
+	                </table>
+	                <dir-pagination-controls max-size="5"
+	                                            direction-links="true"
+	                                            boundary-links="true">
+	                </dir-pagination-controls>
+
+					<div class="col-md-6    col-md-offset-3">
+		                		<button class="btn btn-success" ng-click="$ctrl.showStatus()">Aceptar</button>
+								<button class="btn btn-default" ng-click="$ctrl.cleanArray(); $ctrl.showOpcion();">Cancelar</button>
+					</div>
+				</div>
+			</div>
+
+
+		    <!-- S T A T U S -->
+			<div id="panelStatus" class="col-md-12" style="padding-left: 25px; padding-right: 25px; padding-top: 25px"  ng-hide="$ctrl.pstatus">
+				<div class="content table-responsive table-full-width">
+					<form class="form-inline">
+						<div>
+							<label> Status de cliente </label>
+						</div>
+						<div style="padding-left: 30px">
+
+						</div>
+						<br>
+						<div>
+							<div class="col-sm-4 p-t-5">
+								<label class="checkbox-inline checkbox-styled">
+									<input type="checkbox" id="contratado"
+				                            ng-model="$ctrl.staC"
+				                            ng-change="$ctrl.status(1);"
+				                            class=" filled-in chk-col-amber" >
+									<span>Contratado </span>
+								</label>
+		                    </div>
+		                    <div class="col-sm-4 p-t-5">
+								<label class="checkbox-inline checkbox-styled">
+										<input type="checkbox" id="fuera"
+				                        	ng-model="$ctrl.staF"
+				                            ng-change="$ctrl.status(2)"
+				                            class=" filled-in chk-col-amber" >
+									    <span>Fuera de Área</span>
+								</label>
+		                    </div>
+		                    <div class="col-sm-4 p-t-5">
+								<label class="checkbox-inline checkbox-styled">
+									<input type="checkbox" id="suspendidos"
+				                    	    ng-model="$ctrl.staS"
+				                        	ng-change="$ctrl.status(3)"
+				                            class=" filled-in chk-col-amber" >
+									<span>Suspendidos</span>
+								</label>
+		                    </div>
+		                    <div class="col-sm-4 p-t-5">
+		                    	<label class="checkbox-inline checkbox-styled">
+									<input type="checkbox" id="instalado"
+				                    		ng-model="$ctrl.staI"
+				                            ng-change="$ctrl.status(4);"
+				                            class=" filled-in chk-col-amber" >
+									<span>Instalado </span>
+								</label>
+		                    </div>
+		                    <div class="col-sm-4 p-t-5">
+								<label class="checkbox-inline checkbox-styled">
+									        <input type="checkbox" id="desconectado"
+				                                           ng-model="$ctrl.staD"
+				                                           ng-change="$ctrl.status(5);"
+				                                           class=" filled-in chk-col-amber" >
+									        <span>Desconectado </span>
+								</label>
+		                    </div>
+
+		                    <div class="col-sm-4 p-t-5">
+								<label class="checkbox-inline checkbox-styled">
+									        <input type="checkbox" id="cancelados"
+				                                           ng-model="$ctrl.statN"
+				                                           ng-click="$ctrl.statusCancel();"
+				                                           class=" filled-in chk-col-amber" >
+									        <span>Cancelados </span>
+								</label>
+		                    </div>
+
+		                    <div class="col-sm-4 p-t-5">
+								<label class="checkbox-inline checkbox-styled">
+									        <input type="checkbox" id="temporales"
+				                                           ng-model="$ctrl.statT"
+				                                           ng-change="$ctrl.status(6);"
+				                                           class=" filled-in chk-col-amber" >
+									        <span>Suspendidos Temporales </span>
+								</label>
+		                    </div>
+
+
+							<div class="col-xs-12 p-t-5" id="divMotivoCancelacion1" ng-hide="$ctrl.divMotivoCancelacion1" style="padding-top: 30px">
+		                        <label>Seleccione el motivo de cancelación:</label>
+		                        <br>
+								<select id="selectMotcan2" class="form-control" style='width:300px'
+			                        ng-model="$ctrl.selectedMotcan2" 
+			                        ng-options="v.MOTCAN for v in $ctrl.motivos2 track by v.Clv_MOTCAN">
+			                    </select>		
+		                    </div>
+
+		                    <div class="col-md-12 p-t-5" align="center">
+
+		                        <div class="col-md-6 p-t-5" align="center" style="padding-top: 30px">
+		                      	    <label class="checkbox-inline checkbox-styled">
+										<input type="checkbox" id="buscaOno"
+				                	            ng-model="$ctrl.buscaOno"
+				                    	        ng-click="$ctrl.buscaOnoFunction();"
+				                        	    class=" filled-in chk-col-amber" >
+										<span>Buscar por mes que adeudan y año </span>
+									</label>
+		                        </div>
+		                    	<!-- -->
+		                    	<div class="form-group" id="divMotivoCancelacion2" ng-hide="$ctrl.divMotivoCancelacion2">
+
+		                        	<div class="col-xs-4" align="center" >
+		                            	<strong>Buscar por el mes que sea: </strong>
+		                            	<select id='menorOigual' class='form-control' style='width:200px'
+		                                		ng-model="$ctrl.menoresModel"
+		                                        required ng-options='option.value as option.name for option in $ctrl.menores'></select>
+		                                               <!-- <option value="1">Menor o igual</option>  <option value="2">Igual</option> -->
+		                        	</div>
+
+		                    		<div class="col-xs-3" align="center" >
+		                        		<strong>Mes que adeuda: </strong>
+		                        		<select id='mesQueAdeuda' class='form-control' style='width:200px'
+		                        				ng-model='$ctrl.mesQueAdeuda' 
+		                                        ng-options='option.name for option in $ctrl.meses track by option.value'></select>
+		                    		</div>
+
+		                    		<div class="col-xs-3" align="center"  >
+		                        		<strong> Año: </strong>
+		                                            <!-- <input type="text" id="anioC2" style="width:100px" onkeypress="return valida(event)"> -->
+		                        		<input type="number" id="anioC2" name="input" ng-model="$ctrl.anioC2.value" min="2010" style='width:180px'  required>
+		                    		</div>
+
+		                		</div>
+
+
+
+		            		</div>
+
+						</div>
+					</form>
+
+
+					<div class="col-md-6    col-md-offset-3" style="padding-top: 30px;">
+		                		<button class="btn btn-success" ng-click="$ctrl.filtroStatus()">Aceptar</button>
+								<button class="btn btn-default" ng-click="$ctrl.cleanArray(); $ctrl.showOpcion();">Cancelar</button>
+					</div>
+				</div>
+			</div>
+
+	
+		    <!-- R E P O R T E   P D F -->
+			<div id="panleReporte" class="col-md-12" style="padding-left: 25px; padding-right: 25px; padding-top: 25px; height: 650px"  ng-hide="$ctrl.preporte">		
+				<iframe ng-src="{{$ctrl.reporteUrl}}" style="position:absolute;top:0px;width:98%;height:100%;" frameborder= 0>			
+        		</iframe>
+			</div>
+
+
+
+		</div>
+    </div>
+</div>

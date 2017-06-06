@@ -1,0 +1,106 @@
+<div class="modal-header">
+    <button class="close" aria-label="Close" type="button" ng-click="$ctrl.cancel()">×</button>
+    <h4 class="modal-title">{{$ctrl.titulo}}</h4>
+</div>
+<div class="modal-body">
+    <div class="row" ng-show="$ctrl.cambioDomicilio">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="col-sm-2 control-label text-left">Ciudad:</label>
+                <div class="col-sm-10">
+                    <select name="ciudad" validate-on="dirty" class="form-control" ng-change="$ctrl.changeCamdo()" ng-model="$ctrl.selectedCiudad" ng-options="v.nombre for v in $ctrl.ciudades track by v.Clv_Ciudad" required-message="'Error!, Este campo es obligatorio.'" required style="font-size:12px;">
+                        <option value="" disabled selected>Seleccione ciudad</option>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label text-left">Localidad:</label>
+                <div class="col-sm-10">
+                    <select name="localidad" validate-on="dirty" class="form-control" ng-change="$ctrl.changeLocalidad()" ng-model="$ctrl.selectedLocalidad" ng-options="v.Nombre for v in $ctrl.localidades track by v.Clv_Localidad" required-message="'Error!, Este campo es obligatorio.'" required style="font-size:12px;">
+                        <option value="" disabled selected>Seleccione localidad</option>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label text-left">Colonia:</label>
+                <div class="col-sm-10">
+                    <select name="colonia" validate-on="dirty" class="form-control" ng-change="$ctrl.changeColonia()" ng-model="$ctrl.selectedColonia" ng-options="v.COLONIA for v in $ctrl.colonias track by v.CLV_COLONIA" required-message="'Error!, Este campo es obligatorio.'" required style="font-size:12px;">
+                        <option value="" disabled selected>Seleccione colonia</option>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label text-left">Calle:</label>
+                <div class="col-sm-10">
+                    <select name="calle" validate-on="dirty" class="form-control" ng-model="$ctrl.selectedCalle" ng-options="v.Nombre for v in $ctrl.calles track by v.Clv_Calle" required-message="'Error!, Este campo es obligatorio.'" required style="font-size:12px;">
+                        <option value="" disabled selected>Seleccione calle</option>
+                    </select>
+                </div>
+                <label class="col-sm-2 control-label text-left">Número Ext.</label>
+                <div class="col-sm-4">
+                    <input type="text" name="numeroExt" validate-on="dirty" class="form-control" ng-model="$ctrl.numeroExt" required-message="'Error!, Este campo es obligatorio.'" required style="font-size:12px;">
+                </div>
+                <label class="col-sm-2 control-label text-left">Número Int.</label>
+                <div class="col-sm-4">
+                    <input type="text" name="numeroInt" validate-on="dirty" class="form-control" ng-model="$ctrl.numeroInt" required-message="'Error!, Este campo es obligatorio.'" required style="font-size:12px;">
+                </div>
+                <label class="col-sm-2 control-label text-left">Telefono:</label>
+                <div class="col-sm-10">
+                    <input type="text" name="telefono" validate-on="dirty" class="form-control" ng-model="$ctrl.telefono" required-message="'Error!, Este campo es obligatorio.'" required style="font-size:12px;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-show="$ctrl.contratacionExt">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="col-sm-6 control-label text-left" style="font-size: 12px;">Número de Extenciones por Instalar:</label>
+                <div class="col-sm-6">
+                    <input type="text" name="extenciones" validate-on="dirty" class="form-control" ng-model="$ctrl.contratar" required-message="'Error!, Este campo es obligatorio.'" required style="font-size:12px;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-show="$ctrl.cancelacionExt">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="col-sm-6 control-label text-left" style="font-size: 12px;">Número de Extenciones Instaladas Actualmente:</label>
+                <div class="col-sm-6">
+                    <input type="text" name="extenciones" validate-on="dirty" class="form-control" ng-model="$ctrl.instaladas" required-message="'Error!, Este campo es obligatorio.'" required style="font-size:12px;">
+                </div>
+                <label class="col-sm-6 control-label text-left" style="font-size: 12px;">Número de Extenciones por Cancelar:</label>
+                <div class="col-sm-6">
+                    <input type="text" name="extenciones" validate-on="dirty" class="form-control" ng-model="$ctrl.cancelar" required-message="'Error!, Este campo es obligatorio.'" required style="font-size:12px;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-show="$ctrl.instalacion">
+        <div class="col-md-12">
+            <multi-select options="$ctrl.sucursalesObj"></multi-select>
+        </div>
+    </div>
+
+    <div class="row" ng-show="$ctrl.entregaAparatos">
+        <div class="form-group">
+            <label class="col-sm-4 control-label text-right" style="font-size: 12px;">Aparatos por asignar:</label>
+            <div class="col-sm-8">
+                <select name="ciudad" validate-on="dirty" class="form-control" ng-model="$ctrl.selectedAparatos" ng-options="v.Descripcion for v in $ctrl.calle track by v.IdMotivoTicket" required-message="'Error!, Este campo es obligatorio.'" required style="font-size:12px;">
+                    <option value="" disabled selected>Seleccione Aparato</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-show="$ctrl.entregaCables">
+        <div class="form-group">
+            <label class="col-sm-4 control-label text-right" style="font-size: 12px;">Seleccione el Modelo:</label>
+            <div class="col-sm-8">
+                <select name="ciudad" validate-on="dirty" class="form-control" ng-model="$ctrl.selectedCables" ng-options="v.Descripcion for v in $ctrl.calle track by v.IdMotivoTicket" required-message="'Error!, Este campo es obligatorio.'" required style="font-size:12px;">
+                    <option value="" disabled selected>Seleccione Cable</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="$ctrl.aceptar()">Guardar</button>
+    <button class="btn btn-default" type="button" ng-click="$ctrl.cancel()">Cancelar</button>
+</div>

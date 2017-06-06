@@ -1,0 +1,136 @@
+<div class="modal-header">
+  <button class="close" aria-label="Close" type="button">×</button>
+  <h4 class="modal-title"><i class="fa fa-thumb-tack"></i> Busqueda de contratos</h4>
+</div>
+<div class="modal-body">
+
+   
+      <div class="panel-group" id="accordion3">
+        <div class="card panel">
+          <div class="card-head card-head-xs  collapsed" data-toggle="collapse" data-parent="#accordion3" data-target="#accordion3-1"
+            aria-expanded="false">
+            <header><i class="fa fa-search"></i> Buscar contrato</header>
+            <div class="tools">
+              <a class="btn btn-icon-toggle"><i class="fa fa-angle-down"></i></a>
+            </div>
+          </div>
+          <div id="accordion3-1" class="collapse buscarContrato" aria-expanded="false" style="height: 0px;">
+            <div class="panel-body">
+              <uib-tabset active="active">
+                <uib-tab index="0" heading="Contrato">
+                  <div class="row">
+                   <br>
+                    <div class="col-md-2">
+                     
+                      <input type="number" class="form-control input-sm" ng-model="$ctrl.contratobusqueda" placeholder="No.contrato">
+
+                    </div>
+                     <div class="col-md-2">
+
+                    <button class="btn btn-info btn-xs" ng-click="$ctrl.Buscarporcontrato();"><i class="fa fa-search"></i> Buscar</button>
+                    </div>
+                    <div class="col-md-2">                      
+                          <input type="text" class="form-control input-sm" ng-model="$ctrl.NombreComer" placeholder="Nombre comercial">
+
+                    </div>
+                    <div class="col-md-2">
+                    
+                      <button class="btn btn-info btn-xs" ng-click="$ctrl.BuscarNombrec();"><i class="fa fa-search"></i> Buscar</button>
+
+                    </div>
+                    <div class="col-md-2">
+                      
+                      <input type="text" class="form-control input-sm" ng-model="$ctrl.RazonS" placeholder="Razón social">
+
+                    </div>
+                    <div class="col-md-2">
+                    
+                      <button class="btn btn-info btn-xs" ng-click="$ctrl.BuscarRazonS();"><i class="fa fa-search"></i> Buscar</button>
+
+                    </div>
+                    
+                  </div>
+                </uib-tab>
+                <uib-tab index="1" heading="Ubicación">
+                   <div class="row">
+                     <br>
+                      <div class="col-md-3">
+
+                <p>Distribuidor:</p>
+                <select ng-model="$ctrl.Distribuidor" ng-change="$ctrl.ObtenerCiudades($ctrl.Distribuidor);" class="form-control input-sm"
+                  ng-options="item as item.Nombre for item in $ctrl.Distribuidores track by item.Clv_Plaza">
+                        <option value="">Selecciona</option>
+                    </select>
+              </div>
+              <div class="col-md-3">
+                <p>Ciudad:</p>
+                <select ng-model="$ctrl.Ciudad" class="form-control input-sm" ng-options="item as item.Nombre for item in $ctrl.Ciudades track by item.Clv_Ciudad">
+                         <option value="">Selecciona</option>
+                    </select>
+
+              </div>
+              <div class="col-md-1">
+                <br>
+                <button class="btn btn-info btn-sm" ng-click="$ctrl.BuscarCiudad();"><i class="fa fa-search"></i> Buscar</button>
+
+              </div>
+            </div>
+            
+
+                </uib-tab>
+              </uib-tabset>
+
+             
+
+              </div>
+            </div>
+          </div>
+          <!-- panel body -->
+        </div>
+      </div>
+      <!--end .panel -->
+
+ <div class="col-md-12">
+         
+          <table class="table" style="font-size:10px;">
+            <thead>
+              <tr>
+                <th>#contrato</th>
+                <th>Razón social</th>
+                <th>RFC</th>
+                <th>Nombre Comercial</th>
+                <th>Distribuidor</th>
+                 <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr ng-show="$ctrl.Contratos.length>0" dir-paginate="x in $ctrl.Contratos|orderBy:$ctrl.sortKey:reverse|filter:$ctrl.search|itemsPerPage:5">
+                <td>{{x.IdContratoMaestro}}</td>
+                <td>{{x.RazonSocial}}</td>
+                <td>{{x.RFC}}</td>
+                <td>{{x.NombreComercial}}</td>
+                <td>{{x.DistribuidorDes}}</td>
+                <td>{{x.EstadoDes}}</td>
+                <td>                  
+                  <button class="btn ink-reaction btn-flat btn-xs btn-warning" ng-click="$ctrl.ok(x)"  >SELECCIONA</button>
+
+              </tr>
+            </tbody>
+          </table>
+          <div style="padding-left: 20px;">
+            <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+            </dir-pagination-controls>
+          </div>
+        </div>
+
+    
+
+
+
+</div>
+<div class="modal-footer">  
+  <button class="btn btn-default btn-sm" type="button" ng-click="$ctrl.cancel()">cerrar</button>
+</div>
+

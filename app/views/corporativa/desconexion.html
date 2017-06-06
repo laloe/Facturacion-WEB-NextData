@@ -1,0 +1,60 @@
+<style type="text/css">
+    .scrollDiv {
+        height: 300px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+</style>
+<div class="modal-header">
+    <button type="button" class="close" ng-click="$ctrl.cancel()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title" id="modal-title">{{ $ctrl.titulo }} de Contratos</h4>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="file" id="inputFile2" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                    <button class="btn btn-success btn-xs" ng-click="$ctrl.ValidaArchivo()">Validar contratos</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <input type="text" class="form-control" placeholder="Buscar Cliente" ng-model="$ctrl.search">
+            </div>
+            <div class="col-md-6" style="margin-top:25px;">
+                <p class="text-right text-primary" ng-if="$ctrl.seleccionar" ng-click="$ctrl.seleTodo()">
+                    <a href="">Seleccionar Todo</a>
+                </p>
+                <p class="text-right text-danger" ng-if="!$ctrl.seleccionar" ng-click="$ctrl.deseleTodo()">
+                    <a href="">Deseleccionar Todo</a>
+                </p>
+            </div>
+        </div>
+        <div class="col-md-12 scrollDiv">
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Contrato</th>
+                        <th>Nombre</th>
+                        <th>{{ $ctrl.titulo }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in $ctrl.contrato.lstCliS | filter:$ctrl.search">
+                        <td>{{ x.ContratoCom }}</td>
+                        <td>{{ x.NombreCli }}</td>
+                        <td class="text-center">
+                            <label class="checkbox-inline checkbox-styled checkbox-primary">
+								<input type="checkbox" ng-model="x.checado" value="{{ x.ContratoCom }}" ng-checked="x.checado"><span></span>
+                            </label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default btn-sm" type="button" ng-click="$ctrl.cancel()">Cancelar</button>
+    <button class="btn btn-primary btn-sm" type="button" ng-click="$ctrl.ok()">Procesar</button>
+</div>

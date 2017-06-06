@@ -1,0 +1,63 @@
+<div class="modal-header">
+  <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
+  <h4 class="modal-title">Detalle de cobro</h4>
+</div>
+<div class="modal-body" style="padding-top:20px;">
+
+  <div class="table-responsive" style="padding-left: 8px; width: 95%">
+    <table class="table table-bordered">
+      <thead>
+        <tr style="background-color: #000000; color:#ffffff;">
+          <th style="font-size: 10px;">Aparato</th>
+          <th style="font-size: 10px;">Concepto</th>
+          <th style="font-size: 10px;">Tv's Extra</th>
+          <th style="font-size: 10px;">Meses Cortesia</th>
+          <th style="font-size: 10px;">Meses a Pagar</th>
+          <th style="font-size: 10px;">Importe</th>
+          <th style="font-size: 10px;">Periodo PI</th>
+          <th style="font-size: 10px;">Periodo PF</th>
+          <th style="font-size: 10px;">Puntos APPO</th>
+          <th style="font-size: 10px;">Puntos APA</th>
+          <th style="font-size: 10px;">Puntos APPA</th>
+          <th style="font-size: 10px;">Puntos Combo</th>
+          <th style="font-size: 10px;">Importe a Bonificar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="x in ctrl.detallePago" ng-class="x.isChecked == true ? 'esmeralda':''">
+          <td style="font-size: 9px;">{{ x.MacCableModem }}</td>
+          <td style="font-size: 9px;">{{ x.DESCORTA }}</td>
+          <td style="font-size: 9px;">{{ x.tvAdic }}</td>
+          <td style="font-size: 9px;">{{ x.Meses_Cortesia }}</td>
+          <td style="font-size: 9px;">{{ x.mesesApagar }}</td>
+          <td style="font-size: 9px;">{{ x.importe | currency }}</td>
+          <td style="font-size: 9px;">{{ x.periodoPagadoIni }}</td>
+          <td style="font-size: 9px;">{{ x.periodoPagadoFin }}</td>
+          <td style="font-size: 9px;">{{ x.PuntosAplicadosOtros }}</td>
+          <td style="font-size: 9px;">{{ x.puntosAplicadosAnt }}</td>
+          <td style="font-size: 9px;">{{ x.PuntosAplicadosPagoAdelantado }}</td>
+          <td style="font-size: 9px;">{{ x.bonificacion }}</td>
+          <td style="font-size: 9px;">{{ x.importeBonifica }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+    <div class="col-md-8"></div>
+    <div class="col-md-4">
+      <table class="table">
+        <tr ng-repeat="x in ctrl.sumaPagos">
+          <td style="font-size: 11px;" ng-if="!$last"><strong>{{ x.Descripcion }}</strong></td>
+          <td style="font-size: 15px;" ng-if="$last"><strong>{{ x.Descripcion }}</strong></td>
+          <td style="font-size: 11px;" ng-if="!$last"> {{ x.Total | currency }} </td>
+          <td style="font-size: 15px;" ng-if="$last"><strong>{{ x.Total | currency }}</strong></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default btn-sm" type="button" ng-click="ctrl.cancel()">Cerrar</button>
+</div>

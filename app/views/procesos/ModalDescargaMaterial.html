@@ -1,0 +1,51 @@
+<div class="modal-header">
+  <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
+  <h4 class="modal-title"><i class="fa fa-thumb-tack"></i>Descarga material técnicos</h4>
+</div>
+<div class="modal-body" style="padding-top:20px;">
+  <div class="row text-center">
+    No.Bitacora
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <p>Clasificación del material</p>
+      <select class="form-control" name="">
+
+      </select>
+    </div>
+    <div class="col-md-4">
+      <p>Descripción de articulo</p>
+      <select class="form-control" name="">
+
+      </select>
+    </div>
+    <div class="col-md-2">
+      <p>cantidad</p>
+      <input type="number" class="form-control" ng-model="ctrl.cantidad">
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-info btn-sm" value="" ng-click="ctrl.AgregarItem()">Agregar</button>
+    </div>
+  </div>
+  <div class="row">
+    <table class="table">
+      <thead>
+        <th>Clave</th>
+        <th>Descripción</th>
+        <th>Cantidad</th>
+        <th>Tecnico</th>
+        <th>Metraje inicial int.</th>
+        <th>Metraje final int.</th>
+        <th>Metraje inicial ext.</th>
+        <th>Metraje final ext.</th>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+  </div>
+
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default-bright btn-sm" type="button" ng-click="ctrl.cancel()">Cancelar</button>
+  <button class="btn btn-primary btn-sm" type="button" ng-click="ctrl.ok()">Guardar</button>
+</div>

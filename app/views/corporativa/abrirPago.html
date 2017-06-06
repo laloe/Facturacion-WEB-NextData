@@ -1,0 +1,23 @@
+<div class="modal-header">
+    <button class="close" aria-label="Close" type="button" ng-click="$ctrl.cancel()">×</button>
+    <h4 class="modal-title">Tipo de pago</h4>
+</div>
+<div class="modal-body">
+    <div class="row" style="padding-left:10px;">
+        <p>Selecciona el tipo de pago</p>
+        <div class="col-md-12">
+            <label class="radio-inline radio-styled">
+                <input type="radio" name="inlineRadioOptions" ng-value="1" ng-model="$ctrl.tipo" ng-change="$ctrl.cambio()"><span>Crédito</span>
+            </label>
+        </div>
+        <div class="col-md-12">
+            <label class="radio-inline radio-styled col-md-12">
+                <input type="radio" name="inlineRadioOptions" ng-value="0" ng-model="$ctrl.tipo" ng-change="$ctrl.cambio()"><span>Pago Total</span>
+            </label>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default btn-sm" type="button" ng-click="$ctrl.cancel()">Cancelar</button>
+    <button class="btn btn-success btn-sm" type="button" ng-click="$ctrl.aceptar()">Siguiente</button>
+</div>

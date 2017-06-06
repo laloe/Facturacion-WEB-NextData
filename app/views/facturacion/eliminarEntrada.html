@@ -1,0 +1,11 @@
+<div class="modal-header alert-danger">
+    <button class="close" aria-label="Close" type="button" ng-click="$ctrl.cancel()">×</button>
+    <h4 class="text-center" style="margin-top:5px;">Eliminar Entrega Parcial</h4>
+</div>
+<div class="modal-body" style="padding-top:20px;">
+	<p style="color:red; font-size: 14px;"><strong>¿Realmente deseas eliminar la entrega parcial con el número consecutivo {{ $ctrl.consecutivo }}?</strong></p>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" type="button" ng-click="$ctrl.cancel()">Cancelar</button>
+    <button class="btn btn-danger" type="button" ng-click="$ctrl.eliminarEntrega()">Eliminar</button>
+</div>

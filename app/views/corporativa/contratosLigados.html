@@ -1,0 +1,106 @@
+<style type="text/css">
+  .scrollDiv {
+    height: 300px;
+    overflow: auto;
+    overflow-x: hidden;
+  }
+</style>
+<div class="modal-header">
+  <button type="button" class="close" ng-click="$ctrl.cancel()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <h5 class="modal-title" id="modal-title">Contratos Ligados</h5>
+</div>
+<div class="modal-body" id="modal-body">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="col-md-4">
+        <input type="file" id="inputFile2" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+        <button class="btn btn-success btn-xs" ng-click="$ctrl.ValidaArchivo();">Validar contratos</button>
+      </div>
+      <div class="col-md-4"></div>
+      <div class="col-md-4"><button class="btn btn-success btn-xs" ng-click="$ctrl.clientesModal()"><i class="fa fa-plus" aria-hidden="true"></i> Añadir</button></div>
+
+    </div>
+
+
+
+  </div>
+
+  <br>
+  <div class="col-md-12 scrollDiv">
+    <table class="table">
+      <thead>
+        <tr>
+          <td>Prioridad</td>
+          <td>Contrato</td>
+          <td>Nombre</td>
+          <td>Proporcional</td>
+          <td>Eliminar</td>
+        </tr>
+      </thead>
+      <tbody dnd-list="$ctrl.contratos">
+        <tr ng-repeat="item in $ctrl.contratos" dnd-draggable="item" dnd-moved="$ctrl.contratos.splice($index, 1)" dnd-effect-allowed="move"
+          dnd-selected="models.selected = item" ng-class="{'selected': models.selected === item}">
+          <td><span class="label label-danger">{{ $index + 1 }}</span></td>
+          <td>{{item.CONTRATO}}</td>
+          <td>{{item.Nombre }} {{ item.Apellido_Paterno }} {{ item.Apellido_Materno}}</td>
+          <td class="text-center">
+            <label class="checkbox-inline checkbox-styled checkbox-primary">
+								<input type="checkbox" ng-model="item.Proporcional" value="{{ item.CONTRATO }}" ng-checked="item.Proporcional"><span></span>
+            </label>
+          </td>
+          <td>
+            <button type="button" class="btn ink-reaction btn-icon-toggle btn-danger" ng-click="$ctrl.eliminarContrato($index)"><i class="fa fa-trash"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr>
+  <div class="row">
+    <form angular-validator-submit="$ctrl.cambioNivel()" ng-if="$ctrl.contratos.length > 0" name="contratoForm" novalidate angular-validator>
+      <div class="col-md-3">
+
+        Cambiar nivel de
+      </div>
+      <div class="col-md-2">
+
+        <input type="number" class="form-control input-sm" validate-on="dirty" name="Nivelant" ng-model="$ctrl.Nivelant" min="1"
+          max="{{$ctrl.contratos.length}}" required nvalid-message="'La prioridad solo es del 1 al {{ $ctrl.contratos.length  }}'"
+          required-message="'Este campo es obligatorio.'">
+
+      </div>
+      <div class="col-md-1">
+        <span>a</span>
+      </div>
+      <div class="col-md-2">
+        <input type="number" class="form-control input-sm" validate-on="dirty" name="Nivelnue" ng-model="$ctrl.Nivelnue" min="1"
+          max="{{$ctrl.contratos.length}}" required nvalid-message="'La prioridad solo es del 1 al {{ $ctrl.contratos.length  }}'"
+          required-message="'Este campo es obligatorio.'">
+
+      </div>
+      <div class="col-md-2">
+
+        <button type="submit" class="btn ink-reaction btn-flat btn-xs btn-primary"><i class="md md-swap-horiz
+"></i>Cambiar</button>
+
+
+      </div>
+      <div class="col-md-12" style="max-height: 150px; overflow-y:scroll; font-size: 10px; color:red; ">
+        <br>
+        <p class="text-danger text-center" ng-if="$ctrl.FileErrors.length > 0">Errores de proceso:</p>
+
+        <p ng-repeat="x in $ctrl.FileErrors">*{{x.ContratoCom}}--{{x.Referencia}}</p>
+
+
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default btn-sm" type="button" ng-click="$ctrl.cancel()">Cancelar</button>
+  <button class="btn btn-primary btn-sm" type="button" ng-show="$ctrl.showokbtn" ng-click="$ctrl.ok()">Aceptar</button>
+  <button class="btn btn-primary btn-sm" type="button" ng-show="$ctrl.showeditbtn" ng-click="$ctrl.edit()">Editar</button>
+</div>

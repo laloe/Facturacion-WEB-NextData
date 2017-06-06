@@ -1,0 +1,197 @@
+<style type="text/css">
+	.scrollDiv {
+		height: 400px;
+		overflow: auto;
+		overflow-x: hidden;
+	}
+	
+	.scrollDiv2 {
+		height: 120px;
+		overflow: auto;
+		overflow-x: hidden;
+	}
+	
+	.scrollDiv3 {
+		height: 300px;
+		overflow: auto;
+		overflow-x: hidden;
+	}
+</style>
+
+<div class="card animated fadeIn fast" style="margin-top:20px;">
+	<div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+		<header>
+			<strong style="font-weight:bold; border:none; margin-left:10px;">Procesos>Nueva Orden</strong>
+			<br /><small class="text-muted" style="font-size:14px; margin-left:10px;"> <a href="#"><i class="fa fa-home" aria-hidden="true"></i> Procesos</a>><a href="#" class="paginaActiva">Ordenes de Servicio>Nueva Orden</a></small>
+
+		</header>
+		<div class="tools">
+			<button class="btn btn-default btn-sm" type="button" ui-sref="home.procesos.ordenes">Cancelar</button>
+			<button class="btn btn-primary btn-sm" type="button"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+		</div>
+	</div>
+	<div class="card-body">
+		<div class="row">
+			<div class="col-md-5">
+				<div class="col-md-12">
+					<div class="col-md-2">
+						<small><b>Servicios:</b></small>
+					</div>
+					<div class="col-md-3">
+						<input type="text" placeholder="# Orden" class="form-control input-sm" ng-model="$ctrl.clv_orden" disabled>
+					</div>
+					<div class="col-md-4">
+						<form angular-validator-submit="$ctrl.buscarContrato()" name="contratoForm" novalidate angular-validator>
+							<input type="text" 
+							placeholder="No. contrato" 
+							class="form-control input-sm" 
+							ng-model="$ctrl.contrato"
+							name="contrato"
+							validate-on="dirty"
+							placeholder="Contrato"
+							ng-pattern = "/^[0-9]+([-][0-9]+)?$/"
+							required-message="'Este campo es obligatorio.'"
+							autocomplete="off"
+							invalid-message = "'Formato de contrato inválido.'">
+						</form>
+					</div>
+					<div class="col-md-3" style="margin-left: -20px;">
+						<div>
+							<button ng-click="$ctrl.buscarCliente()" class="btn ink-reaction btn-floating-action btn-sm btn-default"><i class="fa fa-search"></i></button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<input type="text" class="form-control input-sm" placeholder="# folio de bitácora" ng-model="$ctrl.bitacora" disabled>
+			</div>
+			<div class="col-md-5">
+				<div class="col-md-12">
+					<div class="col-md-3">
+						<small><b>Status:</small></b></p>
+					</div>
+					<div class="col-md-3">
+						<label class="radio-inline radio-styled">
+						<input type="radio" name="inlineRadioOptions" value="P" ng-model="$ctrl.status" disabled><span>Pendiente</span>
+					</label>
+					</div>
+					<div class="col-md-3">
+						<label class="radio-inline radio-styled">
+						<input type="radio" name="inlineRadioOptions" value="E" ng-model="$ctrl.status" disabled><span>Ejecutada</span>
+					</label>
+					</div>
+					<div class="col-md-3">
+						<label class="radio-inline radio-styled">
+						<input type="radio" name="inlineRadioOptions" value="V" ng-model="$ctrl.status" disabled><span>Visitada</span>
+					</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-md-4">
+				<b><i class="md md-perm-identity"></i> Información del Cliente</b><br>
+				<strong>Distribuidor:</strong> {{$ctrl.datosCli.Compania}}<br>
+				<p><strong>Nombre:</strong> {{$ctrl.datosCli.NOMBRE}}<br>
+					<strong>Dirección:</strong> {{$ctrl.datosCli.CALLE +' '+ $ctrl.datosCli.NUMERO +' '+ $ctrl.datosCli.COLONIA +' '+ $ctrl.datosCli.CIUDAD}}<br>
+					<br>
+				</p>
+			</div>
+			<div class="col-md-4">
+				<b><i class="md md-settings-remote"></i> Servicios asignados</b><br>
+				<div class="card wrapper scrollDiv2" style="background: #DDEAE9">
+					<p style="font-size: 10px;" class="text-center"><span ng-repeat="x in $ctrl.servicios">{{ x.Servicio }} <br></span></p>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<b><i class="md md-access-time"></i> Fechas</b><br>
+				<form class="form-horizontal" role="form">
+					<div class="form-group">
+						<label for="regular13" class="col-sm-4 control-label">Solicitud</label>
+						<div class="col-sm-8">
+							<input type="date" ng-model="$ctrl.fecha" class="form-control input-sm" style="font-size:12px;" disabled>
+							<div class="form-control-line"></div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="regular13" class="col-sm-4 control-label">Ejecución</label>
+						<div class="col-sm-8">
+							<input type="date" class="form-control input-sm" style="font-size:12px;" disabled>
+							<div class="form-control-line"></div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="regular13" class="col-sm-4 control-label">Visita 1</label>
+						<div class="col-sm-8">
+							<input type="date" class="form-control input-sm" style="font-size:12px;" disabled>
+							<div class="form-control-line"></div>
+						</div>
+					</div>
+
+				</form>
+			</div>
+			<div class="col-md-2">
+				<br>
+				<form class="form-horizontal" role="form">
+					<div class="form-group">
+						<label for="regular13" class="col-sm-4 control-label">Visita 2</label>
+						<div class="col-sm-8">
+							<input type="date" class="form-control input-sm" style="font-size:12px;" disabled>
+							<div class="form-control-line"></div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="regular13" class="col-sm-4 control-label">Ejecución real</label>
+						<div class="col-sm-8">
+							<input type="date" class="form-control input-sm" style="font-size:12px;" disabled>
+							<div class="form-control-line"></div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<small>Técnico:</small>
+				<select class="form-control input sm" disabled></select>
+			</div>
+			<div class="col-md-4">
+				<small>Observaciones:</small>
+				<input type="text" class="form-control" ng-model="$ctrl.observaciones">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<br>
+				<button class="btn btn-success btn-xs" ng-click="$ctrl.agregar($ctrl.contrato)">Agregar servicio</button>
+			</div>
+		</div>
+		<div class="row">
+			<table class="table">
+				<thead>
+					<th>Descripción</th>
+					<th>Acción</th>
+					<th>Observacíones</th>
+					<th>Recibir</th>
+					<th>Eliminar</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="x in $ctrl.trabajosTabla">
+						<td>{{ x.Descripcion }}</td>
+						<td><button class="btn btn-default btn-sm" ng-if="x.Accion != ''" ng-click="$ctrl.detalleTrabajo(x.Accion)">{{ x.Accion }}</button></td>
+						<td>{{ x.Obs }}</td>
+						<td>
+							<label class="col-md-6 col-md-offset-2 checkbox-inline checkbox-styled">
+								<input type="checkbox" name="inlineRadioOptions" ng-model="x.SeRealiza"><span></span>
+							</label>
+						</td>
+						<td>
+							<button type="button" class="btn ink-reaction btn-xs btn-floating-action btn-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Elimina queja" ng-click="$ctrl.EliminaQueja(x);"><i class="md md-delete"></i></button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

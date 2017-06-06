@@ -1,0 +1,45 @@
+<style type="text/css">
+	.scrollDiv {
+		height: 350px;
+		overflow: auto;
+		overflow-x: hidden;
+	}
+</style>
+<div class="modal-header">
+  <button class="close" aria-label="Close" type="button" ng-click="$ctrl.cancel()">×</button>
+  <h4 class="modal-title">Facturas Por Cliente</h4>
+</div>
+<div class="modal-body" style="padding-top:20px;">
+
+
+  <div class="row">
+    <div class="col-md-12 scrollDiv">
+      <table class="table">
+        <thead>
+          <tr style="background-color: #B5B6B6;">
+            <th>Contrato</th>
+            <th>Importe</th>
+            <th>Total Puntos</th>
+            <th>Monto</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr ng-repeat="x in $ctrl.facturas">
+            <td>{{x.Contrato}}</td>
+            <td>{{x.Importe}}</td>
+            <td>{{x.Total_Puntos}} </td>
+            <td>{{x.Monto}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+  </div>
+
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default btn-sm" type="button" ng-click="$ctrl.cancel()">regresar</button>
+
+</div>

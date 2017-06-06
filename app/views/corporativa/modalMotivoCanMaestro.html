@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <button class="close" aria-label="Close" type="button" ng-click="$ctrl.cancel()" >×</button>
+  <h4 ng-if="$ctrl.op == 'CAN'" class="modal-title"><i class="fa fa-thumb-tack"></i> Motivo de cancelación</h4>
+  <h4 ng-if="$ctrl.op != 'CAN'" class="modal-title"><i class="fa fa-thumb-tack"></i> Motivo de reimpresión</h4>
+</div>
+<div class="modal-body" style="    font-size: 11px;">
+
+<p ng-if="$ctrl.op == 'CAN'">selecciona el motivo de la cancelación </p>
+<p ng-if="$ctrl.op != 'CAN'">selecciona el motivo de la reimpresión </p>
+<select class="form-control" 
+ng-model="$ctrl.motcan"
+ng-options="item.Descripcion for item in $ctrl.motivos track by item.Clv_Motivo">
+    <option value="">Selecciona un motivo</option>
+</select>
+
+<div class="modal-footer">  
+  <button class="btn btn-info btn-sm" type="button" ng-click="$ctrl.ok()">Aceptar</button>
+  <button class="btn btn-default-bright btn-sm" type="button" ng-click="$ctrl.cancel()">Cancelar</button>
+</div>
+

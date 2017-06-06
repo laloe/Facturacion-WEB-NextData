@@ -1,0 +1,61 @@
+<form angular-validator-submit="$ctrl.guardaDetalle()" name="contratoForm" novalidate angular-validator>
+    <div class="modal-header">
+        <button class="close" aria-label="Close" type="button" ng-click="$ctrl.cancel()">×</button>
+        <h4 class="modal-title">Seleccione el Servicio al Cliente</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <label class="col-md-3 text-right">Tipo de servicios:</label>
+                <div class="col-md-7">
+                    <select name="servicio" 
+                    class="form-control" 
+                    ng-change="$ctrl.changeTrabajo()" 
+                    ng-model="$ctrl.selectedServicio" 
+                    ng-options="x.Concepto for x in $ctrl.servicios track by x.clv_tipser"
+                    validate-on="dirty"
+                    required-message="'Este campo es obligatorio.'"
+                    required>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="col-md-3 text-right">Trabajo:</label>
+                <div class="col-md-7">
+                    <select name="servicio" 
+                    class="form-control" 
+                    ng-change="$ctrl.pantallasExtras()" 
+                    ng-model="$ctrl.selectedTrabajo" 
+                    ng-options="x.Descripcion for x in $ctrl.tipoTrabajo track by x.Clv_Trabajo"
+                    validate-on="dirty"
+                    required-message="'Este campo es obligatorio.'"
+                    required>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="col-md-3 text-right">Observaciones:</label>
+                <div class="col-md-7">
+                    <textarea row="3" class="form-control" style="font-size:12px;" ng-model="vm.observaciones"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <br>
+            <div class="col-md-12">
+                <label class="col-md-6 col-md-offset-2 checkbox-inline checkbox-styled">
+                    <input type="checkbox" name="inlineRadioOptions" ng-model="$ctrl.realizar"><span>¿Se realizó el trabajo?</span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default btn-sm" type="button" ng-click="$ctrl.cancel()">Cancelar</button>
+        <button class="btn btn-primary btn-sm" type="submit">Aceptar</button>
+    </div>
+</form>

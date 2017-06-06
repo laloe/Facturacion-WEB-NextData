@@ -1,0 +1,73 @@
+<style>
+    .dualmultiselect label {
+        margin: 10px;
+    }
+    
+    .dualmultiselect .btn {
+        margin: 10px;
+    }
+    
+    .dualmultiselect .pool {
+        border: 1px solid #999;
+        border-radius: 4px;
+        padding: 10px;
+        margin: 5px;
+        height: 250px;
+        overflow-y: scroll;
+    }
+    
+    .dualmultiselect .pool ul {
+        list-style: none;
+        padding-left: 0px;
+    }
+    
+    .dualmultiselect .pool ul li {
+        width: 100%;
+        padding: 4px 8px 4px 4px;
+        border-bottom: 1px dotted #CFCFCF;
+    }
+    
+    .dualmultiselect .pool ul li a:hover {
+        text-decoration: none;
+    }
+</style>
+
+<div class="modal-header">
+    <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
+    <h4 class="modal-title">Baja de Servicios de Internet</h4>
+</div>
+<div class="modal-body" style="padding-top:20px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="dualmultiselect">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        {{ ctrl.objModems.labelAll }}
+                        <div class="pool">
+                            <ul>
+                                <li ng-repeat="item in ctrl.objModems.items" ng-click="ctrl.transfer(ctrl.objModems.items, ctrl.objModems.selectedItems, ctrl.objModems.items.indexOf(item))">
+                                    <a href="">{{ item.MACCABLEMODEM }} <br> <small style="padding-left:20px;"> {{ item.descripcion }}:{{ item.status }}</small></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        {{ ctrl.objModems.labelSelected }}
+                        <div class="pool">
+                            <ul>
+                                <li ng-repeat="item in ctrl.objModems.selectedItems" ng-click="ctrl.transfer(ctrl.objModems.selectedItems, ctrl.objModems.items, ctrl.objModems.selectedItems.indexOf(item))">
+                                    <a href="">{{ item.MACCABLEMODEM }} <br> <small style="padding-left:20px;"> {{ item.descripcion }}:{{ item.status }}</small></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default btn-sm" type="button" ng-click="ctrl.cancel()">Cancelar</button>
+    <button class="btn btn-primary btn-sm" type="button" ng-click="ctrl.ok()">Aceptar</button>
+</div>

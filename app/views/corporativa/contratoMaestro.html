@@ -1,0 +1,168 @@
+<style>
+.body{font-size: 10px;}
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    padding: 7px 8px;
+    line-height: 1.846153846;
+    vertical-align: top;
+    border-top: 1px solid rgba(189, 193, 193, 0.2);
+}
+
+</style>
+
+<div class="row animated fadeIn" style="margin-top:10px;">
+  <div class="card" style="margin-top:20px;">
+    <div class="card-head style-default-light" style="padding-top:10px; padding-left:10px;">
+      <header>
+        <strong style="font-weight:bold; border:none; margin-left:10px; font-size: 16px;">Contratos Maestros</strong>
+        <br /><small class="text-muted" style="font-size:14px; margin-left:10px;"><i class="fa fa-home" aria-hidden="true"></i> Facturación Corporativa>Contratos Maestros</small>
+      </header>
+      <div class="tools">
+        <button class="btn btn-primary btn-sm" type="button" ui-sref="home.corporativa.maestroNuevo" permission permission-only="'contratomaestroAdd'"><i class="fa fa-plus" aria-hidden="true"></i> Nuevo</button>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="panel-group" id="accordion3">
+        <div class="card panel">
+          <div class="card-head card-head-xs style-primary-light collapsed" data-toggle="collapse" data-parent="#accordion3" data-target="#accordion3-1"
+            aria-expanded="false">
+            <header><i class="fa fa-search"></i> Buscar contrato</header>
+            <div class="tools">
+              <a class="btn btn-icon-toggle"><i class="fa fa-angle-down"></i></a>
+            </div>
+          </div>
+          <div id="accordion3-1" class="collapse buscarContrato" aria-expanded="false" style="height: 0px;">
+            <div class="panel-body">
+              <uib-tabset active="active">
+                <uib-tab index="0" heading="Contrato">
+                  <div class="row">
+                    <br>
+                    <div class="col-md-3">
+                      
+                      <input type="number" placeholder="No. Contrato maestro" class="form-control input-sm" ng-model="$ctrl.contratobusqueda">
+
+                    </div>
+                     <div class="col-md-1">
+
+                    <button class="btn btn-info btn-xs" ng-click="$ctrl.Buscarporcontrato();"><i class="fa fa-search"></i> Buscar</button>
+                    </div>
+                    <div class="col-md-3">                     
+                          <input type="text" placeholder="Nombre comercial" class="form-control input-sm" ng-model="$ctrl.NombreComer">
+
+                    </div>
+                    <div class="col-md-1">                     
+                      <button class="btn btn-info btn-xs" ng-click="$ctrl.BuscarNombrec();"><i class="fa fa-search"></i> Buscar</button>
+
+                    </div>
+                    <div class="col-md-3">
+                     
+                      <input type="text" placeholder="Razon Social" class="form-control input-sm" ng-model="$ctrl.RazonS">
+
+                    </div>
+                    <div class="col-md-1">
+                     
+                      <button class="btn btn-info btn-xs" ng-click="$ctrl.BuscarRazonS();"><i class="fa fa-search"></i> Buscar</button>
+
+                    </div>
+                    
+                  </div>
+                </uib-tab>
+                <uib-tab index="1" heading="Ubicación">
+                   <div class="row">
+                     <br>
+                      <div class="col-md-3">
+
+                <p>Distribuidor:</p>
+                <select ng-model="$ctrl.Distribuidor" ng-change="$ctrl.ObtenerCiudades($ctrl.Distribuidor);" class="form-control input-sm"
+                  ng-options="item as item.Nombre for item in $ctrl.Distribuidores track by item.Clv_Plaza">
+                        <option value="">Selecciona</option>
+                    </select>
+              </div>
+              <div class="col-md-3">
+                <p>Ciudad:</p>
+                <select ng-model="$ctrl.Ciudad" class="form-control input-sm" ng-options="item as item.Nombre for item in $ctrl.Ciudades track by item.Clv_Ciudad">
+                         <option value="">Selecciona</option>
+                    </select>
+
+              </div>
+              <div class="col-md-1">
+                <br>
+                <button class="btn btn-info btn-sm" ng-click="$ctrl.BuscarCiudad();"><i class="fa fa-search"></i> Buscar</button>
+
+              </div>
+            </div>
+            
+
+                </uib-tab>
+              </uib-tabset>
+
+             
+
+              
+            </div>
+          </div>
+          <!-- panel body -->
+        </div>
+      </div>
+      <!--end .panel -->
+
+ <div class="col-md-12 table-responsive">
+         
+          <table class="table" style="font-size:10px;">
+            <thead>
+              <tr>
+                <th>#contrato</th>
+                <th>Razón social</th>
+                <th>RFC</th>
+                <th>Nombre Comercial</th>
+                <th>Distribuidor</th>
+                 <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr ng-show="$ctrl.Contratos.length>0" dir-paginate="x in $ctrl.Contratos|orderBy:$ctrl.sortKey:reverse|filter:$ctrl.search|itemsPerPage:8">
+                <td>{{x.IdContratoMaestro}}</td>
+                <td>{{x.RazonSocial}}</td>
+                <td>{{x.RFC}}</td>
+                <td>{{x.NombreComercial}}</td>
+                <td>{{x.DistribuidorDes}}</td>
+                <td>{{x.EstadoDes}}</td>
+                <td>
+                  <button class="btn ink-reaction btn-floating-action btn-xs btn-info" ng-click="$ctrl.DetalleContrato(x);"><i class="fa fa-eye"></i></button>
+                  <button class="btn ink-reaction btn-floating-action btn-xs btn-warning" ui-sref="home.corporativa.maestroEditar({id:x.IdContratoMaestro})" permission permission-only="'contratomaestroUpdate'"><i class="fa fa-edit"></i></button>
+
+              </tr>
+            </tbody>
+          </table>
+          <div style="padding-left: 20px;">
+            <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+            </dir-pagination-controls>
+          </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+       
+
+
+
+   
+
+
+
+
+
+
+  </div>
+
+</div>
+
+</div>

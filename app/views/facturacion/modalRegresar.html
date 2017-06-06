@@ -1,0 +1,36 @@
+<div class="modal-header">
+    <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
+    <h4 class="modal-title">Devolución de Aparatos</h4>
+</div>
+<div class="modal-body" style="padding-top:20px;">
+	<h3>Aparatos del Cliente</h3>
+	<p style="color:red;">Marque el aparato al que desea aplicar el cobro de adeudo y en seguida los aparatos y/o accesorios que trae consigo el cliente</p>
+	<table class="table table-bordered table-hover dataTable">
+        <thead>
+            <tr>
+                <td><b>Concepto</b></td>
+                <td><b>Aparatos a Cancelar</b></td>
+                <td><b>Aparatos a Recibir</b> </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="x in ctrl.aparatos">
+                <td>{{ x.Detalle }}</td>
+                <td class="text-center">
+                    <label class="checkbox-inline checkbox-styled">
+                        <input type="checkbox" ng-model="x.checado" ng-change="ctrl.addCancelar(x,x.checado)"><span></span>
+                    </label>
+                </td>
+                <td class="text-center">
+                    <label class="checkbox-inline checkbox-styled">
+                        <input type="checkbox" ng-model="x.checado2" ng-change="ctrl.addRecibir(x,x.checado2)"><span></span>
+                    </label>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default btn-sm" type="button" ng-click="ctrl.cancel()">Cancelar</button>
+    <button class="btn btn-primary btn-sm" type="button" ng-click="ctrl.ok()">Aceptar</button>
+</div>
