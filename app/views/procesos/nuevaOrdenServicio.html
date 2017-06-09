@@ -4,13 +4,13 @@
 		overflow: auto;
 		overflow-x: hidden;
 	}
-	
+
 	.scrollDiv2 {
 		height: 120px;
 		overflow: auto;
 		overflow-x: hidden;
 	}
-	
+
 	.scrollDiv3 {
 		height: 300px;
 		overflow: auto;
@@ -42,17 +42,9 @@
 					</div>
 					<div class="col-md-4">
 						<form angular-validator-submit="$ctrl.buscarContrato()" name="contratoForm" novalidate angular-validator>
-							<input type="text" 
-							placeholder="No. contrato" 
-							class="form-control input-sm" 
-							ng-model="$ctrl.contrato"
-							name="contrato"
-							validate-on="dirty"
-							placeholder="Contrato"
-							ng-pattern = "/^[0-9]+([-][0-9]+)?$/"
-							required-message="'Este campo es obligatorio.'"
-							autocomplete="off"
-							invalid-message = "'Formato de contrato inválido.'">
+							<input type="text" placeholder="No. contrato" class="form-control input-sm" ng-model="$ctrl.contrato" name="contrato" validate-on="dirty"
+							 placeholder="Contrato" ng-pattern="/^[0-9]+([-][0-9]+)?$/" required-message="'Este campo es obligatorio.'" autocomplete="off"
+							 invalid-message="'Formato de contrato inválido.'">
 						</form>
 					</div>
 					<div class="col-md-3" style="margin-left: -20px;">
@@ -68,7 +60,8 @@
 			<div class="col-md-5">
 				<div class="col-md-12">
 					<div class="col-md-3">
-						<small><b>Status:</small></b></p>
+						<small><b>Status:</small></b>
+						</p>
 					</div>
 					<div class="col-md-3">
 						<label class="radio-inline radio-styled">
@@ -103,6 +96,12 @@
 				<div class="card wrapper scrollDiv2" style="background: #DDEAE9">
 					<p style="font-size: 10px;" class="text-center"><span ng-repeat="x in $ctrl.servicios">{{ x.Servicio }} <br></span></p>
 				</div>
+				<label class="text-left radio-inline radio-styled"><input type="radio" ng-model="$ctrl.internet" value="1" class="ng-pristine ng-untouched ng-valid ng-not-empty">
+					<span>Es Hotel</span>
+				</label>
+				<label class="text-left radio-inline radio-styled"><input type="radio" ng-model="$ctrl.internet" value="2" class="ng-pristine ng-untouched ng-valid ng-not-empty">
+					<span>Solo Internet</span>
+				</label>
 			</div>
 			<div class="col-md-2">
 				<b><i class="md md-access-time"></i> Fechas</b><br>
@@ -151,6 +150,7 @@
 				</form>
 			</div>
 		</div>
+		<br>
 		<div class="row">
 			<div class="col-md-4">
 				<small>Técnico:</small>
@@ -164,7 +164,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<br>
-				<button class="btn btn-success btn-xs" ng-click="$ctrl.agregar($ctrl.contrato)">Agregar servicio</button>
+				<button class="btn btn-success btn-xs" ng-click="$ctrl.agregar()">Agregar servicio</button>
 			</div>
 		</div>
 		<div class="row">
@@ -187,7 +187,8 @@
 							</label>
 						</td>
 						<td>
-							<button type="button" class="btn ink-reaction btn-xs btn-floating-action btn-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Elimina queja" ng-click="$ctrl.EliminaQueja(x);"><i class="md md-delete"></i></button>
+							<button type="button" class="btn ink-reaction btn-xs btn-floating-action btn-danger" data-toggle="tooltip" data-placement="top"
+							 title="" data-original-title="Elimina queja" ng-click="$ctrl.EliminaQueja(x);"><i class="md md-delete"></i></button>
 						</td>
 					</tr>
 				</tbody>
