@@ -5,8 +5,8 @@
 		.module('softvApp')
 		.controller('ModalAgregarServicioCtrl', ModalAgregarServicioCtrl);
 
-	ModalAgregarServicioCtrl.inject = ['$uibModal', '$uibModalInstance', 'ordenesFactory', 'items', '$rootScope'];
-	function ModalAgregarServicioCtrl($uibModal, $uibModalInstance, ordenesFactory, items, $rootScope) {
+	ModalAgregarServicioCtrl.inject = ['$uibModal', '$uibModalInstance', 'ordenesFactory', 'items', '$rootScope', 'ngNotify'];
+	function ModalAgregarServicioCtrl($uibModal, $uibModalInstance, ordenesFactory, items, $rootScope, ngNotify, $localStorage) {
 		var vm = this;
 		vm.cancel = cancel;
 		vm.guardaDetalle = guardaDetalle;
@@ -20,7 +20,8 @@
 		}
 
 		function changeTrabajo() {
-			ordenesFactory.muestraTrabajo(vm.selectedServicio.clv_tipser).then(function (data) {
+			console.log(vm.selectedServicio.clv_tipser,$localStorage.currentUser.tipoUsuario);
+			ordenesFactory.muestraTrabajo(vm.selectedServicio.clv_tipser,$localStorage.currentUser.tipoUsuario).then(function (data) {
 				vm.tipoTrabajo = data.GetMUESTRATRABAJOSPorTipoUsuarioListResult;
 			});
 		}
@@ -40,6 +41,7 @@
 						observaciones: vm.observaciones,
 						SeRealiza: realiza
 					};
+					console.log(detalle);
 					ordenesFactory.addDetalleOrden(detalle).then(function (data) {
 						vm.clv_detalle_orden = data.AddDetOrdSerResult;
 						$rootScope.$emit('detalle_orden', vm.clv_detalle_orden);
@@ -98,6 +100,12 @@
 									}
 								}
 							});
+						}
+						else if (vm.selectedTrabajo.Descripcion.toLowerCase().includes('canex')) {
+							console.log('canex');
+						}
+						else if (vm.selectedTrabajo.Descripcion.toLowerCase().includes('ecabl') || vm.selectedTrabajo.Descripcion.toLowerCase().includes('econt')) {
+							console.log('ecotl');
 						}
 						$uibModalInstance.dismiss('cancel');
 					});
