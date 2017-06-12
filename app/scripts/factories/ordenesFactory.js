@@ -29,10 +29,124 @@ angular
       getCableModemsCli: '/MuestraGuaBor/GetMUESTRACABLEMODEMSDELCLI_porOpcion',
       detalleCableModem: '/MuestraGuaBor/GetMUESTRACONTNET_PorOpcion',
       addIpaqu: '/IPAQU/AddIPAQU',
+      AddIPAQUD: '/IPAQU/AddIPAQUD',
       guardaMotivoCancelacion: '/GuardaMotivoCanServ/GetDeepGuardaMotivoCanServ',
       MUESTRAAPARATOS_DISCPONIBLES: '/MUESTRAAPARATOS_DISCPONIBLES/GetMUESTRAAPARATOS_DISCPONIBLESList',
-      AddSP_GuardaIAPARATOS: '/SP_GuardaIAPARATOS/AddSP_GuardaIAPARATOS'
+      AddSP_GuardaIAPARATOS: '/SP_GuardaIAPARATOS/AddSP_GuardaIAPARATOS',
+      DeleteIPAQU: '/IPAQU/DeleteIPAQU',
+      DeleteIPAQUD: '/IPAQU/DeleteIPAQUD',
+      GetBorraMotivoCanServ2: '/GuardaMotivoCanServ/GetBorraMotivoCanServ2'
+
     };
+
+
+
+    factory.GetBorraMotivoCanServ2 = function (obj) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'Clv_Orden': obj.Clv_Orden,
+        'Clv_TipSer': obj.Clv_TipSer,
+        'ContratoNet': obj.ContratoNet,
+        'Clv_UnicaNet': obj.Clv_UnicaNet,
+        'Op': 0
+
+      };
+      console.log(Parametros);
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetBorraMotivoCanServ2, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+
+
+
+    factory.DeleteIPAQUD = function (obj) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'Clave': obj.Clave,
+        'Clv_Orden': obj.Clv_Orden,
+        'Contratonet': obj.Contratonet,
+        'Clv_UnicaNet': obj.Clv_UnicaNet,
+        'Op': 0
+      };
+      console.log(Parametros);
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.DeleteIPAQUD, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+
+    factory.DeleteIPAQU = function (obj) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'Clave': obj.Clave,
+        'Clv_Orden': obj.Clv_Orden,
+        'Contratonet': obj.Contratonet,
+        'Clv_UnicaNet': obj.Clv_UnicaNet,
+        'Op': 0
+      };
+      console.log(Parametros);
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.DeleteIPAQU, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+    factory.AddIPAQUD = function (obj) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'objIPAQUD': {
+          'Clave': obj.Clave,
+          'Clv_Orden': obj.Clv_Orden,
+          'Contratonet': obj.Contratonet,
+          'Clv_UnicaNet': obj.Clv_UnicaNet,
+          'Op': obj.Op,
+          'Status': obj.Status
+        }
+
+      };
+      console.log(Parametros);
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.AddIPAQUD, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+
 
 
     factory.MUESTRAAPARATOS_DISCPONIBLES = function (obj) {
