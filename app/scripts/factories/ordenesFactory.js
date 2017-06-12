@@ -29,8 +29,35 @@ angular
             getCableModemsCli: '/MuestraGuaBor/GetMUESTRACABLEMODEMSDELCLI_porOpcion',
             detalleCableModem: '/MuestraGuaBor/GetMUESTRACONTNET_PorOpcion',
             addIpaqu: '/IPAQU/AddIPAQU',
-            guardaMotivoCancelacion: '/GuardaMotivoCanServ/GetDeepGuardaMotivoCanServ'
+            guardaMotivoCancelacion: '/GuardaMotivoCanServ/GetDeepGuardaMotivoCanServ',
+            MUESTRAAPARATOS_DISCPONIBLES:'/MUESTRAAPARATOS_DISCPONIBLES/GetMUESTRAAPARATOS_DISCPONIBLESList'
         };
+
+
+       factory.MUESTRAAPARATOS_DISCPONIBLES = function (obj) {
+            var deferred = $q.defer();
+            var Parametros = {
+                'Op': obj.Op,
+                'Trabajo': obj.Trabajo,
+                'Contrato': obj.Contrato,                
+                'ClvTecnico': obj.ClvTecnico,
+                'Clave':obj.Clave
+            };
+            var config = {
+                headers: {
+                    'Authorization': $localStorage.currentUser.token
+                }
+            };
+            $http.post(globalService.getUrl() + paths.MUESTRAAPARATOS_DISCPONIBLES, JSON.stringify(Parametros), config).then(function (response) {
+                deferred.resolve(response.data);
+            }).catch(function (response) {
+                deferred.reject(response.data);
+            });
+
+            return deferred.promise;
+        };
+
+
 
         factory.guardaMotivoCancelacion = function (objeto) {
             var deferred = $q.defer();
