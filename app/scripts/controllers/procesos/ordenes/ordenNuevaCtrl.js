@@ -109,6 +109,7 @@
     });
 
     $rootScope.$on('actualiza_tablaServicios', function () {
+      alert('actualiza');
       actualizarTablaServicios();
     });
 

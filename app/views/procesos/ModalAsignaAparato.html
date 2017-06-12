@@ -1,16 +1,23 @@
-<form angular-validator-submit="$ctrl.guardar()" name="contratoForm" novalidate angular-validator>
+<form angular-validator-submit="ctrl.guardar()" name="contratoForm" novalidate angular-validator>
     <div class="modal-header">
-        <button class="close" aria-label="Close" type="button" ng-click="$ctrl.cancel()">×</button>
+        <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
         <h4 class="modal-title">Selecciona el Aparato</h4>
     </div>
     <div class="modal-body">
         
         
-       
-       
+       <select 
+       name="aparato"
+       class="form-control input-sm" 
+        ng-options="item as item.Descripcion for item in ctrl.aparatos track by item.ContratoAnt"
+        validate-on="dirty"
+                    required-message="'Este campo es obligatorio.'"
+                    required
+         ng-model="ctrl.aparato"></select>
+      
     </div>
     <div class="modal-footer">
-        <button class="btn btn-default btn-sm" type="button" ng-click="$ctrl.cancel()">Cancelar</button>
+        <button class="btn btn-default btn-sm" type="button" ng-click="ctrl.cancel()">Cancelar</button>
         <button class="btn btn-primary btn-sm" type="submit">Aceptar</button>
     </div>
 </form>
