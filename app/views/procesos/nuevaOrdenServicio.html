@@ -43,19 +43,19 @@
 					<div class="col-md-4">
 						<form angular-validator-submit="$ctrl.buscarContrato()" name="contratoForm" novalidate angular-validator>
 							<input type="text" placeholder="No. contrato" class="form-control input-sm" ng-model="$ctrl.contrato" name="contrato" validate-on="dirty"
-							 ng-disabled="$ctrl.blockContrato" ng-pattern="/^[0-9]+([-][0-9]+)?$/" required-message="'Este campo es obligatorio.'" autocomplete="off"
+							 ng-disabled="$ctrl.block" ng-pattern="/^[0-9]+([-][0-9]+)?$/" required-message="'Este campo es obligatorio.'" autocomplete="off"
 							 invalid-message="'Formato de contrato inválido.'">
 						</form>
 					</div>
 					<div class="col-md-3" style="margin-left: -20px;">
 						<div>
-							<button ng-click="$ctrl.buscarCliente()" class="btn ink-reaction btn-floating-action btn-sm btn-default" ng-disabled="$ctrl.blockBotonBuscar"><i class="fa fa-search"></i></button>
+							<button ng-click="$ctrl.buscarCliente()" class="btn ink-reaction btn-floating-action btn-sm btn-default" ng-disabled="$ctrl.block"><i class="fa fa-search"></i></button>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-2">
-				<input type="text" class="form-control input-sm" placeholder="# folio de bitácora" ng-model="$ctrl.bitacora" ng-disabled="$ctrl.blockFolio">
+				<input type="text" class="form-control input-sm" placeholder="# folio de bitácora" ng-model="$ctrl.bitacora" ng-disabled="$ctrl.block">
 			</div>
 			<div class="col-md-5">
 				<div class="col-md-12">
@@ -75,7 +75,7 @@
 					</div>
 					<div class="col-md-3">
 						<label class="radio-inline radio-styled">
-						<input type="radio" name="inlineRadioOptions" value="V" ng-model="$ctrl.status" ng-disabled="$ctrl.blockVista"><span>Visitada</span>
+						<input type="radio" name="inlineRadioOptions" value="V" ng-model="$ctrl.status" ng-disabled="$ctrl.blockVista"><span>Visita</span>
 					</label>
 					</div>
 				</div>
@@ -109,7 +109,7 @@
 					<div class="form-group">
 						<label for="regular13" class="col-sm-4 control-label">Solicitud</label>
 						<div class="col-sm-8">
-							<input type="date" ng-model="$ctrl.fecha" class="form-control input-sm" style="font-size:12px;" ng-disabled="$ctrl.blockSolicitud">
+							<input type="date" ng-model="$ctrl.fechaSol" class="form-control input-sm" style="font-size:12px;" ng-disabled="$ctrl.blockSolicitud">
 							<div class="form-control-line"></div>
 						</div>
 					</div>
@@ -166,7 +166,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<br>
-				<button class="btn btn-success btn-xs" ng-click="$ctrl.agregar()" ng-disabled="$ctrl.blockAgregar">Agregar servicio</button>
+				<button class="btn btn-success btn-xs" ng-click="$ctrl.agregar()" ng-disabled="$ctrl.block">Agregar servicio</button>
 			</div>
 		</div>
 		<div class="row">
@@ -190,7 +190,7 @@
 						</td>
 						<td>
 							<button type="button" class="btn ink-reaction btn-xs btn-floating-action btn-danger" data-toggle="tooltip" data-placement="top"
-							 title="" data-original-title="Elimina queja" ng-click="$ctrl.EliminaQueja(x);" ng-disabled="$ctrl.blockEliminar"><i class="md md-delete"></i></button>
+							 title="" data-original-title="Elimina queja" ng-click="$ctrl.EliminaQueja(x);" ng-disabled="$ctrl.block"><i class="md md-delete"></i></button>
 						</td>
 					</tr>
 				</tbody>

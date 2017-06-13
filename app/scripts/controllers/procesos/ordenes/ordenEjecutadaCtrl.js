@@ -12,17 +12,13 @@
         vm.showDatosCliente = true;
         vm.buscarContrato = buscarContrato;
         vm.status = 'E';
-        vm.fecha = new Date();
+        vm.fechaEjecucion = new Date();
         vm.observaciones = '';
         vm.detalleTrabajo = detalleTrabajo;
         vm.clv_tecnico = 0;
         vm.titulo = 'Orden Ejecutada'
         vm.claveOrden = $stateParams.claveOr;
-        vm.blockBotonBuscar = true;
-        vm.blockContrato = true;
-        vm.blockFolio = true;
-        vm.blockAgregar = true;
-        vm.blockEliminar = true;
+        vm.block = true;
         vm.blockSolicitud = true;
         vm.blockEjecucion = false;
         vm.blockVista1 = true;
@@ -36,6 +32,9 @@
 
         function init(orden) {
             ordenesFactory.ConsultaOrdSer(orden).then(function (data) {
+                vm.datosOrden = data.GetDeepConsultaOrdSerResult;
+                vm.fechaSol = vm.datosOrden.Fec_Sol;
+                console.log(vm.fechaSol);
                 vm.clv_orden = data.GetDeepConsultaOrdSerResult.Clv_Orden;
                 vm.contrato = data.GetDeepConsultaOrdSerResult.ContratoCom;
                 ordenesFactory.consultaTablaServicios(vm.clv_orden).then(function (data) {
