@@ -30,11 +30,51 @@ angular
             detalleCableModem: '/MuestraGuaBor/GetMUESTRACONTNET_PorOpcion',
             addIpaqu: '/IPAQU/AddIPAQU',
             guardaMotivoCancelacion: '/GuardaMotivoCanServ/GetDeepGuardaMotivoCanServ',
-            MUESTRAAPARATOS_DISCPONIBLES:'/MUESTRAAPARATOS_DISCPONIBLES/GetMUESTRAAPARATOS_DISCPONIBLESList'
+            MUESTRAAPARATOS_DISCPONIBLES:'/MUESTRAAPARATOS_DISCPONIBLES/GetMUESTRAAPARATOS_DISCPONIBLESList',
+            ConsultaOrdSer: '/ConsultaOrdSer/GetDeepConsultaOrdSer',
+            MuestraRelOrdenesTecnicos: '/MuestraRelOrdenesTecnicos/GetMuestraRelOrdenesTecnicosList'
+        };
+
+        factory.MuestraRelOrdenesTecnicos = function (orden) {
+            var deferred = $q.defer();
+            var Parametros = {
+                'ClvOrdSer': orden
+            };
+            var config = {
+                headers: {
+                    'Authorization': $localStorage.currentUser.token
+                }
+            };
+            $http.post(globalService.getUrl() + paths.MuestraRelOrdenesTecnicos, JSON.stringify(Parametros), config).then(function (response) {
+                deferred.resolve(response.data);
+            }).catch(function (response) {
+                deferred.reject(response.data);
+            });
+
+            return deferred.promise;
+        };
+
+        factory.ConsultaOrdSer = function (orden) {
+            var deferred = $q.defer();
+            var Parametros = {
+                'Clv_Orden': orden
+            };
+            var config = {
+                headers: {
+                    'Authorization': $localStorage.currentUser.token
+                }
+            };
+            $http.post(globalService.getUrl() + paths.ConsultaOrdSer, JSON.stringify(Parametros), config).then(function (response) {
+                deferred.resolve(response.data);
+            }).catch(function (response) {
+                deferred.reject(response.data);
+            });
+
+            return deferred.promise;
         };
 
 
-       factory.MUESTRAAPARATOS_DISCPONIBLES = function (obj) {
+        factory.MUESTRAAPARATOS_DISCPONIBLES = function (obj) {
             var deferred = $q.defer();
             var Parametros = {
                 'Op': obj.Op,
