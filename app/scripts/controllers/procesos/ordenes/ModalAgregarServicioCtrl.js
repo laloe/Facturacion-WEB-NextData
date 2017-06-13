@@ -152,15 +152,12 @@
               console.log('canex');
             } else if (vm.selectedTrabajo.Descripcion.toLowerCase().includes('ecabl') || vm.selectedTrabajo.Descripcion.toLowerCase().includes('econt')) {
               console.log('ecotl');
-            } else {
-
-
-              $rootScope.$emit('actualiza_tablaServicios');
+            } else {          
 
             }
 
 
-
+            $rootScope.$emit('actualiza_tablaServicios');
             $uibModalInstance.dismiss('cancel');
           });
         }
