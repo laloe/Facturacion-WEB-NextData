@@ -1,5 +1,6 @@
 'use strict';
 angular
+
   .module('softvApp')
   .factory('ordenesFactory', function ($http, $q, globalService, $localStorage) {
     var factory = {};
@@ -36,8 +37,50 @@ angular
       DeleteIPAQU: '/IPAQU/DeleteIPAQU',
       DeleteIPAQUD: '/IPAQU/DeleteIPAQUD',
       GetBorraMotivoCanServ2: '/GuardaMotivoCanServ/GetBorraMotivoCanServ2',
-      GetuspContratoServList: '/uspContratoServ/GetuspContratoServList'
+      GetuspContratoServList: '/uspContratoServ/GetuspContratoServList',
+       ConsultaOrdSer: '/ConsultaOrdSer/GetDeepConsultaOrdSer',          
+       MuestraRelOrdenesTecnicos: '/MuestraRelOrdenesTecnicos/GetMuestraRelOrdenesTecnicosList'
     };
+  
+  
+  
+  factory.MuestraRelOrdenesTecnicos = function (orden) {
+            var deferred = $q.defer();
+            var Parametros = {
+                'ClvOrdSer': orden
+            };
+            var config = {
+                headers: {
+                    'Authorization': $localStorage.currentUser.token
+                }
+            };
+            $http.post(globalService.getUrl() + paths.MuestraRelOrdenesTecnicos, JSON.stringify(Parametros), config).then(function (response) {
+                deferred.resolve(response.data);
+            }).catch(function (response) {
+                deferred.reject(response.data);
+            });
+
+            return deferred.promise;
+        };
+
+        factory.ConsultaOrdSer = function (orden) {
+            var deferred = $q.defer();
+            var Parametros = {
+                'Clv_Orden': orden
+            };
+            var config = {
+                headers: {
+                    'Authorization': $localStorage.currentUser.token
+                }
+            };
+            $http.post(globalService.getUrl() + paths.ConsultaOrdSer, JSON.stringify(Parametros), config).then(function (response) {
+                deferred.resolve(response.data);
+            }).catch(function (response) {
+                deferred.reject(response.data);
+            });
+
+            return deferred.promise;
+        };
 
 
     factory.GetuspContratoServList = function (contrato,tipser) {
@@ -834,3 +877,4 @@ angular
 
     return factory;
   });
+
