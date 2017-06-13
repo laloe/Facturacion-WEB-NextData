@@ -28,23 +28,42 @@
         vm.blockPendiente = true;
         vm.blockVista = false;
         vm.blockTecnico = false;
+        vm.fechas = fechas;
         init(vm.claveOrden);
 
         function init(orden) {
             ordenesFactory.ConsultaOrdSer(orden).then(function (data) {
                 vm.datosOrden = data.GetDeepConsultaOrdSerResult;
-                vm.fechaSol = vm.datosOrden.Fec_Sol;
-                console.log(vm.fechaSol);
+                console.log(vm.datosOrden);
                 vm.clv_orden = data.GetDeepConsultaOrdSerResult.Clv_Orden;
                 vm.contrato = data.GetDeepConsultaOrdSerResult.ContratoCom;
                 ordenesFactory.consultaTablaServicios(vm.clv_orden).then(function (data) {
                     vm.trabajosTabla = data.GetBUSCADetOrdSerListResult;
                 });
                 buscarContrato(vm.contrato);
+                if (vm.datosOrden.Fec_Eje != '01/01/1900') {
+                    vm.Fec_Eje = vm.datosOrden.Fec_Eje;
+                }if (vm.datosOrden.Visita1 != '01/01/1900'){
+                    vm.Visita1 = vm.datosOrden.Visita1;
+                }if (vm.datosOrden.Visita2 != '01/01/1900') {
+                    vm.Visita2 = vm.datosOrden.Visita2;
+                }
             });
             ordenesFactory.MuestraRelOrdenesTecnicos(orden).then(function (data) {
                 vm.tecnico = data.GetMuestraRelOrdenesTecnicosListResult;
             });
+        }
+
+        function fechas() {
+            if (vm.status == 'E') {
+                vm.blockVista1 = true;
+                vm.blockVista2 = true;
+                vm.blockEjecucion = false;
+            } else {
+                vm.blockEjecucion = true;
+                vm.blockVista1 = false;
+                vm.blockVista2 = false;
+            }
         }
 
 
