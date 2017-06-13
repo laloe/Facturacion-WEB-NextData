@@ -34,7 +34,7 @@
 
 <div class="modal-header">
     <button class="close" aria-label="Close" type="button" ng-click="ctrl.cancel()">×</button>
-    <h4 class="modal-title">Baja de Servicios de Internet</h4>
+    <h4 class="modal-title">{{ctrl.titulo}}</h4>
 </div>
 <div class="modal-body" style="padding-top:20px;">
     <div class="row">
@@ -42,7 +42,7 @@
             <div class="dualmultiselect">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6">
-                        {{ ctrl.objModems.labelAll }}
+                        {{ ctrl.tituloA }}
                         <div class="pool">
                             <ul>
                                 <li ng-repeat="item in ctrl.objModems.items" ng-click="ctrl.transfer(ctrl.objModems.items, ctrl.objModems.selectedItems, ctrl.objModems.items.indexOf(item))">
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6">
-                        {{ ctrl.objModems.labelSelected }}
+                        {{ ctrl.tituloB }}
                         <div class="pool">
                             <ul>
                                 <li ng-repeat="item in ctrl.objModems.selectedItems" ng-click="ctrl.transfer(ctrl.objModems.selectedItems, ctrl.objModems.items, ctrl.objModems.selectedItems.indexOf(item))">

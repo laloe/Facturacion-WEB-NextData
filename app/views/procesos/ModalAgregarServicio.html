@@ -9,7 +9,7 @@
                 <label class="col-md-3 text-right">Tipo de servicios:</label>
                 <div class="col-md-7">
                     <select name="servicio" 
-                    class="form-control" 
+                    class="form-control input-sm" 
                     ng-change="$ctrl.changeTrabajo()" 
                     ng-model="$ctrl.selectedServicio" 
                     ng-options="x.Concepto for x in $ctrl.servicios track by x.clv_tipser"
@@ -26,7 +26,7 @@
                 <label class="col-md-3 text-right">Trabajo:</label>
                 <div class="col-md-7">
                     <select name="servicio" 
-                    class="form-control" 
+                    class="form-control input-sm" 
                     ng-change="$ctrl.pantallasExtras()" 
                     ng-model="$ctrl.selectedTrabajo" 
                     ng-options="x.Descripcion for x in $ctrl.tipoTrabajo track by x.Clv_Trabajo"
@@ -41,7 +41,7 @@
             <div class="col-md-12">
                 <label class="col-md-3 text-right">Observaciones:</label>
                 <div class="col-md-7">
-                    <textarea row="3" class="form-control" style="font-size:12px;" ng-model="vm.observaciones"></textarea>
+                    <textarea row="3" class="form-control input-sm" style="font-size:12px;" ng-model="vm.observaciones"></textarea>
                 </div>
             </div>
         </div>

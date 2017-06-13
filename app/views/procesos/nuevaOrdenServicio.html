@@ -27,7 +27,7 @@
 		</header>
 		<div class="tools">
 			<button class="btn btn-default btn-sm" type="button" ui-sref="home.procesos.ordenes">Cancelar</button>
-			<button class="btn btn-primary btn-sm" type="button"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+			<button class="btn btn-primary btn-sm" ng-click="Guardar();" type="button"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
 		</div>
 	</div>
 	<div class="card-body">
@@ -90,6 +90,7 @@
 					<strong>Dirección:</strong> {{$ctrl.datosCli.CALLE +' '+ $ctrl.datosCli.NUMERO +' '+ $ctrl.datosCli.COLONIA +' '+ $ctrl.datosCli.CIUDAD}}<br>
 					<br>
 				</p>
+				
 			</div>
 			<div class="col-md-4">
 				<b><i class="md md-settings-remote"></i> Servicios asignados</b><br>
