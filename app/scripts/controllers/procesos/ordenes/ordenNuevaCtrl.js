@@ -19,8 +19,19 @@
     vm.detalleTrabajo = detalleTrabajo;
     vm.clv_orden = 0;
     vm.clv_tecnico = 0;
-    
-  
+    vm.Guardar = Guardar;
+
+
+    function Guardar() {
+
+      ordenesFactory.GetuspContratoServList().then(function (data) {
+
+      });
+
+    }
+
+
+
     function agregar() {
       if (vm.contratoBueno == undefined || vm.contratoBueno == '') {
         ngNotify.set('Seleccione un cliente válido.', 'error')
@@ -38,7 +49,6 @@
             vm.clv_orden = data.AddOrdSerResult;
           });
         }
-
 
         var items = {
           contrato: vm.contratoBueno,
@@ -79,6 +89,7 @@
       }
 
       ordenesFactory.getContratoReal(vm.contrato).then(function (data) {
+        console.log(data);
         if (data.GetuspBuscaContratoSeparado2ListResult.length > 0) {
           vm.contratoBueno = data.GetuspBuscaContratoSeparado2ListResult[0].ContratoBueno;
           datosContrato(data.GetuspBuscaContratoSeparado2ListResult[0].ContratoBueno);
@@ -98,6 +109,7 @@
     }
 
     $rootScope.$on('cliente_select', function (e, contrato) {
+      console.log(contrato);
       vm.contrato = contrato.CONTRATO;
       vm.contratoBueno = contrato.ContratoBueno;
       datosContrato(contrato.ContratoBueno);
@@ -122,6 +134,7 @@
     function datosContrato(contrato) {
       ordenesFactory.serviciosCliente(contrato).then(function (data) {
         vm.servicios = data.GetDameSerDelCliFacListResult;
+        console.log(vm.servicios);
       });
       ordenesFactory.buscarCliPorContrato(contrato).then(function (data) {
         vm.datosCli = data.GetDeepBUSCLIPORCONTRATO_OrdSerResult;

@@ -35,9 +35,32 @@ angular
       AddSP_GuardaIAPARATOS: '/SP_GuardaIAPARATOS/AddSP_GuardaIAPARATOS',
       DeleteIPAQU: '/IPAQU/DeleteIPAQU',
       DeleteIPAQUD: '/IPAQU/DeleteIPAQUD',
-      GetBorraMotivoCanServ2: '/GuardaMotivoCanServ/GetBorraMotivoCanServ2'
-
+      GetBorraMotivoCanServ2: '/GuardaMotivoCanServ/GetBorraMotivoCanServ2',
+      GetuspContratoServList: '/uspContratoServ/GetuspContratoServList'
     };
+
+
+    factory.GetuspContratoServList = function (contrato,tipser) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'Contrato': contrato,
+        'TipSer': tipser
+      };
+     
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetuspContratoServList, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
 
 
 
