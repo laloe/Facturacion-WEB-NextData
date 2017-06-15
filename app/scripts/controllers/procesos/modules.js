@@ -84,7 +84,7 @@ angular
         data: {
           pageTitle: 'SOFTV | ORDEN DE SERVICIO EJECUTADA'
         },
-        url: '/ordenes/ejecutada/:claveOr?st',
+        url: '/ordenes/ejecutada/:claveOr',
         templateUrl: 'views/procesos/nuevaOrdenServicio.html',
         controller: 'ordenEjecutadaCtrl',
         controllerAs: '$ctrl'
