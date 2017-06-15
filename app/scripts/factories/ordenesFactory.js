@@ -1,6 +1,5 @@
 'use strict';
 angular
-
   .module('softvApp')
   .factory('ordenesFactory', function ($http, $q, globalService, $localStorage) {
     var factory = {};
@@ -38,58 +37,402 @@ angular
       DeleteIPAQUD: '/IPAQU/DeleteIPAQUD',
       GetBorraMotivoCanServ2: '/GuardaMotivoCanServ/GetBorraMotivoCanServ2',
       GetuspContratoServList: '/uspContratoServ/GetuspContratoServList',
-       ConsultaOrdSer: '/ConsultaOrdSer/GetDeepConsultaOrdSer',          
-       MuestraRelOrdenesTecnicos: '/MuestraRelOrdenesTecnicos/GetMuestraRelOrdenesTecnicosList'
+      GetDime_Que_servicio_Tiene_cliente: '/Dime_Que_servicio_Tiene_cliente/GetDime_Que_servicio_Tiene_cliente',
+      GetDimeSiGrabaOrd: '/DimeSiGrabaOrd/GetDimeSiGrabaOrd',
+      GetValida_DetOrden: '/Valida_DetOrden/GetValida_DetOrden',
+      GetCheca_si_tiene_camdo: '/Checa_si_tiene_camdo/GetCheca_si_tiene_camdo',
+      AddCambia_Tipo_cablemodem: '/Cambia_Tipo_cablemodem/AddCambia_Tipo_cablemodem',
+      GetChecaMotivoCanServ: '/ChecaMotivoCanServ/GetChecaMotivoCanServ',
+      GetConMotCanList: '/MotCan/GetConMotCanList',
+      AddNueRelOrdenUsuario: '/NueRelOrdenUsuario/AddNueRelOrdenUsuario',
+      MODORDSER: '/MODORDSER/GetDeepMODORDSER',
+      PreejecutaOrden: '/OrdSer/GetOrdSer',
+      GetDeepSP_GuardaOrdSerAparatos: '/SP_GuardaOrdSerAparatos/GetDeepSP_GuardaOrdSerAparatos',
+      AddSP_LLena_Bitacora_Ordenes: '/SP_LLena_Bitacora_Ordenes/AddSP_LLena_Bitacora_Ordenes',
+      Imprime_Orden: '/Imprime_Orden/GetDeepImprime_Orden',
+      GetVALIDADECODERS: '/VALIDADECODERS/GetVALIDADECODERS',
+      GetReporteOrdenServicio: '/OrdSer/GetReporteOrdenServicio'
     };
-  
-  
-  
-  factory.MuestraRelOrdenesTecnicos = function (orden) {
-            var deferred = $q.defer();
-            var Parametros = {
-                'ClvOrdSer': orden
-            };
-            var config = {
-                headers: {
-                    'Authorization': $localStorage.currentUser.token
-                }
-            };
-            $http.post(globalService.getUrl() + paths.MuestraRelOrdenesTecnicos, JSON.stringify(Parametros), config).then(function (response) {
-                deferred.resolve(response.data);
-            }).catch(function (response) {
-                deferred.reject(response.data);
-            });
-
-            return deferred.promise;
-        };
-
-        factory.ConsultaOrdSer = function (orden) {
-            var deferred = $q.defer();
-            var Parametros = {
-                'Clv_Orden': orden
-            };
-            var config = {
-                headers: {
-                    'Authorization': $localStorage.currentUser.token
-                }
-            };
-            $http.post(globalService.getUrl() + paths.ConsultaOrdSer, JSON.stringify(Parametros), config).then(function (response) {
-                deferred.resolve(response.data);
-            }).catch(function (response) {
-                deferred.reject(response.data);
-            });
-
-            return deferred.promise;
-        };
 
 
-    factory.GetuspContratoServList = function (contrato,tipser) {
+
+
+
+    factory.GetReporteOrdenServicio = function (obj) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'obj': {
+          'Clv_TipSer': obj.Clv_TipSer,
+          'op1': obj.op1,
+          'op2': obj.op2,
+          'op3': obj.op3,
+          'op4': obj.op4,
+          'op5': obj.op5,
+          'StatusPen': obj.StatusPen,
+          'StatusEje': obj.StatusEje,
+          'StatusVis': obj.StatusVis,
+          'Clv_OrdenIni': obj.Clv_OrdenIni,
+          'Clv_OrdenFin': obj.Clv_OrdenFin,
+          'Fec1Ini': obj.Fec1Ini,
+          'Fec1Fin':obj.Fec1Fin ,
+          'Fec2Ini': obj.Fec2Ini,
+          'Fec2Fin': obj.Fec2Fin,
+          'Clv_Trabajo': obj.Clv_Trabajo,
+          'Clv_Colonia': obj.Clv_Colonia,
+          'OpOrden': obj.OpOrden,
+          'IdCompania': obj.IdCompania,
+          'clv_ciudad': obj.clv_ciudad,
+          'clv_usuario': obj.clv_usuario
+        }
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetReporteOrdenServicio, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+      return deferred.promise;
+    };
+
+
+
+
+    factory.GetVALIDADECODERS = function (ClvOrden) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'ClvOrden': ClvOrden
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetVALIDADECODERS, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+      return deferred.promise;
+    };
+
+
+
+
+
+
+    factory.Imprime_Orden = function (ClvOrden) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'ClvOrden': ClvOrden
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.Imprime_Orden, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+      return deferred.promise;
+    };
+
+
+    factory.AddSP_LLena_Bitacora_Ordenes = function (descripcion, ClvOrden) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'objSP_LLena_Bitacora_Ordenes': {
+          'ClvTxtUsuario': $localStorage.currentUser.Usuario,
+          'DescripcionMov': descripcion,
+          'ClvOrden': ClvOrden
+        }
+
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.AddSP_LLena_Bitacora_Ordenes, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+      return deferred.promise;
+    };
+
+
+    factory.GetDeepSP_GuardaOrdSerAparatos = function (ClvOrden) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'ClvOrden': ClvOrden,
+        'Op': 'M',
+        'Status': 'E',
+        'Op2': 0
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetDeepSP_GuardaOrdSerAparatos, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+      return deferred.promise;
+    };
+
+
+    factory.PreejecutaOrden = function (ClvOrden) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'clv_orden': ClvOrden
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.PreejecutaOrden, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+      return deferred.promise;
+    };
+
+
+    factory.MODORDSER = function (obj) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'ClvOrden': obj.ClvOrden,
+        'ClvTipSer': obj.ClvTipSer,
+        'Contrato': obj.Contrato,
+        'FecSol': obj.FecSol,
+        'FecEje': obj.FecEje,
+        'Visita1': obj.Visita1,
+        'Visita2': obj.Visita2,
+        'Status': obj.Status,
+        'ClvTecnico': obj.ClvTecnico,
+        'Impresa': obj.Impresa,
+        'ClvFactura': obj.ClvFactura,
+        'Obs': obj.Obs,
+        'ListadeArticulos': obj.ListadeArticulos
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.MODORDSER, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+      return deferred.promise;
+    };
+
+
+
+
+
+
+    factory.AddNueRelOrdenUsuario = function (ClvOrden) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'objNueRelOrdenUsuario': {
+          'ClvOrden': ClvOrden,
+          'ClvUsuario': $localStorage.currentUser.IdUsuario,
+          'Status': "P"
+        }
+
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.AddNueRelOrdenUsuario, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+      return deferred.promise;
+    };
+
+
+
+
+    factory.GetConMotCanList = function (ClvOrden) {
+      var deferred = $q.defer();
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.get(globalService.getUrl() + paths.GetConMotCanList, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+      return deferred.promise;
+    };
+
+    factory.GetChecaMotivoCanServ = function (ClvOrden) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'objCambia_Tipo_cablemodem': {
+          'ClvOrden': ClvOrden
+        }
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetChecaMotivoCanServ, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+      return deferred.promise;
+    };
+
+
+
+
+
+    factory.AddCambia_Tipo_cablemodem = function (ClvOrden) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'objCambia_Tipo_cablemodem': {
+          'ClvOrden': ClvOrden,
+          'Tipo': 1
+        }
+
+      };
+
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.AddCambia_Tipo_cablemodem, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+
+
+
+
+
+
+    factory.GetCheca_si_tiene_camdo = function (ClvOrden) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'ClvOrden': ClvOrden
+      };
+
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetCheca_si_tiene_camdo, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+
+    factory.GetValida_DetOrden = function (ClvOrden) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'ClvOrden': ClvOrden
+      };
+
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetValida_DetOrden, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+
+
+    factory.GetDimeSiGrabaOrd = function (ClvOrden, Fecha) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'ClvOrden': ClvOrden,
+        'Guarda': 0,
+        'Fecha': Fecha
+      };
+
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetDimeSiGrabaOrd, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+
+
+    factory.GetDime_Que_servicio_Tiene_cliente = function (Contrato) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'Contrato': Contrato
+      };
+
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetDime_Que_servicio_Tiene_cliente, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+
+    factory.GetuspContratoServList = function (contrato, tipser) {
       var deferred = $q.defer();
       var Parametros = {
         'Contrato': contrato,
         'TipSer': tipser
       };
-     
+
       var config = {
         headers: {
           'Authorization': $localStorage.currentUser.token
@@ -877,4 +1220,3 @@ angular
 
     return factory;
   });
-
