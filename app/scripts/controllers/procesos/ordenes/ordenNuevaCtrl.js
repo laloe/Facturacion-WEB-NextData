@@ -22,11 +22,131 @@
     vm.Guardar = Guardar;
 
 
-    function Guardar() {
+    function ImprimeOrden() {
 
-      ordenesFactory.GetuspContratoServList().then(function (data) {
+    }
 
+    function GuardaDetalle() {
+      ordenesFactory.AddNueRelOrdenUsuario(vm.clv_orden).then(function (data) {
+        console.log(data);
+        var fecha = $filter('date')(vm.fecha, 'dd/MM/yyyy');
+        var obj = {
+          'ClvOrden': vm.clv_orden,
+          'ClvTipSer': vm.clv_servicio_cliente,
+          'Contrato': vm.contratoBueno,
+          'FecSol': fecha,
+          'FecEje': '',
+          'Visita1': '',
+          'Visita2': '',
+          'Status': 'P',
+          'ClvTecnico': 0,
+          'Impresa': 1,
+          'ClvFactura': 0,
+          'Obs': vm.observaciones,
+          'ListadeArticulos': ''
+        };
+        ordenesFactory.MODORDSER(obj).then(function (response) {
+          console.log(response);          
+          if (response.GetDeepMODORDSERResult.Msj !=null) {
+            ngNotify.set(response.GetDeepMODORDSERResult.Msj, 'error');
+          } else {
+
+            ordenesFactory.PreejecutaOrden(vm.clv_orden).then(function (details) {
+              console.log(details);
+              ordenesFactory.GetDeepSP_GuardaOrdSerAparatos(vm.clv_orden).then(function (result) {
+                var descripcion = 'Se generó la';
+
+                ordenesFactory.AddSP_LLena_Bitacora_Ordenes(descripcion, vm.clv_orden).then(function (data) {
+                  ordenesFactory.Imprime_Orden(vm.clv_orden).then(function (data) {
+                    if (GetDeepImprime_OrdenResult.Imprime == 1) {
+                      ngNotify.set('La orden es de proceso automático por lo cual no se imprimió', 'error');
+                    } else {
+                      ImprimeOrden();
+                    }
+
+                  })
+                });
+
+              });
+            });
+          }
+        });
       });
+    }
+
+
+
+
+    function Guardar() {
+      console.log('se guarda');
+      // ngNotify.set('No hay conceptos en el detalle de la orden', 'error')
+      ordenesFactory.GetDime_Que_servicio_Tiene_cliente(vm.contratoBueno).then(function (response) {
+        console.log(response);
+        vm.clv_servicio_cliente = response.GetDime_Que_servicio_Tiene_clienteResult.clv_tipser;
+
+        ordenesFactory.GetuspContratoServList(vm.contratoBueno, vm.clv_servicio_cliente).then(function (data) {
+          console.log(data);
+          if (data.GetuspContratoServListResult[0].Pasa == true) {
+            var fecha = $filter('date')(vm.fecha, 'dd/MM/yyyy');
+            
+            ordenesFactory.GetValida_DetOrden(vm.clv_orden).then(function (response) {
+              console.log(response);
+              if (response.GetValida_DetOrdenResult.Validacion == 0) {
+                ngNotify.set('Se requiere tener datos en el detalle de la orden', 'error');
+              } else {
+                ordenesFactory.GetCheca_si_tiene_camdo(vm.clv_orden).then(function (camdo) {
+                  console.log(camdo);
+                  if (camdo.GetCheca_si_tiene_camdoResult.Error > 0) {
+                    ngNotify.set('Se requiere que capture el nuevo domicilio', 'error');
+                  } else {
+
+                    ordenesFactory.GetChecaMotivoCanServ(vm.clv_orden).then(function (result) {
+                      console.log(result);
+                      if (result.GetChecaMotivoCanServResult.Res == 1) {
+
+                        var modalInstance = $uibModal.open({
+                          animation: true,
+                          ariaLabelledBy: 'modal-title',
+                          ariaDescribedBy: 'modal-body',
+                          templateUrl: 'views/corporativa/modalMotivoCanMaestro.html',
+                          controller: 'modalMotivoCanCtrl',
+                          controllerAs: '$ctrl',
+                          backdrop: 'static',
+                          keyboard: false,
+                          class: 'modal-backdrop fade',
+                          size: 'md',
+                          resolve: {
+                            ticket: function () {
+                              return ticket;
+                            }
+                          }
+                        });
+
+
+
+                      } else {
+                        GuardaDetalle();
+                      }
+                    });
+
+                    /*ordenesFactory.AddCambia_Tipo_cablemodem(vm.clv_orden).then(function(result){
+                        
+                    });*/
+
+                  }
+                });
+              }
+
+            });
+
+
+          } else {
+            ngNotify.set('El cliente no tiene contratado el servicio, seleccione otro tipo por favor', 'error');
+          }
+
+        });
+      });
+
 
     }
 
@@ -36,41 +156,68 @@
       if (vm.contratoBueno == undefined || vm.contratoBueno == '') {
         ngNotify.set('Seleccione un cliente válido.', 'error')
       } else {
+
         var fecha = $filter('date')(vm.fecha, 'dd/MM/yyyy');
         var orden = {
           contrato: vm.contratoBueno,
           fecha: fecha,
           observaciones: vm.observaciones
-
         };
-
         if (vm.clv_orden == 0) {
           ordenesFactory.addOrdenServicio(orden).then(function (data) {
             vm.clv_orden = data.AddOrdSerResult;
+            var items = {
+              contrato: vm.contratoBueno,
+              clv_orden: vm.clv_orden,
+              clv_tecnico: vm.clv_tecnico
+            };
+
+
+            var modalInstance = $uibModal.open({
+              animation: true,
+              ariaLabelledBy: 'modal-title',
+              ariaDescribedBy: 'modal-body',
+              templateUrl: 'views/procesos/ModalAgregarServicio.html',
+              controller: 'ModalAgregarServicioCtrl',
+              controllerAs: '$ctrl',
+              backdrop: 'static',
+              keyboard: false,
+              size: 'md',
+              resolve: {
+                items: function () {
+                  return items;
+                }
+              }
+            });
           });
+        } else {
+
+          var items = {
+            contrato: vm.contratoBueno,
+            clv_orden: vm.clv_orden,
+            clv_tecnico: vm.clv_tecnico
+          };
+
+
+          var modalInstance = $uibModal.open({
+            animation: true,
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: 'views/procesos/ModalAgregarServicio.html',
+            controller: 'ModalAgregarServicioCtrl',
+            controllerAs: '$ctrl',
+            backdrop: 'static',
+            keyboard: false,
+            size: 'md',
+            resolve: {
+              items: function () {
+                return items;
+              }
+            }
+          });
+
         }
 
-        var items = {
-          contrato: vm.contratoBueno,
-          clv_orden: vm.clv_orden,
-          clv_tecnico: vm.clv_tecnico
-        };
-        var modalInstance = $uibModal.open({
-          animation: true,
-          ariaLabelledBy: 'modal-title',
-          ariaDescribedBy: 'modal-body',
-          templateUrl: 'views/procesos/ModalAgregarServicio.html',
-          controller: 'ModalAgregarServicioCtrl',
-          controllerAs: '$ctrl',
-          backdrop: 'static',
-          keyboard: false,
-          size: 'md',
-          resolve: {
-            items: function () {
-              return items;
-            }
-          }
-        });
 
 
 
