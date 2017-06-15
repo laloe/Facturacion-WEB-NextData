@@ -22,8 +22,25 @@
     vm.Guardar = Guardar;
 
 
-    function ImprimeOrden() {
-
+    function ImprimeOrden(clv_orden) {
+      alert(clv_orden);
+      var modalInstance = $uibModal.open({
+        animation: true,
+        ariaLabelledBy: 'modal-title',
+        ariaDescribedBy: 'modal-body',
+        templateUrl: 'views/procesos/modalReporteOrdSer.html',
+        controller: 'modalReporteOrdeSerCtrl',
+        controllerAs: 'ctrl',
+        backdrop: 'static',
+        keyboard: false,
+        class: 'modal-backdrop fade',
+        size: 'lg',
+        resolve: {
+          clv_orden: function () {
+            return clv_orden;
+          }
+        }
+      });
     }
 
     function GuardaDetalle() {
@@ -46,8 +63,8 @@
           'ListadeArticulos': ''
         };
         ordenesFactory.MODORDSER(obj).then(function (response) {
-          console.log(response);          
-          if (response.GetDeepMODORDSERResult.Msj !=null) {
+          console.log(response);
+          if (response.GetDeepMODORDSERResult.Msj != null) {
             ngNotify.set(response.GetDeepMODORDSERResult.Msj, 'error');
           } else {
 
@@ -58,10 +75,11 @@
 
                 ordenesFactory.AddSP_LLena_Bitacora_Ordenes(descripcion, vm.clv_orden).then(function (data) {
                   ordenesFactory.Imprime_Orden(vm.clv_orden).then(function (data) {
-                    if (GetDeepImprime_OrdenResult.Imprime == 1) {
+                    if (data.GetDeepImprime_OrdenResult.Imprime == 1) {
                       ngNotify.set('La orden es de proceso automático por lo cual no se imprimió', 'error');
                     } else {
-                      ImprimeOrden();
+                      alert('se imprimira');
+                      ImprimeOrden(vm.clv_orden);
                     }
 
                   })
@@ -88,7 +106,7 @@
           console.log(data);
           if (data.GetuspContratoServListResult[0].Pasa == true) {
             var fecha = $filter('date')(vm.fecha, 'dd/MM/yyyy');
-            
+
             ordenesFactory.GetValida_DetOrden(vm.clv_orden).then(function (response) {
               console.log(response);
               if (response.GetValida_DetOrdenResult.Validacion == 0) {

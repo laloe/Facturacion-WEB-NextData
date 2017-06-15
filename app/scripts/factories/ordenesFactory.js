@@ -50,12 +50,58 @@ angular
       GetDeepSP_GuardaOrdSerAparatos: '/SP_GuardaOrdSerAparatos/GetDeepSP_GuardaOrdSerAparatos',
       AddSP_LLena_Bitacora_Ordenes: '/SP_LLena_Bitacora_Ordenes/AddSP_LLena_Bitacora_Ordenes',
       Imprime_Orden: '/Imprime_Orden/GetDeepImprime_Orden',
-      GetVALIDADECODERS:'/VALIDADECODERS/GetVALIDADECODERS'
+      GetVALIDADECODERS: '/VALIDADECODERS/GetVALIDADECODERS',
+      GetReporteOrdenServicio: '/OrdSer/GetReporteOrdenServicio'
     };
 
- 
 
-   factory.GetVALIDADECODERS = function (ClvOrden) {
+
+
+
+    factory.GetReporteOrdenServicio = function (obj) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'obj': {
+          'Clv_TipSer': obj.Clv_TipSer,
+          'op1': obj.op1,
+          'op2': obj.op2,
+          'op3': obj.op3,
+          'op4': obj.op4,
+          'op5': obj.op5,
+          'StatusPen': obj.StatusPen,
+          'StatusEje': obj.StatusEje,
+          'StatusVis': obj.StatusVis,
+          'Clv_OrdenIni': obj.Clv_OrdenIni,
+          'Clv_OrdenFin': obj.Clv_OrdenFin,
+          'Fec1Ini': obj.Fec1Ini,
+          'Fec1Fin':obj.Fec1Fin ,
+          'Fec2Ini': obj.Fec2Ini,
+          'Fec2Fin': obj.Fec2Fin,
+          'Clv_Trabajo': obj.Clv_Trabajo,
+          'Clv_Colonia': obj.Clv_Colonia,
+          'OpOrden': obj.OpOrden,
+          'IdCompania': obj.IdCompania,
+          'clv_ciudad': obj.clv_ciudad,
+          'clv_usuario': obj.clv_usuario
+        }
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetReporteOrdenServicio, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+      return deferred.promise;
+    };
+
+
+
+
+    factory.GetVALIDADECODERS = function (ClvOrden) {
       var deferred = $q.defer();
       var Parametros = {
         'ClvOrden': ClvOrden
