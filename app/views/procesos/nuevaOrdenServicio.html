@@ -27,7 +27,8 @@
 		</header>
 		<div class="tools">
 			<button class="btn btn-default btn-sm" type="button" ui-sref="home.procesos.ordenes">Cancelar</button>
-			<button class="btn btn-primary btn-sm" ng-click="$ctrl.Guardar();" type="button"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+			<button class="btn btn-primary btn-sm" ng-click="$ctrl.guardar();" type="button"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+
 		</div>
 	</div>
 	<div class="card-body">
@@ -43,19 +44,19 @@
 					<div class="col-md-4">
 						<form angular-validator-submit="$ctrl.buscarContrato()" name="contratoForm" novalidate angular-validator>
 							<input type="text" placeholder="No. contrato" class="form-control input-sm" ng-model="$ctrl.contrato" name="contrato" validate-on="dirty"
-							 ng-disabled="$ctrl.blockContrato" ng-pattern="/^[0-9]+([-][0-9]+)?$/" required-message="'Este campo es obligatorio.'" autocomplete="off"
+							 ng-disabled="$ctrl.block" ng-pattern="/^[0-9]+([-][0-9]+)?$/" required-message="'Este campo es obligatorio.'" autocomplete="off"
 							 invalid-message="'Formato de contrato inválido.'">
 						</form>
 					</div>
 					<div class="col-md-3" style="margin-left: -20px;">
 						<div>
-							<button ng-click="$ctrl.buscarCliente()" class="btn ink-reaction btn-floating-action btn-sm btn-default" ng-disabled="$ctrl.blockBotonBuscar"><i class="fa fa-search"></i></button>
+							<button ng-click="$ctrl.buscarCliente()" class="btn ink-reaction btn-floating-action btn-sm btn-default" ng-disabled="$ctrl.block"><i class="fa fa-search"></i></button>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-2">
-				<input type="text" class="form-control input-sm" placeholder="# folio de bitácora" ng-model="$ctrl.bitacora" ng-disabled="$ctrl.blockFolio">
+				<input type="text" class="form-control input-sm" placeholder="# folio de bitácora" ng-model="$ctrl.bitacora" ng-disabled="$ctrl.block">
 			</div>
 			<div class="col-md-5">
 				<div class="col-md-12">
@@ -70,12 +71,12 @@
 					</div>
 					<div class="col-md-3">
 						<label class="radio-inline radio-styled">
-						<input type="radio" name="inlineRadioOptions" value="E" ng-model="$ctrl.status" ng-disabled="$ctrl.blockEjecutada"><span>Ejecutada</span>
+						<input type="radio" name="inlineRadioOptions" value="E" ng-model="$ctrl.status" ng-disabled="$ctrl.blockEjecutada" ng-change="$ctrl.fechas()"><span>Ejecutada</span>
 					</label>
 					</div>
 					<div class="col-md-3">
 						<label class="radio-inline radio-styled">
-						<input type="radio" name="inlineRadioOptions" value="V" ng-model="$ctrl.status" ng-disabled="$ctrl.blockVista"><span>Visitada</span>
+						<input type="radio" name="inlineRadioOptions" value="V" ng-model="$ctrl.status" ng-disabled="$ctrl.blockVista" ng-change="$ctrl.fechas()"><span>Vista</span>
 					</label>
 					</div>
 				</div>
@@ -90,7 +91,7 @@
 					<strong>Dirección:</strong> {{$ctrl.datosCli.CALLE +' '+ $ctrl.datosCli.NUMERO +' '+ $ctrl.datosCli.COLONIA +' '+ $ctrl.datosCli.CIUDAD}}<br>
 					<br>
 				</p>
-				
+
 			</div>
 			<div class="col-md-4">
 				<b><i class="md md-settings-remote"></i> Servicios asignados</b><br>
@@ -110,21 +111,24 @@
 					<div class="form-group">
 						<label for="regular13" class="col-sm-4 control-label">Solicitud</label>
 						<div class="col-sm-8">
-							<input type="date" ng-model="$ctrl.fecha" class="form-control input-sm" style="font-size:12px;" ng-disabled="$ctrl.blockSolicitud">
+							<input type="text" class="form-control input-sm" ng-model="$ctrl.datosOrden.Fec_Sol" style="font-size:12px;" ng-disabled="$ctrl.blockSolicitud"
+							 placeholder="DD/MM/YYYY" ui-mask="99/99/9999">
 							<div class="form-control-line"></div>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="regular13" class="col-sm-4 control-label">Ejecución</label>
 						<div class="col-sm-8">
-							<input type="date" class="form-control input-sm" style="font-size:12px;" ng-disabled="$ctrl.blockEjecucion">
+							<input type="text" class="form-control input-sm" ng-model="$ctrl.Fec_Eje" style="font-size:12px;" ng-disabled="$ctrl.blockEjecucion"
+							 placeholder="DD/MM/YYYY" ui-mask="99/99/9999">
 							<div class="form-control-line"></div>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="regular13" class="col-sm-4 control-label">Visita 1</label>
 						<div class="col-sm-8">
-							<input type="date" class="form-control input-sm" style="font-size:12px;" ng-disabled="$ctrl.blockVista1">
+							<input type="text" class="form-control input-sm" ng-model="$ctrl.Visita1" style="font-size:12px;" ng-disabled="$ctrl.blockVista1"
+							 placeholder="DD/MM/YYYY" ui-mask="99/99/9999">
 							<div class="form-control-line"></div>
 						</div>
 					</div>
@@ -137,14 +141,16 @@
 					<div class="form-group">
 						<label for="regular13" class="col-sm-4 control-label">Visita 2</label>
 						<div class="col-sm-8">
-							<input type="date" class="form-control input-sm" style="font-size:12px;" ng-disabled="$ctrl.blockVista2">
+							<input type="text" class="form-control input-sm" ng-model="$ctrl.Visita2" style="font-size:12px;" ng-disabled="$ctrl.blockVista2"
+							 placeholder="DD/MM/YYYY" ui-mask="99/99/9999">
 							<div class="form-control-line"></div>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="regular13" class="col-sm-4 control-label">Ejecución real</label>
 						<div class="col-sm-8">
-							<input type="date" class="form-control input-sm" style="font-size:12px;" ng-disabled="$ctrl.blockEjecucionReal">
+							<input type="text" class="form-control input-sm" ng-model="$ctrl.datosOrden.FechaEjecucionReal" style="font-size:12px;" ng-disabled="$ctrl.blockEjecucionReal"
+							 placeholder="DD/MM/YYYY" ui-mask="99/99/9999">
 							<div class="form-control-line"></div>
 						</div>
 					</div>
@@ -155,7 +161,8 @@
 		<div class="row">
 			<div class="col-md-4">
 				<small>Técnico:</small>
-				<select validate-on="dirty" name="tecnico" class="form-control input sm" ng-model="$ctrl.selectedTecnico" ng-options="v.NOMBRE for v in $ctrl.tecnico track by v.CLV_TECNICO" required-message="'Error!, Este campo es obligatorio.'" required  ng-disabled="$ctrl.blockTecnico">
+				<select validate-on="dirty" name="tecnico" class="form-control input sm" ng-model="$ctrl.selectedTecnico" ng-options="v.NOMBRE for v in $ctrl.tecnico track by v.CLV_TECNICO"
+				 required-message="'Error!, Este campo es obligatorio.'" required ng-disabled="$ctrl.blockTecnico">
 					<option value="" disabled selected>Seleccione el técnico</option>
 				</select>
 			</div>
@@ -167,7 +174,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<br>
-				<button class="btn btn-success btn-xs" ng-click="$ctrl.agregar()" ng-disabled="$ctrl.blockAgregar">Agregar servicio</button>
+				<button class="btn btn-success btn-xs" ng-click="$ctrl.agregar()" ng-disabled="$ctrl.block">Agregar servicio</button>
 			</div>
 		</div>
 		<div class="row">
@@ -191,7 +198,7 @@
 						</td>
 						<td>
 							<button type="button" class="btn ink-reaction btn-xs btn-floating-action btn-danger" data-toggle="tooltip" data-placement="top"
-							 title="" data-original-title="Elimina queja" ng-click="$ctrl.EliminaQueja(x);" ng-disabled="$ctrl.blockEliminar"><i class="md md-delete"></i></button>
+							 title="" data-original-title="Elimina queja" ng-click="$ctrl.EliminaQueja(x);" ng-disabled="$ctrl.block"><i class="md md-delete"></i></button>
 						</td>
 					</tr>
 				</tbody>

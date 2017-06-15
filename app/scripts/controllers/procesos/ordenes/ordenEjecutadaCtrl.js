@@ -11,20 +11,16 @@
         var vm = this;
         vm.showDatosCliente = true;
         vm.buscarContrato = buscarContrato;
-        vm.status = 'E';
-        vm.fecha = new Date();
+        vm.fechaEjecucion = new Date();
         vm.observaciones = '';
         vm.detalleTrabajo = detalleTrabajo;
+        vm.guardar = guardar;
         vm.clv_tecnico = 0;
         vm.titulo = 'Orden Ejecutada'
         vm.claveOrden = $stateParams.claveOr;
-        vm.blockBotonBuscar = true;
-        vm.blockContrato = true;
-        vm.blockFolio = true;
-        vm.blockAgregar = true;
-        vm.blockEliminar = true;
+        vm.block = true;
         vm.blockSolicitud = true;
-        vm.blockEjecucion = false;
+        vm.blockEjecucion = true;
         vm.blockVista1 = true;
         vm.blockVista2 = true;
         vm.blockEjecucionReal = true;
@@ -32,22 +28,36 @@
         vm.blockPendiente = true;
         vm.blockVista = false;
         vm.blockTecnico = false;
+        vm.fechas = fechas;
         init(vm.claveOrden);
 
         function init(orden) {
             ordenesFactory.ConsultaOrdSer(orden).then(function (data) {
+                vm.datosOrden = data.GetDeepConsultaOrdSerResult;
+                console.log(vm.datosOrden);
                 vm.clv_orden = data.GetDeepConsultaOrdSerResult.Clv_Orden;
                 vm.contrato = data.GetDeepConsultaOrdSerResult.ContratoCom;
+                vm.status = data.GetDeepConsultaOrdSerResult.STATUS;
                 ordenesFactory.consultaTablaServicios(vm.clv_orden).then(function (data) {
                     vm.trabajosTabla = data.GetBUSCADetOrdSerListResult;
                 });
                 buscarContrato(vm.contrato);
+                if (vm.datosOrden.Fec_Eje != '01/01/1900') {
+                    vm.Fec_Eje = vm.datosOrden.Fec_Eje;
+                } if (vm.datosOrden.Visita1 != '01/01/1900') {
+                    vm.Visita1 = vm.datosOrden.Visita1;
+                } if (vm.datosOrden.Visita2 != '01/01/1900') {
+                    vm.Visita2 = vm.datosOrden.Visita2;
+                } if (vm.status == 'E') {
+                    vm.blockEjecutada = true;
+                    vm.blockPendiente = true;
+                    vm.blockVista = true;
+                }
             });
             ordenesFactory.MuestraRelOrdenesTecnicos(orden).then(function (data) {
                 vm.tecnico = data.GetMuestraRelOrdenesTecnicosListResult;
             });
         }
-
 
         function buscarContrato(event) {
             if (vm.contrato == null || vm.contrato == '' || vm.contrato == undefined) {
@@ -127,6 +137,26 @@
 
                 default:
                     break;
+            }
+        }
+
+        function fechas() {
+            if (vm.status == 'E') {
+                vm.blockVista1 = true;
+                vm.blockVista2 = true;
+                vm.blockEjecucion = false;
+            } else {
+                vm.blockEjecucion = true;
+                vm.blockVista1 = false;
+                vm.blockVista2 = false;
+            }
+        }
+
+        function guardar() {
+            if (vm.selectedTecnico == undefined) {
+                ngNotify.set('Selecciona un técnico.', 'error');
+            } else if (vm.Fec_Eje == '01/01/1900') {
+                ngNotify.set('Ingresa la fecha de ejecución.', 'error');
             }
         }
     }
