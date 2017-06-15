@@ -28,6 +28,7 @@ angular
       consultaCambioDomicilio: '/CAMDO/GetDeepCAMDO',
       getCableModemsCli: '/MuestraGuaBor/GetMUESTRACABLEMODEMSDELCLI_porOpcion',
       detalleCableModem: '/MuestraGuaBor/GetMUESTRACONTNET_PorOpcion',
+      GetMUESTRAIPAQU_porSOL: '/MuestraGuaBor/GetMUESTRAIPAQU_porSOL',
       addIpaqu: '/IPAQU/AddIPAQU',
       AddIPAQUD: '/IPAQU/AddIPAQUD',
       guardaMotivoCancelacion: '/GuardaMotivoCanServ/GetDeepGuardaMotivoCanServ',
@@ -51,11 +52,72 @@ angular
       AddSP_LLena_Bitacora_Ordenes: '/SP_LLena_Bitacora_Ordenes/AddSP_LLena_Bitacora_Ordenes',
       Imprime_Orden: '/Imprime_Orden/GetDeepImprime_Orden',
       GetVALIDADECODERS: '/VALIDADECODERS/GetVALIDADECODERS',
-      GetReporteOrdenServicio: '/OrdSer/GetReporteOrdenServicio'
+      GetReporteOrdenServicio: '/OrdSer/GetReporteOrdenServicio',
+      ConsultaOrdSer: '/ConsultaOrdSer/GetDeepConsultaOrdSer',
+      MuestraRelOrdenesTecnicos: '/MuestraRelOrdenesTecnicos/GetMuestraRelOrdenesTecnicosList'
     };
 
 
 
+
+     factory.GetMUESTRAIPAQU_porSOL = function (ClvDetOs, ClvOS) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'ClvDetOs': ClvDetOs,
+        'ClvOS':ClvOS
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.GetMUESTRAIPAQU_porSOL, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+
+    factory.MuestraRelOrdenesTecnicos = function (orden) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'ClvOrdSer': orden
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.MuestraRelOrdenesTecnicos, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
+
+    factory.ConsultaOrdSer = function (orden) {
+      var deferred = $q.defer();
+      var Parametros = {
+        'Clv_Orden': orden
+      };
+      var config = {
+        headers: {
+          'Authorization': $localStorage.currentUser.token
+        }
+      };
+      $http.post(globalService.getUrl() + paths.ConsultaOrdSer, JSON.stringify(Parametros), config).then(function (response) {
+        deferred.resolve(response.data);
+      }).catch(function (response) {
+        deferred.reject(response.data);
+      });
+
+      return deferred.promise;
+    };
 
 
     factory.GetReporteOrdenServicio = function (obj) {
@@ -74,7 +136,7 @@ angular
           'Clv_OrdenIni': obj.Clv_OrdenIni,
           'Clv_OrdenFin': obj.Clv_OrdenFin,
           'Fec1Ini': obj.Fec1Ini,
-          'Fec1Fin':obj.Fec1Fin ,
+          'Fec1Fin': obj.Fec1Fin,
           'Fec2Ini': obj.Fec2Ini,
           'Fec2Fin': obj.Fec2Fin,
           'Clv_Trabajo': obj.Clv_Trabajo,
