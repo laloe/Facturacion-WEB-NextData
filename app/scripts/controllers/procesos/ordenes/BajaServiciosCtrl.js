@@ -72,6 +72,15 @@
           selectedItems: []
         };
       });
+    
+
+    ordenesFactory.GetMUESTRAIPAQU_porSOL(items.clv_detalle_orden,items.clv_orden).then(function(data){
+
+
+    });
+       
+    
+
     }
 
     function transfer(from, to, index) {

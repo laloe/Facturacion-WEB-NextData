@@ -15,6 +15,7 @@
     vm.realizar = true;
 
     this.$onInit = function () {
+      console.log(items);
       ordenesFactory.dimeServicio(items.contrato).then(function (data) {
         vm.servicios = data.GetDime_Que_servicio_Tiene_clienteListResult;
       });
