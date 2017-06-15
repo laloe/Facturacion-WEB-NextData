@@ -11,13 +11,14 @@
         var vm = this;
         vm.showDatosCliente = true;
         vm.buscarContrato = buscarContrato;
-        vm.status = 'E';
         vm.fechaEjecucion = new Date();
         vm.observaciones = '';
         vm.detalleTrabajo = detalleTrabajo;
+        vm.guardar = guardar;
         vm.clv_tecnico = 0;
         vm.titulo = 'Orden Ejecutada'
         vm.claveOrden = $stateParams.claveOr;
+        vm.status = $stateParams.st;
         vm.block = true;
         vm.blockSolicitud = true;
         vm.blockEjecucion = false;
@@ -145,6 +146,14 @@
 
                 default:
                     break;
+            }
+        }
+
+        function guardar() {
+            if (vm.selectedTecnico == undefined) {
+                ngNotify.set('Selecciona un técnico.', 'error');
+            }else if (vm.Fec_Eje == '01/01/1900') {
+                ngNotify.set('Ingresa la fecha de ejecución.', 'error');
             }
         }
     }
